@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SESISOFT - 게임을 만드는 사람들</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #f8faff;
+      --bg2:     #eef2fb;
+      --surface: #ffffff;
+      --border:  #dde5f7;
+      --accent:  #2563eb;
+      --accent-h:#1d4fd8;
+      --accent2: #7c3aed;
+      --pink:    #ec4899;
+      --text:    #0f172a;
+      --muted:   #64748b;
+      --radius:  16px;
+      --nav-h:   68px;
+      --shadow:  0 4px 24px rgba(37,99,235,.10);
+      --shadow-lg: 0 12px 48px rgba(37,99,235,.16);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Pretendard', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Navigation ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 56px;
+      background: rgba(248,250,255,.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: 0 2px 24px rgba(37,99,235,.1); }
+    .nav-logo {
+      display: flex; align-items: center;
+    }
+    .nav-logo img {
+      height: 56px; width: auto;
+      mix-blend-mode: multiply;
+    }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 600;
+      color: var(--muted); transition: color .2s; letter-spacing: .02em;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-lang {
+      font-size: 13px; color: var(--muted); cursor: pointer;
+      border: 1px solid var(--border); border-radius: 20px;
+      padding: 6px 14px; background: var(--surface); transition: all .2s;
+    }
+    .nav-lang:hover { border-color: var(--accent); color: var(--accent); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: 50px;
+      font-size: 15px; font-weight: 700; transition: all .25s;
+      cursor: pointer; border: none; letter-spacing: .01em;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 6px 24px rgba(37,99,235,.35);
+    }
+    .btn-primary:hover { background: var(--accent-h); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,99,235,.4); }
+    .btn-outline {
+      background: var(--surface); color: var(--accent);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); background: rgba(37,99,235,.06); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% -20%, rgba(37,99,235,.12) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 90% 110%, rgba(124,58,237,.1) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(236,72,153,.07) 0%, transparent 55%),
+        var(--bg);
+    }
+    .hero-blob {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: .25; animation: drift 12s ease-in-out infinite;
+    }
+    @keyframes drift { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-20px,30px) scale(.97)} }
+    .hero-eyebrow {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+      background: rgba(37,99,235,.08); border: 1px solid rgba(37,99,235,.2);
+      padding: 6px 16px; border-radius: 20px;
+    }
+    .hero-title {
+      position: relative; z-index: 1;
+      font-size: clamp(40px, 7vw, 88px);
+      font-weight: 900; line-height: 1.08; letter-spacing: -.03em;
+      color: var(--text); margin-bottom: 28px;
+    }
+    .hero-title .grad {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      position: relative; z-index: 1;
+      font-size: clamp(15px, 2vw, 19px); color: var(--muted); max-width: 540px;
+      line-height: 1.75; margin-bottom: 44px;
+    }
+    .hero-cta {
+      position: relative; z-index: 1;
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+    /* ── Section base ── */
+    section { padding: 100px 56px; }
+    .section-label {
+      display: inline-block;
+      font-size: 11px; letter-spacing: .2em; font-weight: 700; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+      background: rgba(37,99,235,.08); border: 1px solid rgba(37,99,235,.18);
+      padding: 4px 12px; border-radius: 20px;
+    }
+    .section-title {
+      font-size: clamp(26px, 4vw, 48px); font-weight: 800; line-height: 1.15;
+      letter-spacing: -.025em; margin-bottom: 16px; color: var(--text);
+    }
+    .section-desc { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 520px; }
+
+    /* ── Stats ── */
+    #stats {
+      background: var(--accent);
+      padding: 72px 56px;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+      max-width: 960px; margin: 0 auto; text-align: center;
+    }
+    .stat-num {
+      font-size: clamp(36px, 5vw, 60px); font-weight: 900; line-height: 1;
+      color: #fff; margin-bottom: 10px;
+    }
+    .stat-label { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.5; }
+
+    /* ── Games ── */
+    #games { background: var(--bg); }
+    .games-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; flex-wrap: wrap; gap: 24px; }
+    .games-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab {
+      padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .2s; border: 1.5px solid var(--border);
+      color: var(--muted); background: var(--surface);
+    }
+    .tab.active, .tab:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .games-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
+    }
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; transition: transform .3s, box-shadow .3s; cursor: pointer;
+    }
+    .game-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .game-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .game-thumb-icon {
+      font-size: 56px; filter: drop-shadow(0 4px 12px rgba(0,0,0,.2));
+      transition: transform .3s; position: relative; z-index: 1;
+    }
+    .game-card:hover .game-thumb-icon { transform: scale(1.15) rotate(-4deg); }
+    .game-badge {
+      position: absolute; top: 12px; right: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px; color: #fff;
+    }
+    .badge-pc     { background: var(--accent); }
+    .badge-mobile { background: var(--pink); }
+    .badge-web    { background: #059669; }
+    .game-info { padding: 20px 22px 22px; }
+    .game-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; color: var(--text); }
+    .game-genre { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    .game-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 6px 13px; border-radius: 8px; font-size: 12px; font-weight: 600;
+      background: var(--bg2); border: 1px solid var(--border); color: var(--muted);
+      transition: all .2s;
+    }
+    .store-btn:hover { background: rgba(37,99,235,.1); border-color: var(--accent); color: var(--accent); }
+    .no-games-msg { grid-column: 1/-1; text-align:center; color: var(--muted); padding: 40px; font-size: 16px; }
+
+    /* ── About ── */
+    #about { background: var(--bg2); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto;
+    }
+    .about-visual {
+      aspect-ratio: 1; border-radius: 28px; overflow: hidden;
+      background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(124,58,237,.12));
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--shadow);
+    }
+    .about-visual-art { font-size: 120px; animation: pulse 4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+    .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+    .value-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .value-item:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+    .value-icon { font-size: 22px; margin-bottom: 8px; }
+    .value-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .value-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── History ── */
+    #history { background: var(--bg); }
+    .history-inner { max-width: 700px; margin: 0 auto; }
+    .timeline { margin-top: 56px; position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+    .tl-item { position: relative; padding-bottom: 44px; }
+    .tl-dot {
+      position: absolute; left: -28px; top: 5px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.2);
+    }
+    .tl-year { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: .1em; margin-bottom: 4px; }
+    .tl-text { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── Careers ── */
+    #careers { background: var(--bg2); text-align: center; }
+    .careers-inner { max-width: 680px; margin: 0 auto; }
+    .careers-inner .section-desc { margin: 0 auto 40px; }
+    .open-positions { display: grid; gap: 10px; text-align: left; margin-bottom: 40px; }
+    .position-card {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 18px 22px; transition: all .2s; cursor: pointer;
+    }
+    .position-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateX(4px); }
+    .position-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .position-meta { font-size: 12px; color: var(--muted); }
+    .position-arrow { font-size: 18px; color: var(--accent); }
+
+    /* ── Support ── */
+    #support { background: var(--bg); text-align: center; }
+    .support-cards {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 860px; margin: 48px auto 0;
+    }
+    .support-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 36px 24px; transition: all .3s;
+    }
+    .support-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .support-icon { font-size: 36px; margin-bottom: 16px; }
+    .support-name { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .support-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+
+    /* ── Footer ── */
+    footer { background: var(--text); color: rgba(255,255,255,.85); padding: 64px 56px 36px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand-name { font-size: 20px; font-weight: 900; letter-spacing: .06em; color: #fff; margin-bottom: 14px; }
+    .footer-brand-desc { font-size: 13px; line-height: 1.9; color: rgba(255,255,255,.5); margin-bottom: 22px; }
+    .social-links { display: flex; gap: 10px; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; transition: all .2s; cursor: pointer; color: rgba(255,255,255,.7);
+    }
+    .social-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 18px; }
+    .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col-links a { font-size: 14px; color: rgba(255,255,255,.55); transition: color .2s; }
+    .footer-col-links a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+      padding-top: 28px; border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 12px; color: rgba(255,255,255,.35);
+    }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { color: rgba(255,255,255,.35); transition: color .2s; }
+    .footer-legal a:hover { color: rgba(255,255,255,.7); }
+
+    /* ── Mobile menu ── */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 998;
+      background: rgba(248,250,255,.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 26px; font-weight: 700; color: var(--text); transition: color .2s; }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 26px; cursor: pointer; color: var(--muted); }
+
+    /* ── Partners ── */
+    .partner-tag {
+      display: inline-block; padding: 8px 18px; border-radius: 50px;
+      background: var(--surface); border: 1.5px solid var(--border);
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      transition: all .2s;
+    }
+    .partner-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(37,99,235,.05); }
+
+    /* ── Reveal animation ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      section { padding: 80px 24px; }
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .support-cards { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 600px) {
+      .about-values { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .games-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="SESISOFT">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#games">게임</a></li>
+    <li><a href="#about">회사소개</a></li>
+    <li><a href="#history">회사연혁</a></li>
+    <li><a href="#careers">채용</a></li>
+    <li><a href="#partners">파트너</a></li>
+    <li><a href="#support">고객지원</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">KO | EN</div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#games"   onclick="closeMobile()">게임</a>
+  <a href="#about"   onclick="closeMobile()">회사소개</a>
+  <a href="#history" onclick="closeMobile()">회사연혁</a>
+  <a href="#careers" onclick="closeMobile()">채용</a>
+  <a href="#partners" onclick="closeMobile()">파트너</a>
+  <a href="#support" onclick="closeMobile()">고객지원</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-blob" style="width:500px;height:500px;top:-100px;right:-100px;background:rgba(37,99,235,.18)"></div>
+  <div class="hero-blob" style="width:360px;height:360px;bottom:-60px;left:-80px;background:rgba(124,58,237,.14);animation-delay:-4s"></div>
+
+  <p class="hero-eyebrow">🎮 Since 2009 · Seoul, Korea</p>
+  <h1 class="hero-title">
+    3PM, 즐기고<br><span class="grad">3AM, 꿈꾸다</span>
+  </h1>
+  <p class="hero-sub">
+    세시소프트는 모바일 게임 퍼블리싱·개발 전문 기업입니다.<br>서브컬처 장르에 특화된 기술 기반 퍼블리싱으로 국내외 유저에게 최고의 게임을 선사합니다.
+  </p>
+  <div class="hero-cta">
+    <a href="#games" class="btn btn-primary">🎮 게임 보기</a>
+    <a href="#about" class="btn btn-outline">회사 소개 →</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <svg width="14" height="20" viewBox="0 0 14 20" fill="none">
+      <path d="M7 0v16M1 10l6 8 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Stats -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="reveal">
+      <div class="stat-num" data-target="15">0</div>
+      <div class="stat-label">년 이상 게임 서비스 경험</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-num" data-target="60">0</div>
+      <div class="stat-label">개 이상 누적 서비스 타이틀</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-num" data-target="30">0</div>
+      <div class="stat-label">개 이상 글로벌 파트너사</div>
+    </div>
+    <div class="reveal">
+      <div class="stat-num" data-target="1">0</div>
+      <div class="stat-label">위 Google Play 인기순위 달성</div>
+    </div>
+  </div>
+</section>
+
+<!-- Games -->
+<section id="games">
+  <div class="games-header reveal">
+    <div>
+      <p class="section-label">Our Games</p>
+      <h2 class="section-title">세시소프트의 게임들</h2>
+      <p class="section-desc">PC, 웹, 모바일까지 다양한 플랫폼에서 즐길 수 있는 게임들을 만나보세요.</p>
+    </div>
+    <div class="games-tabs">
+      <button class="tab active" onclick="filterGames('all',this)">전체</button>
+      <button class="tab" onclick="filterGames('pc',this)">PC / 웹</button>
+      <button class="tab" onclick="filterGames('mobile',this)">모바일</button>
+    </div>
+  </div>
+  <div class="games-grid" id="gamesGrid"></div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-visual-art">🎮</div>
+    </div>
+    <div>
+      <p class="section-label reveal">About Us</p>
+      <h2 class="section-title reveal">플레이어 중심,<br>게임 그 이상</h2>
+      <p class="section-desc reveal">
+        세시소프트는 2009년 서울에서 설립된 모바일 게임 퍼블리싱 및 개발 전문 기업입니다. 서브컬처 장르(일본 애니풍·여성향·만화 IP)에 특화되어 있으며, 기술 기반 퍼블리싱(Technical Management)으로 게임의 안정성과 수익률을 확보하며 지속 성장하고 있습니다.
+      </p>
+      <div class="about-values">
+        <div class="value-item reveal">
+          <div class="value-icon">📡</div>
+          <div class="value-name">퍼블리싱</div>
+          <div class="value-desc">국내 판권 직접 획득 후 마케팅·서비스·운영을 일괄 수행합니다.</div>
+        </div>
+        <div class="value-item reveal">
+          <div class="value-icon">🛠️</div>
+          <div class="value-name">로컬라이즈 개발</div>
+          <div class="value-desc">소스코드 확보 후 현지 로컬버전 제작으로 완성도를 높입니다.</div>
+        </div>
+        <div class="value-item reveal">
+          <div class="value-icon">📢</div>
+          <div class="value-name">운영 & 마케팅</div>
+          <div class="value-desc">CM·CS·QA·번역·UA까지 게임 운영 전 분야를 전문 대행합니다.</div>
+        </div>
+        <div class="value-item reveal">
+          <div class="value-icon">🌏</div>
+          <div class="value-name">서브컬처 특화</div>
+          <div class="value-desc">일본 애니풍·여성향·만화 IP 장르 전문 실무 인력을 보유합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- History -->
+<section id="history">
+  <div class="history-inner">
+    <p class="section-label reveal">History</p>
+    <h2 class="section-title reveal">세시소프트의 발자취</h2>
+    <div class="timeline" id="historyTimeline"></div>
+  </div>
+</section>
+
+<!-- Careers -->
+<section id="careers">
+  <div class="careers-inner">
+    <p class="section-label reveal">Careers</p>
+    <h2 class="section-title reveal">함께 만들어요</h2>
+    <p class="section-desc reveal">
+      세시소프트는 열정 있는 개발자, 디자이너, 기획자를 찾고 있습니다. 재미있는 게임을 함께 만들어 나갈 당신을 기다립니다.
+    </p>
+    <div class="open-positions">
+      <div class="position-card reveal">
+        <div><div class="position-name">서버 개발자</div><div class="position-meta">개발팀 · 정규직 · 서울</div></div>
+        <span class="position-arrow">→</span>
+      </div>
+      <div class="position-card reveal">
+        <div><div class="position-name">클라이언트 개발자</div><div class="position-meta">개발팀 · 정규직 · 서울</div></div>
+        <span class="position-arrow">→</span>
+      </div>
+      <div class="position-card reveal">
+        <div><div class="position-name">게임 기획자</div><div class="position-meta">기획팀 · 정규직 · 서울</div></div>
+        <span class="position-arrow">→</span>
+      </div>
+      <div class="position-card reveal">
+        <div><div class="position-name">UI/UX 디자이너</div><div class="position-meta">디자인팀 · 정규직 · 서울</div></div>
+        <span class="position-arrow">→</span>
+      </div>
+    </div>
+    <a href="mailto:recruit@sesisoft.com" class="btn btn-primary" style="font-size:15px;padding:14px 36px;">채용 공고 보기</a>
+  </div>
+</section>
+
+<!-- Support -->
+<section id="support">
+  <p class="section-label reveal" style="display:block;text-align:center">Support</p>
+  <h2 class="section-title reveal" style="text-align:center">고객 지원</h2>
+  <div class="support-cards">
+    <div class="support-card reveal">
+      <div class="support-icon">📞</div>
+      <div class="support-name">전화 문의</div>
+      <div class="support-desc">평일 10:00 ~ 18:00<br>(점심 12:00 ~ 13:00 제외)</div>
+      <a href="tel:02-586-9293" class="btn btn-outline" style="font-size:14px;padding:9px 22px;justify-content:center">(02) 586-9293</a>
+    </div>
+    <div class="support-card reveal">
+      <div class="support-icon">💬</div>
+      <div class="support-name">1:1 문의</div>
+      <div class="support-desc">게임별 고객센터를 통해 1:1 문의를 남겨주세요. 빠르게 답변드리겠습니다.</div>
+      <a href="#" class="btn btn-outline" style="font-size:14px;padding:9px 22px;justify-content:center">문의하기</a>
+    </div>
+    <div class="support-card reveal">
+      <div class="support-icon">📋</div>
+      <div class="support-name">공지사항</div>
+      <div class="support-desc">업데이트, 점검, 이벤트 등 각 게임의 최신 소식을 확인하세요.</div>
+      <a href="#" class="btn btn-outline" style="font-size:14px;padding:9px 22px;justify-content:center">공지 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- Partners -->
+<section id="partners" style="background:var(--bg2);text-align:center;">
+  <p class="section-label reveal" style="display:block">Partners</p>
+  <h2 class="section-title reveal">글로벌 파트너</h2>
+  <p class="section-desc reveal" style="margin:0 auto 48px">국내외 30개 이상의 게임사와 함께 최고의 게임을 서비스합니다.</p>
+
+  <div style="max-width:900px;margin:0 auto">
+    <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal">국내 협력사</p>
+    <div class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px">
+      <span class="partner-tag">kakaogames</span>
+      <span class="partner-tag">NEXON</span>
+      <span class="partner-tag">Smilegate</span>
+      <span class="partner-tag">GNIsoft</span>
+      <span class="partner-tag">Neoact</span>
+      <span class="partner-tag">HUNGRY APP</span>
+    </div>
+    <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal">해외 협력사</p>
+    <div class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+      <span class="partner-tag">Cygames</span>
+      <span class="partner-tag">SEGA</span>
+      <span class="partner-tag">DeNA</span>
+      <span class="partner-tag">CraftEgg</span>
+      <span class="partner-tag">BANDAI NAMCO</span>
+      <span class="partner-tag">CyberAgent</span>
+      <span class="partner-tag">QualiArts</span>
+      <span class="partner-tag">ARC SYSTEM WORKS</span>
+      <span class="partner-tag">G.CREST</span>
+      <span class="partner-tag">CYBIRD</span>
+      <span class="partner-tag">Tencent</span>
+      <span class="partner-tag">Disney</span>
+      <span class="partner-tag">Marvel</span>
+      <span class="partner-tag">DMM GAMES</span>
+      <span class="partner-tag">GRENGE</span>
+      <span class="partner-tag">Applibot</span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name"><img src="logo.png" alt="SESISOFT" style="height:48px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="footer-brand-desc">
+        (주)세시소프트<br>
+        서울특별시 서초구<br>
+        사업자등록번호: 214-88-37555<br>
+        대표이사: 강성욱<br>
+        Tel: (02) 586-9293
+      </div>
+      <div class="social-links">
+        <div class="social-btn">▶</div>
+        <div class="social-btn">f</div>
+        <div class="social-btn">📷</div>
+        <div class="social-btn">𝕏</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">게임</div>
+      <ul class="footer-col-links" id="footerGameLinks"></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">회사</div>
+      <ul class="footer-col-links">
+        <li><a href="#about">회사 소개</a></li>
+        <li><a href="#history">회사 연혁</a></li>
+        <li><a href="#careers">채용</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">지원</div>
+      <ul class="footer-col-links">
+        <li><a href="#support">고객센터</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+        <li><a href="#">청소년보호정책</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Copyright © SESISOFT Co.,Ltd. All Rights Reserved.</span>
+    <div class="footer-legal">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">청소년보호정책</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ────────────────────────────────────────────
+   Default data (used if no admin data saved)
+──────────────────────────────────────────── */
+const DEFAULT_GAMES = [
+  { id:1,  title:'천상비M',              genre:'2D MMORPG',         platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.and1003bm', apple:'https://apps.apple.com/kr/app/id1636438292' },
+  { id:2,  title:'뿌요뿌요!! Quest',     genre:'캐주얼 퍼즐 RPG',   platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Puyo_Puyo%21%21_Quest_logo.png/250px-Puyo_Puyo%21%21_Quest_logo.png', site:'', google:'#', apple:'#' },
+  { id:3,  title:'꿈왕국과 잠자는 100명의 왕자님', genre:'로맨틱 퍼즐 RPG', platform:'mobile', icon:'👑', color:'135deg,#fef9c3,#fefce8', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/100sleepingprincesAnimecover.jpg/250px-100sleepingprincesAnimecover.jpg', site:'', google:'#', apple:'#' },
+  { id:5,  title:'조선협객전',           genre:'레트로 IP MMORPG',  platform:'mobile', icon:'🗡️',color:'135deg,#fef3c7,#fffbeb', thumb:'https://play-lh.googleusercontent.com/WVBetaT3wvoRQozzfnHaX1z__mDHrw8tboKtdi4m7KT2WGxLmnwzGdPgZIlchEiRLf4PwZm7Y58owyXoeszyfnE=w240-h480', site:'', google:'#', apple:'#' },
+  { id:6,  title:'언던 (Undawn)',        genre:'오픈월드 슈팅 MMO',  platform:'mobile', icon:'🌍', color:'135deg,#1e3a5f,#2d5a8e', thumb:'https://image.winudf.com/v2/image1/Y29tLnRlbmNlbnQuY29zbmFfaWNvbl8xNjg1NjEwMzgzXzAyNg/icon.png?w=140&fakeurl=1', site:'https://www.undawn.game/', google:'https://play.google.com/store/apps/details?id=com.tencent.cosna', apple:'#' },
+  { id:7,  title:'드래곤네스트2',        genre:'3D MMORPG',         platform:'mobile', icon:'🐉', color:'135deg,#dde7fe,#eef2ff', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/DragonNestLogo.png/250px-DragonNestLogo.png', site:'', google:'#', apple:'#' },
+  { id:10, title:'구운몽M',              genre:'연애 어드벤처',      platform:'mobile', icon:'🌸', color:'135deg,#dcfce7,#f0fdf4', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmRyZWFtOS5nb29nbGVfaWNvbl8xNjU4OTMwMjQxXzAwNw/icon.png?w=140&fakeurl=1', site:'', google:'#', apple:'#' },
+  { id:11, title:'CarpeDiem',            genre:'MMORPG',            platform:'pc',     icon:'🏰', color:'135deg,#dbeafe,#eff6ff', thumb:'', site:'#', google:'', apple:'' },
+  { id:12, title:'WindSlayer',           genre:'액션 RPG',          platform:'pc',     icon:'🏹', color:'135deg,#d1fae5,#ecfdf5', thumb:'', site:'#', google:'', apple:'' },
+  { id:13, title:'ARD : BlackStone',       genre:'MMORPG',            platform:'mobile', icon:'🛡️',color:'135deg,#cffafe,#ecfeff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFyZC5nb29nbGVfaWNvbl8xNzQ3MTc0Mzg1XzA3MQ/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.ard.google', apple:'#' },
+  { id:15, title:'Metin M',             genre:'MMORPG',            platform:'mobile', icon:'🔱', color:'135deg,#fef3c7,#fffbeb', thumb:'https://upload.wikimedia.org/wikipedia/commons/f/fb/Metin2logo.png', site:'', google:'#', apple:'#' },
+  { id:16, title:'포키포키',            genre:'캐주얼 파티',       platform:'pc',     icon:'🎉', color:'135deg,#fef9c3,#fefce8', thumb:'https://pokipoki.co.kr/ClientUI/image/layout/logo_on.png', site:'https://pokipoki.co.kr/', google:'', apple:'' },
+];
+
+const DEFAULT_HISTORY = [
+  { id:1, year:'2009', title:'세시소프트 설립 · PC온라인게임 퍼블리싱 시작', desc:'서울 서초구에서 모바일 게임 퍼블리싱 및 개발 전문 기업으로 창업. 로스트사가 등 PC온라인게임 퍼블리싱 시작.' },
+  { id:2, year:'2013', title:'모바일게임 퍼블리싱 진출', desc:'모바일게임 퍼블리싱 및 카카오톡 게임 퍼블리싱으로 모바일 시장 본격 진출.' },
+  { id:3, year:'2016', title:'서브컬처 장르 특화 · 대형 파트너십 체결', desc:'스마일게이트 공동퍼블리싱, DeNA 모바일 게임 공동개발, 반다이남코 마케팅 대행, 사이버에이전트 게임 퍼블리싱 등 글로벌 협력 확대.' },
+  { id:4, year:'2019', title:'일본 대형 IP 게임 개발협력', desc:'프린세스 커넥트(Cygames), 천화백검(DeNA) 등 일본 대형 IP 게임의 국내 개발파트너로 협력. 카카오게임즈와 파트너십 강화.' },
+  { id:5, year:'2021', title:'누적 서비스 40종 돌파 · 조선협객전 출시', desc:'조선협객전(GNIsoft), 우마무스메(Cygames), 월드 플리퍼(Cygames) 등 다수 타이틀 개발협력으로 기술력 입증.' },
+  { id:6, year:'2022', title:'천상비M 퍼블리싱 · 누적 50종 달성', desc:'레트로 IP MMORPG 천상비M 직접 퍼블리싱. 우마무스메 국내 서비스로 Google Play 차트 상위권 달성.' },
+  { id:7, year:'2023', title:'텐센트 글로벌 런칭게임 서비스 협력', desc:'언던(Undawn) 한국 출시로 Google Play 인기순위 1위 달성. 드래곤네스트2, Synced 등 텐센트 글로벌 타이틀 서비스 협력. 뿌요뿌요!!퀘스트(SEGA) 퍼블리싱.' },
+  { id:8, year:'2025', title:'자체 PC MMORPG 서비스 · 글로벌 사업 강화', desc:'CarpeDiem, WindSlayer 등 자체 PC MMORPG 퍼블리싱. ARD : BlackStone(Horizon) 모바일 MMORPG 서비스. 글로벌 파트너십 30개사 이상으로 확대.' },
+];
+
+function loadGames()   { try { return JSON.parse(localStorage.getItem('ss_games'))   || DEFAULT_GAMES;   } catch(e){ return DEFAULT_GAMES; } }
+function loadHistory() { try { return JSON.parse(localStorage.getItem('ss_history')) || DEFAULT_HISTORY; } catch(e){ return DEFAULT_HISTORY; } }
+
+/* ── Render games ── */
+function renderGames(platform) {
+  const games = loadGames();
+  const grid  = document.getElementById('gamesGrid');
+  const filtered = platform === 'all' ? games : games.filter(g => g.platform === platform);
+
+  grid.innerHTML = filtered.length === 0
+    ? '<div class="no-games-msg">등록된 게임이 없습니다.</div>'
+    : filtered.map(g => {
+        const badgeClass = g.platform === 'mobile' ? 'badge-mobile' : (g.platform === 'web' ? 'badge-web' : 'badge-pc');
+        const badgeLabel = g.platform === 'mobile' ? 'MOBILE' : (g.platform === 'web' ? 'WEB' : 'PC');
+        const links = [
+          g.site   ? `<a href="${g.site}"   class="store-btn">🌐 공식 사이트</a>` : '',
+          g.google ? `<a href="${g.google}" class="store-btn">▶ Google Play</a>`  : '',
+          g.apple  ? `<a href="${g.apple}"  class="store-btn">🍎 App Store</a>`   : '',
+        ].filter(Boolean).join('');
+        const thumbContent = g.thumb
+          ? `<img src="${g.thumb}" alt="${g.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+            + `<div class="game-thumb-icon" style="display:none">${g.icon || '🎮'}</div>`
+          : `<div class="game-thumb-icon">${g.icon || '🎮'}</div>`;
+        return `
+          <div class="game-card reveal" data-platform="${g.platform}">
+            <div class="game-thumb" style="background:linear-gradient(${g.color || '135deg,#dbeafe,#eff6ff'});position:relative">
+              ${thumbContent}
+              <span class="game-badge ${badgeClass}">${badgeLabel}</span>
+            </div>
+            <div class="game-info">
+              <div class="game-title">${g.title}</div>
+              <div class="game-genre">${g.genre} · ${badgeLabel}</div>
+              <div class="game-links">${links}</div>
+            </div>
+          </div>`;
+      }).join('');
+
+  /* re-observe new cards */
+  grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+/* ── Render history ── */
+function renderHistory() {
+  const history = loadHistory().slice().sort((a,b) => (a.year > b.year ? 1 : -1));
+  const tl = document.getElementById('historyTimeline');
+  const accentColors = ['var(--accent)','var(--accent2)'];
+  tl.innerHTML = history.map((h, i) => `
+    <div class="tl-item reveal">
+      <div class="tl-dot" style="background:${accentColors[i%2]}"></div>
+      <div class="tl-year">${h.year}</div>
+      <div class="tl-text">${h.title}</div>
+      <div class="tl-desc">${h.desc}</div>
+    </div>`).join('');
+  tl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+/* ── Render footer game links ── */
+function renderFooterGames() {
+  const ul = document.getElementById('footerGameLinks');
+  if (!ul) return;
+  ul.innerHTML = loadGames().slice(0,6).map(g =>
+    `<li><a href="${g.site || '#'}">${g.title}</a></li>`
+  ).join('');
+}
+
+/* ── Filter ── */
+let currentFilter = 'all';
+function filterGames(platform, btn) {
+  currentFilter = platform;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderGames(platform);
+}
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ── Mobile menu ── */
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+/* ── Scroll reveal ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── Count-up ── */
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, target = parseInt(el.dataset.target);
+    let cur = 0; const step = target / 50;
+    const t = setInterval(() => {
+      cur += step;
+      if (cur >= target) { el.textContent = target + '+'; clearInterval(t); }
+      else el.textContent = Math.floor(cur);
+    }, 28);
+    countObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num[data-target]').forEach(el => countObserver.observe(el));
+
+/* ── BroadcastChannel: admin에서 저장 즉시 반영 ── */
+const _bc = new BroadcastChannel('sesisoft_sync');
+_bc.onmessage = (e) => {
+  if (e.data.type === 'games')   { renderGames(currentFilter); renderFooterGames(); }
+  if (e.data.type === 'history') { renderHistory(); }
+};
+
+/* ── storage 이벤트 (다른 브라우저 창 대비 fallback) ── */
+window.addEventListener('storage', (e) => {
+  if (e.key === 'ss_games')   { renderGames(currentFilter); renderFooterGames(); }
+  if (e.key === 'ss_history') { renderHistory(); }
+});
+
+/* ── 탭 전환 후 돌아왔을 때도 최신 데이터 반영 ── */
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) {
+    renderGames(currentFilter);
+    renderHistory();
+    renderFooterGames();
+  }
+});
+
+/* ── Init: localStorage에 없는 신규 DEFAULT_GAMES 항목 병합 ── */
+(function mergeNewGames() {
+  const HARD_REMOVED = new Set([4, 8, 9, 14]); // 코드에서 영구 제거된 게임
+  const userDeleted  = new Set(JSON.parse(localStorage.getItem('ss_deleted_ids') || '[]')); // 관리자가 삭제한 게임
+  const skipIds = new Set([...HARD_REMOVED, ...userDeleted]);
+  const stored = localStorage.getItem('ss_games');
+  if (!stored) return;
+  try {
+    const arr = JSON.parse(stored);
+    // 삭제 대상 제거
+    const filtered = arr.filter(g => !skipIds.has(g.id));
+    // thumb 업데이트 (빈 thumb만)
+    const updated = filtered.map(g => {
+      const def = DEFAULT_GAMES.find(d => d.id === g.id);
+      return (def && def.thumb && !g.thumb) ? {...g, thumb: def.thumb} : g;
+    });
+    // DEFAULT에 새로 추가된 항목만 병합 (삭제된 것 제외)
+    const existingIds = new Set(updated.map(g => g.id));
+    const toAdd = DEFAULT_GAMES.filter(g => !existingIds.has(g.id) && !skipIds.has(g.id));
+    localStorage.setItem('ss_games', JSON.stringify([...updated, ...toAdd]));
+  } catch(e) {}
+})();
+
+renderGames('all');
+renderHistory();
+renderFooterGames();
+</script>
+</body>
+</html>

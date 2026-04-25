@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SESISOFT 관리자</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent:  #2563eb;
+      --accent-h:#1d4fd8;
+      --danger:  #ef4444;
+      --success: #10b981;
+      --bg:      #f1f5f9;
+      --surface: #ffffff;
+      --border:  #e2e8f0;
+      --text:    #0f172a;
+      --muted:   #64748b;
+      --sidebar: #0f172a;
+    }
+    body { font-family: 'Apple SD Gothic Neo','Noto Sans KR',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Login ── */
+    .login-wrap {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg,#eff6ff,#f5f3ff);
+    }
+    .login-box {
+      background: var(--surface); border-radius: 20px; padding: 48px 40px;
+      width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(37,99,235,.12);
+      border: 1px solid var(--border);
+    }
+    .login-logo { margin-bottom: 8px; }
+    .login-logo img { height: 64px; width: auto; mix-blend-mode: multiply; }
+    .login-sub  { font-size: 14px; color: var(--muted); margin-bottom: 36px; }
+    .form-label { font-size: 13px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }
+    .form-input {
+      width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 15px; outline: none; transition: border-color .2s; background: var(--bg);
+      margin-bottom: 20px; font-family: inherit;
+    }
+    .form-input:focus { border-color: var(--accent); background: #fff; }
+    .login-err { font-size: 13px; color: var(--danger); margin-bottom: 12px; display: none; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 11px 22px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; border: none; transition: all .2s; font-family: inherit; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-h); }
+    .btn-danger  { background: #fee2e2; color: var(--danger); }
+    .btn-danger:hover  { background: var(--danger); color: #fff; }
+    .btn-success { background: #d1fae5; color: #065f46; }
+    .btn-success:hover { background: var(--success); color: #fff; }
+    .btn-ghost   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: #fff; color: var(--text); }
+    .btn-full { width: 100%; justify-content: center; padding: 13px; font-size: 15px; }
+
+    /* ── Admin layout ── */
+    .admin-wrap { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px; min-height: 100vh; background: var(--sidebar);
+      display: flex; flex-direction: column; padding: 0; flex-shrink: 0;
+      position: fixed; left: 0; top: 0; bottom: 0; z-index: 100;
+    }
+    .sidebar-logo { padding: 24px 24px 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .sidebar-logo img { height: 40px; width: auto; filter: brightness(0) invert(1); }
+    .sidebar-nav { padding: 16px 12px; flex: 1; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px; border-radius: 10px; margin-bottom: 4px;
+      font-size: 14px; font-weight: 600; color: rgba(255,255,255,.55);
+      cursor: pointer; transition: all .2s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,.07); color: #fff; }
+    .nav-item.active { background: var(--accent); color: #fff; }
+    .nav-icon { font-size: 18px; width: 22px; text-align: center; }
+    .sidebar-footer { padding: 16px 12px 24px; border-top: 1px solid rgba(255,255,255,.08); }
+    .sidebar-footer a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 10px;
+      font-size: 13px; color: rgba(255,255,255,.4); transition: all .2s;
+    }
+    .sidebar-footer a:hover { color: rgba(255,255,255,.8); background: rgba(255,255,255,.06); }
+
+    /* Main content */
+    .main { margin-left: 240px; flex: 1; padding: 32px 36px; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .page-title { font-size: 22px; font-weight: 800; }
+    .page-desc { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+    /* Card */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 20px; }
+    .card-header { padding: 18px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .card-title { font-size: 15px; font-weight: 700; }
+    .card-body { padding: 20px 22px; }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table th { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 10px 14px; text-align: left; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .data-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f8faff; }
+    .row-icon { font-size: 22px; }
+    .row-actions { display: flex; gap: 8px; }
+
+    /* Badge */
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+    .badge-pc     { background: #dbeafe; color: #1e40af; }
+    .badge-mobile { background: #fce7f3; color: #9d174d; }
+    .badge-web    { background: #d1fae5; color: #065f46; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15,23,42,.5); backdrop-filter: blur(4px);
+      z-index: 500; display: flex; align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: var(--surface); border-radius: 16px; width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,.2);
+      transform: translateY(20px); transition: transform .25s;
+    }
+    .modal-overlay.open .modal { transform: none; }
+    .modal-header { padding: 22px 24px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-size: 17px; font-weight: 800; }
+    .modal-close { font-size: 20px; cursor: pointer; color: var(--muted); background: none; border: none; line-height: 1; transition: color .2s; }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 22px 24px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+
+    /* Form */
+    .form-row { margin-bottom: 18px; }
+    .form-row label { font-size: 13px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 6px; }
+    .form-row input, .form-row select, .form-row textarea {
+      width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 14px; outline: none; transition: border-color .2s; font-family: inherit;
+      background: var(--bg);
+    }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--accent); background: #fff; }
+    .form-row textarea { resize: vertical; min-height: 80px; }
+    .form-hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .icon-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .icon-opt {
+      width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      cursor: pointer; transition: all .15s; background: var(--bg);
+    }
+    .icon-opt:hover, .icon-opt.selected { border-color: var(--accent); background: #eff6ff; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: var(--text); color: #fff; padding: 13px 20px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; box-shadow: 0 8px 32px rgba(0,0,0,.2);
+      transform: translateY(80px); opacity: 0; transition: all .3s;
+    }
+    .toast.show { transform: none; opacity: 1; }
+    .toast.success { background: var(--success); }
+    .toast.error   { background: var(--danger); }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 60px 24px; color: var(--muted); }
+    .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty p { font-size: 15px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); transition: transform .3s; }
+      .sidebar.open { transform: none; }
+      .main { margin-left: 0; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Login -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo"><img src="logo.png" alt="SESISOFT"></div>
+    <div class="login-sub">관리자 페이지에 로그인하세요</div>
+    <label class="form-label">비밀번호</label>
+    <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
+    <div class="login-err" id="loginErr">비밀번호가 올바르지 않습니다.</div>
+    <button class="btn btn-primary btn-full" onclick="doLogin()">로그인</button>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px;text-align:center">기본 비밀번호: <strong>sesisoft2026</strong></p>
+  </div>
+</div>
+
+<!-- Admin UI -->
+<div class="admin-wrap" id="adminWrap" style="display:none">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo"><img src="logo.png" alt="SESISOFT"></div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" onclick="showTab('games', this)">
+        <span class="nav-icon">🎮</span> 게임 관리
+      </div>
+      <div class="nav-item" onclick="showTab('history', this)">
+        <span class="nav-icon">📅</span> 회사연혁 관리
+      </div>
+      <div class="nav-item" onclick="showTab('password', this)">
+        <span class="nav-icon">🔐</span> 비밀번호 변경
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="index.html" target="_blank">🌐 홈페이지 보기</a>
+      <a href="#" onclick="doLogout()" style="margin-top:4px">🚪 로그아웃</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Games Tab -->
+    <div id="tab-games">
+      <div class="page-header">
+        <div>
+          <div class="page-title">게임 관리</div>
+          <div class="page-desc">홈페이지에 표시되는 게임 목록을 관리합니다.</div>
+        </div>
+        <button class="btn btn-primary" onclick="openGameModal()">+ 게임 추가</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">게임 목록</span>
+          <span style="font-size:13px;color:var(--muted)" id="gameCount"></span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>아이콘</th>
+                <th>게임명</th>
+                <th>장르</th>
+                <th>플랫폼</th>
+                <th>링크</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="gameTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Tab -->
+    <div id="tab-history" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">회사연혁 관리</div>
+          <div class="page-desc">홈페이지에 표시되는 회사 연혁을 관리합니다.</div>
+        </div>
+        <button class="btn btn-primary" onclick="openHistoryModal()">+ 연혁 추가</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">연혁 목록</span>
+          <span style="font-size:13px;color:var(--muted)" id="historyCount"></span>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>연도</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Tab -->
+    <div id="tab-password" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">비밀번호 변경</div>
+          <div class="page-desc">관리자 페이지 로그인 비밀번호를 변경합니다.</div>
+        </div>
+      </div>
+      <div class="card" style="max-width:440px">
+        <div class="card-body">
+          <div class="form-row">
+            <label>현재 비밀번호</label>
+            <input type="password" id="pwCurrent" placeholder="현재 비밀번호" />
+          </div>
+          <div class="form-row">
+            <label>새 비밀번호</label>
+            <input type="password" id="pwNew" placeholder="새 비밀번호 (4자 이상)" />
+          </div>
+          <div class="form-row">
+            <label>새 비밀번호 확인</label>
+            <input type="password" id="pwConfirm" placeholder="새 비밀번호 재입력" />
+          </div>
+          <button class="btn btn-primary" onclick="changePassword()" style="width:100%;justify-content:center">비밀번호 변경</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Game Modal -->
+<div class="modal-overlay" id="gameModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="gameModalTitle">게임 추가</span>
+      <button class="modal-close" onclick="closeModal('gameModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editGameId" />
+      <div class="form-row">
+        <label>게임명 *</label>
+        <input id="gTitle" placeholder="예: ELOA" />
+      </div>
+      <div class="form-row">
+        <label>장르 *</label>
+        <input id="gGenre" placeholder="예: MMORPG" />
+      </div>
+      <div class="form-row">
+        <label>플랫폼 *</label>
+        <select id="gPlatform">
+          <option value="pc">PC</option>
+          <option value="web">웹</option>
+          <option value="mobile">모바일</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>아이콘 (이모지)</label>
+        <input id="gIcon" placeholder="예: ⚔️" maxlength="4" />
+        <div class="form-hint">이모지를 직접 입력하거나 아래에서 선택하세요</div>
+        <div class="icon-picker" id="iconPicker"></div>
+      </div>
+      <div class="form-row">
+        <label>카드 배경색 (그라디언트 CSS)</label>
+        <input id="gColor" placeholder="예: 135deg,#dbeafe,#eff6ff" />
+        <div class="form-hint">색상 선택:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px" id="colorPicker"></div>
+      </div>
+      <div class="form-row">
+        <label>게임 이미지 URL (썸네일)</label>
+        <input id="gThumb" placeholder="https://example.com/game-image.jpg" oninput="previewThumb(this.value)" />
+        <div class="form-hint">이미지 URL을 입력하면 카드에 이미지가 표시됩니다. 비워두면 이모지가 사용됩니다.</div>
+        <div id="thumbPreview" style="margin-top:8px;display:none">
+          <img id="thumbPreviewImg" src="" alt="미리보기" style="width:120px;height:68px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" onerror="this.parentElement.style.display='none'" />
+        </div>
+      </div>
+      <div class="form-row">
+        <label>공식 사이트 URL (PC/웹)</label>
+        <input id="gSite" placeholder="https://game.example.com" />
+      </div>
+      <div class="form-row">
+        <label>Google Play URL (모바일)</label>
+        <input id="gGoogle" placeholder="https://play.google.com/..." />
+      </div>
+      <div class="form-row">
+        <label>App Store URL (모바일)</label>
+        <input id="gApple" placeholder="https://apps.apple.com/..." />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('gameModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveGame()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div class="modal-overlay" id="historyModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="historyModalTitle">연혁 추가</span>
+      <button class="modal-close" onclick="closeModal('historyModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editHistoryId" />
+      <div class="form-row">
+        <label>연도 *</label>
+        <input id="hYear" placeholder="예: 2024" />
+      </div>
+      <div class="form-row">
+        <label>제목 *</label>
+        <input id="hTitle" placeholder="예: 모바일 게임 출시" />
+      </div>
+      <div class="form-row">
+        <label>내용</label>
+        <textarea id="hDesc" placeholder="상세 내용을 입력하세요"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('historyModal')">취소</button>
+      <button class="btn btn-primary" onclick="saveHistory()">저장</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Constants ── */
+const ICONS = ['🎮','⚔️','🐉','🌿','🏹','🗡️','⚡','🌊','🫧','👑','🕵️','🔥','💎','🛡️','🏆','⭐','🚀','🌙','🦁','🐯'];
+const COLORS = [
+  {label:'파랑',   val:'135deg,#dbeafe,#eff6ff'},
+  {label:'남색',   val:'135deg,#dde7fe,#eef2ff'},
+  {label:'초록',   val:'135deg,#d1fae5,#ecfdf5'},
+  {label:'노랑',   val:'135deg,#fef3c7,#fffbeb'},
+  {label:'분홍',   val:'135deg,#fce7f3,#fff1f2'},
+  {label:'빨강',   val:'135deg,#fee2e2,#fff5f5'},
+  {label:'청록',   val:'135deg,#cffafe,#ecfeff'},
+  {label:'보라',   val:'135deg,#f3e8ff,#faf5ff'},
+  {label:'연두',   val:'135deg,#dcfce7,#f0fdf4'},
+  {label:'황금',   val:'135deg,#fef9c3,#fefce8'},
+];
+const DEFAULT_GAMES = [
+  {id:1, title:'천상비M',                       genre:'2D MMORPG',         platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'', google:'#', apple:'#'},
+  {id:2, title:'뿌요뿌요!! Quest',              genre:'캐주얼 퍼즐 RPG',   platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Puyo_Puyo%21%21_Quest_logo.png/250px-Puyo_Puyo%21%21_Quest_logo.png', site:'', google:'#', apple:'#'},
+  {id:3, title:'꿈왕국과 잠자는 100명의 왕자님',genre:'로맨틱 퍼즐 RPG',  platform:'mobile', icon:'👑', color:'135deg,#fef9c3,#fefce8', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/100sleepingprincesAnimecover.jpg/250px-100sleepingprincesAnimecover.jpg', site:'', google:'#', apple:'#'},
+  {id:5, title:'조선협객전',                     genre:'레트로 IP MMORPG', platform:'mobile', icon:'🗡️',color:'135deg,#fef3c7,#fffbeb', thumb:'https://play-lh.googleusercontent.com/WVBetaT3wvoRQozzfnHaX1z__mDHrw8tboKtdi4m7KT2WGxLmnwzGdPgZIlchEiRLf4PwZm7Y58owyXoeszyfnE=w240-h480', site:'', google:'#', apple:'#'},
+  {id:6, title:'언던 (Undawn)',                  genre:'오픈월드 슈팅 MMO', platform:'mobile', icon:'🌍', color:'135deg,#fee2e2,#fff5f5', thumb:'https://image.winudf.com/v2/image1/Y29tLnRlbmNlbnQuY29zbmFfaWNvbl8xNjg1NjEwMzgzXzAyNg/icon.png?w=140&fakeurl=1', site:'', google:'#', apple:'#'},
+  {id:7, title:'드래곤네스트2',                  genre:'3D MMORPG',         platform:'mobile', icon:'🐉', color:'135deg,#dde7fe,#eef2ff', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/DragonNestLogo.png/250px-DragonNestLogo.png', site:'', google:'#', apple:'#'},
+  {id:10,title:'구운몽M',                        genre:'연애 어드벤처',     platform:'mobile', icon:'🌸', color:'135deg,#dcfce7,#f0fdf4', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmRyZWFtOS5nb29nbGVfaWNvbl8xNjU4OTMwMjQxXzAwNw/icon.png?w=140&fakeurl=1', site:'', google:'#', apple:'#'},
+  {id:11,title:'CarpeDiem',                      genre:'MMORPG',            platform:'pc',     icon:'🏰', color:'135deg,#dbeafe,#eff6ff', thumb:'', site:'#', google:'', apple:''},
+  {id:12,title:'WindSlayer',                     genre:'액션 RPG',          platform:'pc',     icon:'🏹', color:'135deg,#d1fae5,#ecfdf5', thumb:'', site:'#', google:'', apple:''},
+  {id:13,title:'ARD : BlackStone',                 genre:'MMORPG',            platform:'mobile', icon:'🛡️',color:'135deg,#cffafe,#ecfeff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFyZC5nb29nbGVfaWNvbl8xNzQ3MTc0Mzg1XzA3MQ/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.ard.google', apple:'#'},
+  {id:15,title:'Metin M',                        genre:'MMORPG',            platform:'mobile', icon:'🔱', color:'135deg,#fef3c7,#fffbeb', thumb:'https://upload.wikimedia.org/wikipedia/commons/f/fb/Metin2logo.png', site:'', google:'#', apple:'#'},
+  {id:16,title:'포키포키',                       genre:'캐주얼 파티',       platform:'pc',     icon:'🎉', color:'135deg,#fef9c3,#fefce8', thumb:'https://pokipoki.co.kr/ClientUI/image/layout/logo_on.png', site:'https://pokipoki.co.kr/', google:'', apple:''},
+];
+const DEFAULT_HISTORY = [
+  {id:1,year:'2009',title:'세시소프트 설립 · PC온라인게임 퍼블리싱 시작',desc:'서울 서초구에서 모바일 게임 퍼블리싱 및 개발 전문 기업으로 창업. 로스트사가 등 PC온라인게임 퍼블리싱 시작.'},
+  {id:2,year:'2013',title:'모바일게임 퍼블리싱 진출',desc:'모바일게임 퍼블리싱 및 카카오톡 게임 퍼블리싱으로 모바일 시장 본격 진출.'},
+  {id:3,year:'2016',title:'서브컬처 장르 특화 · 대형 파트너십 체결',desc:'스마일게이트 공동퍼블리싱, DeNA 모바일 게임 공동개발, 반다이남코 마케팅 대행, 사이버에이전트 게임 퍼블리싱 등 글로벌 협력 확대.'},
+  {id:4,year:'2019',title:'일본 대형 IP 게임 개발협력',desc:'프린세스 커넥트(Cygames), 천화백검(DeNA) 등 일본 대형 IP 게임의 국내 개발파트너로 협력. 카카오게임즈와 파트너십 강화.'},
+  {id:5,year:'2021',title:'누적 서비스 40종 돌파 · 조선협객전 출시',desc:'조선협객전(GNIsoft), 우마무스메(Cygames), 월드 플리퍼(Cygames) 등 다수 타이틀 개발협력.'},
+  {id:6,year:'2022',title:'천상비M 퍼블리싱 · 누적 50종 달성',desc:'레트로 IP MMORPG 천상비M 직접 퍼블리싱. 우마무스메 국내 서비스로 Google Play 차트 상위권 달성.'},
+  {id:7,year:'2023',title:'텐센트 글로벌 런칭게임 서비스 협력',desc:'언던(Undawn) 한국 출시로 Google Play 인기순위 1위 달성. 드래곤네스트2, Synced 등 텐센트 글로벌 타이틀 서비스 협력. 뿌요뿌요!!퀘스트(SEGA) 퍼블리싱.'},
+  {id:8,year:'2025',title:'자체 PC MMORPG 서비스 · 글로벌 사업 강화',desc:'CarpeDiem, WindSlayer 등 자체 PC MMORPG 퍼블리싱. ARD : BlackStone(Horizon) 모바일 MMORPG 서비스. 글로벌 파트너십 30개사 이상으로 확대.'},
+];
+
+/* ── BroadcastChannel for instant cross-tab sync ── */
+const _bc = new BroadcastChannel('sesisoft_sync');
+
+/* ── Storage ── */
+function getGames()   { try { return JSON.parse(localStorage.getItem('ss_games'))    || DEFAULT_GAMES;   } catch(e){ return DEFAULT_GAMES; } }
+function getHistory() { try { return JSON.parse(localStorage.getItem('ss_history'))  || DEFAULT_HISTORY; } catch(e){ return DEFAULT_HISTORY; } }
+function saveGames(d)   { localStorage.setItem('ss_games',   JSON.stringify(d)); _bc.postMessage({type:'games'}); }
+function saveHistoryData(d) { localStorage.setItem('ss_history', JSON.stringify(d)); _bc.postMessage({type:'history'}); }
+function getPassword()  { return localStorage.getItem('ss_pw') || 'sesisoft2026'; }
+function nextId(arr)    { return arr.length ? Math.max(...arr.map(x=>x.id)) + 1 : 1; }
+
+/* ── Auth ── */
+function doLogin() {
+  const pw = document.getElementById('pwInput').value;
+  if (pw === getPassword()) {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('adminWrap').style.display = 'flex';
+    renderGames(); renderHistory();
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+  }
+}
+function doLogout() {
+  document.getElementById('adminWrap').style.display = 'none';
+  document.getElementById('loginWrap').style.display = 'flex';
+  document.getElementById('pwInput').value = '';
+}
+function changePassword() {
+  const cur  = document.getElementById('pwCurrent').value;
+  const nw   = document.getElementById('pwNew').value;
+  const conf = document.getElementById('pwConfirm').value;
+  if (cur !== getPassword()) { showToast('현재 비밀번호가 올바르지 않습니다.','error'); return; }
+  if (nw.length < 4)         { showToast('새 비밀번호는 4자 이상이어야 합니다.','error'); return; }
+  if (nw !== conf)           { showToast('새 비밀번호가 일치하지 않습니다.','error'); return; }
+  localStorage.setItem('ss_pw', nw);
+  ['pwCurrent','pwNew','pwConfirm'].forEach(id => document.getElementById(id).value = '');
+  showToast('비밀번호가 변경되었습니다.','success');
+}
+
+/* ── Tabs ── */
+function showTab(name, el) {
+  ['games','history','password'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
+  document.getElementById('tab-'+name).style.display = '';
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ── Toast ── */
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.className = 'toast', 2800);
+}
+
+/* ── Modal ── */
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+/* ════════════════════════════════════
+   GAMES
+════════════════════════════════════ */
+function renderGames() {
+  const games = getGames();
+  const tbody = document.getElementById('gameTableBody');
+  document.getElementById('gameCount').textContent = `총 ${games.length}개`;
+  if (!games.length) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty"><div class="empty-icon">🎮</div><p>등록된 게임이 없습니다.</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = games.map(g => `
+    <tr>
+      <td>${g.thumb ? `<img src="${g.thumb}" style="width:48px;height:32px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">` : `<span style="font-size:22px">${g.icon||'🎮'}</span>`}</td>
+      <td><strong>${g.title}</strong></td>
+      <td style="color:var(--muted)">${g.genre}</td>
+      <td><span class="badge badge-${g.platform}">${{pc:'PC',web:'웹',mobile:'모바일'}[g.platform]||g.platform}</span></td>
+      <td style="font-size:12px;color:var(--muted)">
+        ${g.site   ? '🌐 사이트 '  : ''}
+        ${g.google ? '▶ Google '  : ''}
+        ${g.apple  ? '🍎 AppStore' : ''}
+        ${!g.site&&!g.google&&!g.apple ? '—' : ''}
+      </td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost" style="padding:6px 14px;font-size:12px" onclick="editGame(${g.id})">수정</button>
+          <button class="btn btn-danger" style="padding:6px 14px;font-size:12px" onclick="deleteGame(${g.id})">삭제</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function openGameModal(id) {
+  document.getElementById('gameModalTitle').textContent = id ? '게임 수정' : '게임 추가';
+  document.getElementById('editGameId').value = id || '';
+  /* icon picker */
+  document.getElementById('iconPicker').innerHTML = ICONS.map(ic =>
+    `<div class="icon-opt" onclick="selectIcon('${ic}',this)">${ic}</div>`).join('');
+  /* color picker */
+  document.getElementById('colorPicker').innerHTML = COLORS.map(c =>
+    `<div onclick="selectColor('${c.val}',this)" title="${c.label}" style="
+      width:32px;height:32px;border-radius:8px;cursor:pointer;
+      background:linear-gradient(${c.val});border:2px solid transparent;transition:.15s"
+      data-val="${c.val}"></div>`).join('');
+
+  if (id) {
+    const g = getGames().find(x=>x.id===id);
+    if (!g) return;
+    document.getElementById('gTitle').value    = g.title    || '';
+    document.getElementById('gGenre').value    = g.genre    || '';
+    document.getElementById('gPlatform').value = g.platform || 'pc';
+    document.getElementById('gIcon').value     = g.icon     || '';
+    document.getElementById('gColor').value    = g.color    || '';
+    document.getElementById('gThumb').value    = g.thumb    || '';
+    document.getElementById('gSite').value     = g.site     || '';
+    document.getElementById('gGoogle').value   = g.google   || '';
+    document.getElementById('gApple').value    = g.apple    || '';
+    previewThumb(g.thumb || '');
+    document.querySelectorAll('#iconPicker .icon-opt').forEach(el => {
+      if (el.textContent === g.icon) el.classList.add('selected');
+    });
+    document.querySelectorAll('#colorPicker div[data-val]').forEach(el => {
+      if (el.dataset.val === g.color) el.style.borderColor = '#2563eb';
+    });
+  } else {
+    ['gTitle','gGenre','gIcon','gColor','gThumb','gSite','gGoogle','gApple'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('gPlatform').value = 'pc';
+    document.getElementById('thumbPreview').style.display = 'none';
+  }
+  openModal('gameModal');
+}
+function editGame(id) { openGameModal(id); }
+
+function selectIcon(ic, el) {
+  document.getElementById('gIcon').value = ic;
+  document.querySelectorAll('#iconPicker .icon-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function selectColor(val, el) {
+  document.getElementById('gColor').value = val;
+  document.querySelectorAll('#colorPicker div[data-val]').forEach(e => e.style.borderColor = 'transparent');
+  el.style.borderColor = '#2563eb';
+}
+
+function previewThumb(url) {
+  const wrap = document.getElementById('thumbPreview');
+  const img  = document.getElementById('thumbPreviewImg');
+  if (url) { img.src = url; wrap.style.display = 'block'; }
+  else { wrap.style.display = 'none'; }
+}
+
+function saveGame() {
+  const title = document.getElementById('gTitle').value.trim();
+  const genre = document.getElementById('gGenre').value.trim();
+  if (!title || !genre) { showToast('게임명과 장르는 필수입니다.','error'); return; }
+  const games = getGames();
+  const editId = parseInt(document.getElementById('editGameId').value);
+  const data = {
+    title, genre,
+    platform: document.getElementById('gPlatform').value,
+    icon:     document.getElementById('gIcon').value    || '🎮',
+    color:    document.getElementById('gColor').value   || '135deg,#dbeafe,#eff6ff',
+    thumb:    document.getElementById('gThumb').value.trim(),
+    site:     document.getElementById('gSite').value.trim(),
+    google:   document.getElementById('gGoogle').value.trim(),
+    apple:    document.getElementById('gApple').value.trim(),
+  };
+  if (editId) {
+    const idx = games.findIndex(g=>g.id===editId);
+    if (idx > -1) games[idx] = { id:editId, ...data };
+  } else {
+    games.push({ id: nextId(games), ...data });
+  }
+  saveGames(games);
+  closeModal('gameModal');
+  renderGames();
+  showToast(editId ? '게임이 수정되었습니다.' : '게임이 추가되었습니다.', 'success');
+}
+
+function deleteGame(id) {
+  if (!confirm('이 게임을 삭제하시겠습니까?')) return;
+  const deleted = JSON.parse(localStorage.getItem('ss_deleted_ids') || '[]');
+  if (!deleted.includes(id)) { deleted.push(id); localStorage.setItem('ss_deleted_ids', JSON.stringify(deleted)); }
+  saveGames(getGames().filter(g=>g.id!==id));
+  renderGames();
+  showToast('게임이 삭제되었습니다.','success');
+}
+
+/* ════════════════════════════════════
+   HISTORY
+════════════════════════════════════ */
+function renderHistory() {
+  const items = getHistory().slice().sort((a,b)=>a.year>b.year?1:-1);
+  const tbody = document.getElementById('historyTableBody');
+  document.getElementById('historyCount').textContent = `총 ${items.length}개`;
+  if (!items.length) {
+    tbody.innerHTML = '<tr><td colspan="4"><div class="empty"><div class="empty-icon">📅</div><p>등록된 연혁이 없습니다.</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = items.map(h => `
+    <tr>
+      <td><strong style="color:var(--accent)">${h.year}</strong></td>
+      <td><strong>${h.title}</strong></td>
+      <td style="color:var(--muted);max-width:280px">${h.desc||'—'}</td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost" style="padding:6px 14px;font-size:12px" onclick="editHistory(${h.id})">수정</button>
+          <button class="btn btn-danger" style="padding:6px 14px;font-size:12px" onclick="deleteHistory(${h.id})">삭제</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function openHistoryModal(id) {
+  document.getElementById('historyModalTitle').textContent = id ? '연혁 수정' : '연혁 추가';
+  document.getElementById('editHistoryId').value = id || '';
+  if (id) {
+    const h = getHistory().find(x=>x.id===id);
+    if (!h) return;
+    document.getElementById('hYear').value  = h.year;
+    document.getElementById('hTitle').value = h.title;
+    document.getElementById('hDesc').value  = h.desc || '';
+  } else {
+    ['hYear','hTitle','hDesc'].forEach(id => document.getElementById(id).value = '');
+  }
+  openModal('historyModal');
+}
+function editHistory(id) { openHistoryModal(id); }
+
+function saveHistory() {
+  const year  = document.getElementById('hYear').value.trim();
+  const title = document.getElementById('hTitle').value.trim();
+  if (!year || !title) { showToast('연도와 제목은 필수입니다.','error'); return; }
+  const items  = getHistory();
+  const editId = parseInt(document.getElementById('editHistoryId').value);
+  const data   = { year, title, desc: document.getElementById('hDesc').value.trim() };
+  if (editId) {
+    const idx = items.findIndex(h=>h.id===editId);
+    if (idx > -1) items[idx] = { id:editId, ...data };
+  } else {
+    items.push({ id: nextId(items), ...data });
+  }
+  saveHistoryData(items);
+  closeModal('historyModal');
+  renderHistory();
+  showToast(editId ? '연혁이 수정되었습니다.' : '연혁이 추가되었습니다.','success');
+}
+
+function deleteHistory(id) {
+  if (!confirm('이 연혁을 삭제하시겠습니까?')) return;
+  saveHistoryData(getHistory().filter(h=>h.id!==id));
+  renderHistory();
+  showToast('연혁이 삭제되었습니다.','success');
+}
+</script>
+</body>
+</html>
