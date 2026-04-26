@@ -71,23 +71,30 @@
   <div class="top-nav-left">
     <a href="index.html" class="back-btn">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      홈으로
+      <span data-ko="홈으로" data-en="Back to Home" data-ja="ホームへ">홈으로</span>
     </a>
     <div class="nav-divider"></div>
-    <span class="page-title-nav">청소년보호정책</span>
+    <span class="page-title-nav" data-ko="청소년보호정책" data-en="Youth Protection" data-ja="青少年保護方針">청소년보호정책</span>
   </div>
-  <a href="index.html" class="nav-logo-small"><img src="logo.png?v=3" alt="SESISOFT"></a>
+  <div class="nav-lang" style="display:flex;align-items:center;gap:2px;border:1px solid #dde5f7;border-radius:20px;padding:4px 6px;font-size:12px;font-weight:700;">
+    <button class="lang-btn active" onclick="setLang('ko')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">KO</button>
+    <span style="color:#dde5f7;font-size:11px">|</span>
+    <button class="lang-btn" onclick="setLang('en')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">EN</button>
+    <span style="color:#dde5f7;font-size:11px">|</span>
+    <button class="lang-btn" onclick="setLang('ja')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">JA</button>
+  </div>
+  <a href="index.html" class="nav-logo-small"><img src="logo.png?v=4" alt="SESISOFT"></a>
 </nav>
 
 <div class="page-wrapper">
   <aside class="toc">
-    <div class="toc-label">목차</div>
+    <div class="toc-label" data-ko="목차" data-en="Contents" data-ja="目次">목차</div>
     <ul id="tocList"></ul>
   </aside>
   <main class="content-area">
     <div class="content-header">
-      <h1>청소년보호정책</h1>
-      <p class="effective-date">시행일: 2025년 10월 13일</p>
+      <h1 data-ko="청소년보호정책" data-en="Youth Protection" data-ja="青少年保護方針">청소년보호정책</h1>
+      <p class="effective-date"><span data-ko="시행일" data-en="Effective Date" data-ja="施行日">시행일</span>: 2025년 10월 13일</p>
     </div>
 
     <div class="highlight-box">
@@ -95,21 +102,21 @@
     </div>
 
     <div class="content-section">
-      <h2>제1조 청소년 유해 매체물 결정 및 표시</h2>
+      <h2 data-ko="제1조 청소년 유해 매체물 결정 및 표시" data-en="Article 1: Harmful Media Classification" data-ja="第1条 有害メディアの分類と表示">제1조 청소년 유해 매체물 결정 및 표시</h2>
       <p>① 회사는 운영하는 서비스 중 청소년에게 유해한 것으로 판단되는 경우, 청소년보호법의 규정에 의한 청소년 유해매체물로 결정하고, 이를 표시합니다.</p>
       <p>② 유해 매체물로 결정된 게임·콘텐츠에는 "청소년 이용불가" 표시를 명확히 하며, 청소년이 해당 서비스에 접근하지 못하도록 기술적 차단 조치를 시행합니다.</p>
       <p>③ 회사가 제공하는 모든 게임은 게임물관리위원회의 게임 등급 분류를 준수합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제2조 청소년 유해 매체물의 광고 제한</h2>
+      <h2 data-ko="제2조 청소년 유해 매체물의 광고 제한" data-en="Article 2: Advertising Restrictions" data-ja="第2条 広告の制限">제2조 청소년 유해 매체물의 광고 제한</h2>
       <p>① 회사는 청소년 유해 매체물을 청소년을 대상으로 광고하지 않습니다.</p>
       <p>② 청소년 이용불가 서비스에 대한 광고는 청소년 유해 매체물 게재 금지 및 성인 전용 매체에만 게재합니다.</p>
       <p>③ 청소년이 주로 이용하는 매체(교육 플랫폼, 청소년 커뮤니티 등)에는 청소년 유해 콘텐츠 광고를 게재하지 않습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제3조 청소년 유해 매체물의 유통 방지</h2>
+      <h2 data-ko="제3조 청소년 유해 매체물의 유통 방지" data-en="Article 3: Distribution Prevention" data-ja="第3条 流通防止">제3조 청소년 유해 매체물의 유통 방지</h2>
       <p>① 회사는 청소년에게 유해한 콘텐츠가 유통되지 않도록 다음과 같은 기술적·관리적 조치를 취합니다.</p>
       <ol>
         <li>회원가입 시 생년월일 인증 또는 성인 인증 절차를 통해 청소년의 유해 매체 접근을 차단합니다.</li>
@@ -120,7 +127,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제4조 청소년의 결제 및 게임 시간 관리</h2>
+      <h2 data-ko="제4조 청소년의 결제 및 게임 시간 관리" data-en="Article 4: Payment and Time Management" data-ja="第4条 決済とゲーム時間管理">제4조 청소년의 결제 및 게임 시간 관리</h2>
       <p>① 회사는 청소년의 과도한 결제를 방지하기 위해 다음의 조치를 시행합니다.</p>
       <ol>
         <li>만 18세 미만 이용자의 월 결제 한도를 법령에서 정한 기준에 따라 제한합니다.</li>
@@ -135,7 +142,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제5조 청소년 보호를 위한 서비스 이용 환경 조성</h2>
+      <h2 data-ko="제5조 청소년 보호를 위한 서비스 이용 환경 조성" data-en="Article 5: Safe Service Environment" data-ja="第5条 安全なサービス環境">제5조 청소년 보호를 위한 서비스 이용 환경 조성</h2>
       <p>① 회사는 게임 서비스 내 채팅, 커뮤니티 등 이용자 간 소통 공간에서 청소년에게 유해한 내용이 유포되지 않도록 모니터링하고 즉시 삭제 조치합니다.</p>
       <p>② 다음 유형의 콘텐츠는 서비스에서 즉시 차단됩니다.</p>
       <ul>
@@ -148,7 +155,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제6조 청소년 보호 관련 피해 신고 및 처리</h2>
+      <h2 data-ko="제6조 청소년 보호 관련 피해 신고 및 처리" data-en="Article 6: Reporting Harm" data-ja="第6条 被害の申告と処理">제6조 청소년 보호 관련 피해 신고 및 처리</h2>
       <p>① 청소년 보호 관련 피해 및 유해 매체물 신고는 고객센터를 통해 접수할 수 있습니다.</p>
       <p>② 신고 접수 후 24시간 이내에 초기 확인 조치를 취하며, 필요 시 수사기관에 협조합니다.</p>
       <p>③ 청소년 보호 관련 신고·상담 기관:</p>
@@ -160,7 +167,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제7조 청소년보호책임자 지정</h2>
+      <h2 data-ko="제7조 청소년보호책임자 지정" data-en="Article 7: Youth Protection Officer" data-ja="第7条 青少年保護責任者">제7조 청소년보호책임자 지정</h2>
       <p>회사는 「청소년 보호법」에 따라 다음과 같이 청소년보호책임자를 지정하여 청소년 보호 업무를 전담하도록 하고 있습니다.</p>
       <div class="warn-box">
         <strong>청소년보호책임자</strong><br>
@@ -173,7 +180,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제8조 정책의 변경 및 시행</h2>
+      <h2 data-ko="제8조 정책의 변경 및 시행" data-en="Article 8: Policy Changes" data-ja="第8条 方針の変更と施行">제8조 정책의 변경 및 시행</h2>
       <p>① 본 청소년보호정책은 관련 법령 개정 또는 회사 정책 변경에 따라 수시로 업데이트될 수 있습니다.</p>
       <p>② 정책이 변경될 경우 시행 7일 전에 홈페이지를 통해 공지합니다.</p>
       <p>③ 본 정책은 2025년 10월 13일부터 시행합니다.</p>
@@ -206,6 +213,17 @@
     });
   }, { rootMargin: '-64px 0px -60% 0px' });
   sections.forEach(sec => observer.observe(sec));
+</script>
+<script>
+(function(){
+  var btns = document.querySelectorAll('.lang-btn');
+  function setLang(lang) {
+    btns.forEach(function(b){ b.style.background = b.textContent.toLowerCase()===lang ? '#2563eb' : 'none'; b.style.color = b.textContent.toLowerCase()===lang ? '#fff' : '#64748b'; });
+    document.querySelectorAll('[data-'+lang+']').forEach(function(el){ el.textContent = el.getAttribute('data-'+lang); });
+  }
+  window.setLang = setLang;
+  btns.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.textContent.toLowerCase()); }); });
+})();
 </script>
 </body>
 </html>

@@ -69,32 +69,39 @@
   <div class="top-nav-left">
     <a href="index.html" class="back-btn">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      홈으로
+      <span data-ko="홈으로" data-en="Back to Home" data-ja="ホームへ">홈으로</span>
     </a>
     <div class="nav-divider"></div>
-    <span class="page-title-nav">이용약관</span>
+    <span class="page-title-nav" data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</span>
   </div>
-  <a href="index.html" class="nav-logo-small"><img src="logo.png?v=3" alt="SESISOFT"></a>
+  <div class="nav-lang" style="display:flex;align-items:center;gap:2px;border:1px solid #dde5f7;border-radius:20px;padding:4px 6px;font-size:12px;font-weight:700;">
+    <button class="lang-btn active" onclick="setLang('ko')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">KO</button>
+    <span style="color:#dde5f7;font-size:11px">|</span>
+    <button class="lang-btn" onclick="setLang('en')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">EN</button>
+    <span style="color:#dde5f7;font-size:11px">|</span>
+    <button class="lang-btn" onclick="setLang('ja')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">JA</button>
+  </div>
+  <a href="index.html" class="nav-logo-small"><img src="logo.png?v=4" alt="SESISOFT"></a>
 </nav>
 
 <div class="page-wrapper">
   <aside class="toc">
-    <div class="toc-label">목차</div>
+    <div class="toc-label" data-ko="목차" data-en="Contents" data-ja="目次">목차</div>
     <ul id="tocList"></ul>
   </aside>
   <main class="content-area">
     <div class="content-header">
-      <h1>이용약관</h1>
-      <p class="effective-date">시행일: 2025년 10월 13일</p>
+      <h1 data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</h1>
+      <p class="effective-date"><span data-ko="시행일" data-en="Effective Date" data-ja="施行日">시행일</span>: 2025년 10월 13일</p>
     </div>
 
     <div class="content-section">
-      <h2>제1조 목적</h2>
+      <h2 data-ko="제1조 목적" data-en="Article 1: Purpose" data-ja="第1条 目的">제1조 목적</h2>
       <p>이 약관은 ㈜세시소프트(이하 '회사'라고 함)가 제공하는 모든 게임 및 제반 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 기타 필요한 사항을 규정하는 것을 목적으로 합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제2조 용어의 정의</h2>
+      <h2 data-ko="제2조 용어의 정의" data-en="Article 2: Definitions" data-ja="第2条 用語の定義">제2조 용어의 정의</h2>
       <p>① 이 약관에서 사용하는 용어의 정의는 다음과 같습니다.</p>
       <ol>
         <li>'회사'란 온라인 또는 모바일 기기를 통해 서비스를 제공하는 사업자를 말합니다.</li>
@@ -108,7 +115,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제3조 회사 정보 등의 제공</h2>
+      <h2 data-ko="제3조 회사 정보 등의 제공" data-en="Article 3: Company Information" data-ja="第3条 会社情報の提供">제3조 회사 정보 등의 제공</h2>
       <p>회사는 이용자가 쉽게 알 수 있도록 다음 호의 사항을 홈페이지에 게시합니다.</p>
       <ol>
         <li>대표자의 성명 및 상호</li>
@@ -121,7 +128,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제4조 약관의 효력과 변경</h2>
+      <h2 data-ko="제4조 약관의 효력과 변경" data-en="Article 4: Effectiveness and Amendments" data-ja="第4条 規約の効力と変更">제4조 약관의 효력과 변경</h2>
       <p>① 이 약관은 홈페이지에 온라인으로 명시하고, 온라인으로 공시함으로써 효력이 발생합니다.</p>
       <p>② 이용자는 약관에 동의한 시점부터 약관의 적용을 받으며, 약관이 변경될 경우 변경된 약관의 효력 발생일부터 적용됩니다.</p>
       <p>③ 합리적인 사유가 발생할 경우, 회사는 관련 법령에 위배되지 않는 범위에서 본 약관의 일부 또는 전부를 변경할 수 있습니다.</p>
@@ -131,7 +138,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제5조 약관 준칙</h2>
+      <h2 data-ko="제5조 약관 준칙" data-en="Article 5: Rules of Terms" data-ja="第5条 規約の準則">제5조 약관 준칙</h2>
       <p>이 약관에서 정하지 아니한 사항 및 이 약관의 해석과 관련하여 다음 법령을 따릅니다.</p>
       <ul>
         <li>「전자상거래 등에서의 소비자보호에 관한 법률」</li>
@@ -144,12 +151,12 @@
     </div>
 
     <div class="content-section">
-      <h2>제6조 서비스 이용계약의 성립</h2>
+      <h2 data-ko="제6조 서비스 이용계약의 성립" data-en="Article 6: Service Agreement" data-ja="第6条 サービス利用契約の成立">제6조 서비스 이용계약의 성립</h2>
       <p>이용계약은 이용자가 이용약관에 동의하고 회사가 승인한 시점부터 체결됩니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제7조 이용신청 및 해지</h2>
+      <h2 data-ko="제7조 이용신청 및 해지" data-en="Article 7: Application and Termination" data-ja="第7条 利用申請と解約">제7조 이용신청 및 해지</h2>
       <p>① 이용자는 회사가 정한 양식에 따라 이용자의 정보를 기재하여 이용신청을 합니다.</p>
       <p>② 이용자는 제①항의 이용신청 시 반드시 실제 정보를 기재해야 하며, 실제 정보를 기재하지 않을 경우 법적인 보호를 받을 수 없으며 일체의 권리를 주장할 수 없습니다.</p>
       <p>③ 미성년자가 법정대리인의 동의를 받아 서비스 이용을 신청할 경우, 회사는 법정대리인의 동의 여부를 확인할 수 있으며 이에 필요한 추가 정보를 요청할 수 있습니다.</p>
@@ -157,7 +164,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제8조 이용신청에 대한 승인 여부</h2>
+      <h2 data-ko="제8조 이용신청에 대한 승인 여부" data-en="Article 8: Approval of Application" data-ja="第8条 利用申請の承認">제8조 이용신청에 대한 승인 여부</h2>
       <p>① 회사는 이용자가 제공한 정보가 정확한 경우 이용 신청을 승인합니다.</p>
       <p>② 다음 각 호의 경우 이용 신청을 승인하지 않거나 승인 후에도 취소 또는 계약 해지할 수 있습니다.</p>
       <ol>
@@ -171,34 +178,34 @@
     </div>
 
     <div class="content-section">
-      <h2>제9조 아이디</h2>
+      <h2 data-ko="제9조 아이디" data-en="Article 9: User ID" data-ja="第9条 ユーザーID">제9조 아이디</h2>
       <p>① 회사는 이용자의 정보 보호 및 서비스 이용 편의를 위해, 이용자가 선정한 영문자, 숫자, 특수기호 조합의 아이디를 부여합니다.</p>
       <p>② 아이디 관리 책임은 이용자 본인에게 있으며, 회사의 귀책사유 없이 발생한 아이디 정보 유출, 공유, 도용 및 이로 인한 불이익에 대해 회사는 책임지지 않습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제10조 비밀번호</h2>
+      <h2 data-ko="제10조 비밀번호" data-en="Article 10: Password" data-ja="第10条 パスワード">제10조 비밀번호</h2>
       <p>① 비밀번호 관리 책임은 이용자에게 있으며, 이용자는 보안상의 이유 등으로 언제든지 비밀번호를 변경할 수 있습니다.</p>
       <p>② 이용자가 비밀번호를 소홀히 관리하여 발생하는 서비스 이용상의 손해 및 제3자의 부정 이용에 대한 책임은 이용자에게 있으며 회사는 이에 대한 책임을 지지 않습니다.</p>
       <p>③ 회사는 보안 강화를 위한 합리적인 이유가 있는 경우 이용자에게 비밀번호 변경을 요청할 수 있으며, 이용자는 해당 요청을 받은 후 30일 이내에 비밀번호를 변경해야 합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제11조 개인정보 보호 및 사용</h2>
+      <h2 data-ko="제11조 개인정보 보호 및 사용" data-en="Article 11: Personal Information" data-ja="第11条 個人情報の保護と利用">제11조 개인정보 보호 및 사용</h2>
       <p>① 회사는 관계 법령에 따라 이용자의 개인정보를 보호하기 위해 노력합니다.</p>
       <p>② 이용자의 개인정보 보호 및 사용과 관련된 사항은 개인정보보호법 등 관련 법령 및 회사의 개인정보처리방침에 따릅니다.</p>
       <p>③ 회사는 이용자의 사전 동의 없이 개인정보를 제3자에게 누설 또는 배포하지 않습니다. 다만, 관계 법령에 따라 공공기관의 요청이 있거나 범죄 수사를 위한 사법기관의 요청이 있는 경우는 예외로 합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제12조 이용 종료</h2>
+      <h2 data-ko="제12조 이용 종료" data-en="Article 12: Termination of Use" data-ja="第12条 利用終了">제12조 이용 종료</h2>
       <p>① 이용자가 약관을 위반한 경우 회사는 이용계약을 해지할 수 있습니다.</p>
       <p>② 이용자의 개인정보 보호 및 도용 방지를 위해, 마지막 서비스 이용일로부터 12개월이 경과한 아이디는 개인정보를 파기하고 이용계약을 해지하거나 해당 개인정보를 분리 보관하여 별도로 관리할 수 있습니다.</p>
       <p>③ 회사가 이용계약을 해지하는 경우, 서면, 전자우편 또는 이에 준하는 방법으로 이용자에게 해지 사유 및 해지 일자를 통보합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제13조 회사의 의무</h2>
+      <h2 data-ko="제13조 회사의 의무" data-en="Article 13: Company Obligations" data-ja="第13条 会社の義務">제13조 회사의 의무</h2>
       <p>① 회사는 지속적이고 안정적인 서비스 제공을 위해 최선을 다합니다.</p>
       <p>② 회사는 서비스 장애 발생 시, 지체 없이 수리 및 복구를 위해 노력해야 합니다.</p>
       <p>③ 회사는 개인정보 보호를 위해 개인정보처리방침을 공개하고 이를 성실히 준수해야 합니다.</p>
@@ -206,7 +213,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제14조 이용자의 의무</h2>
+      <h2 data-ko="제14조 이용자의 의무" data-en="Article 14: User Obligations" data-ja="第14条 利用者の義務">제14조 이용자의 의무</h2>
       <p>① 이용자는 약관과 관련 법령을 준수해야 하며 회사의 운영정책을 위반해서는 안 됩니다.</p>
       <p>② 이용자는 다음 행위를 해서는 안 됩니다.</p>
       <ol>
@@ -222,71 +229,71 @@
     </div>
 
     <div class="content-section">
-      <h2>제15조 서비스의 제공 시간 및 중지</h2>
+      <h2 data-ko="제15조 서비스의 제공 시간 및 중지" data-en="Article 15: Service Hours and Suspension" data-ja="第15条 サービス提供時間と中断">제15조 서비스의 제공 시간 및 중지</h2>
       <p>① 서비스는 연중무휴, 24시간 제공을 원칙으로 합니다. 단, 회사는 시스템 유지·보수, 긴급 점검, 서버 증설, 새로운 콘텐츠 추가, 게임 패치 등의 운영상 필요에 따라 일시적으로 서비스를 중지할 수 있습니다.</p>
       <p>② 회사는 천재지변, 국가비상사태, 정전 등 불가항력적인 사유가 발생하거나 서비스 설비 장애, 네트워크 장애 등으로 정상적인 서비스 제공이 불가능한 경우 서비스의 전부 또는 일부를 중지할 수 있습니다.</p>
       <p>③ 회사는 서비스가 영구적으로 중단되는 경우 최소 30일 전 공지해야 하며, 사용하지 않은 유료 콘텐츠가 있는 경우 이용자는 환불을 요청할 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제16조 서비스 내용의 변경</h2>
+      <h2 data-ko="제16조 서비스 내용의 변경" data-en="Article 16: Service Changes" data-ja="第16条 サービス内容の変更">제16조 서비스 내용의 변경</h2>
       <p>① 회사는 게임 서비스의 질적 향상 및 안정적인 운영을 위해 서비스 내용을 변경하거나 일부를 수정할 수 있습니다.</p>
       <p>② 회사는 변경되는 내용이 이용자의 권리에 중대한 영향을 미치는 경우 최소 7일 전 공지해야 하며, 사전 공지가 불가능한 경우 사후 즉시 공지합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제17조 서비스 이용 중지 및 계약 해지</h2>
+      <h2 data-ko="제17조 서비스 이용 중지 및 계약 해지" data-en="Article 17: Suspension and Termination" data-ja="第17条 サービス中断と契約解除">제17조 서비스 이용 중지 및 계약 해지</h2>
       <p>① 이용자는 서비스 이용을 원하지 않는 경우, 언제든지 회원 탈퇴를 요청할 수 있습니다.</p>
       <p>② 미성년 이용자가 법정대리인의 동의 없이 유료 콘텐츠를 결제한 경우, 법정대리인은 관련 법령에 따라 결제를 취소할 수 있습니다.</p>
       <p>③ 회사는 이용자가 타인의 계정 도용, 불법 프로그램 사용, 사기·허위사실 유포, 서비스 명예 훼손 등 약관을 위반한 경우 사전 통지 없이 이용 계약을 해지하거나 서비스 이용을 제한할 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제18조 이용 제한 조치 및 절차</h2>
+      <h2 data-ko="제18조 이용 제한 조치 및 절차" data-en="Article 18: Restrictions" data-ja="第18条 利用制限措置と手続き">제18조 이용 제한 조치 및 절차</h2>
       <p>① 회사는 약관을 위반하는 이용자에 대해 서비스 이용을 제한할 수 있으며, 제한 사유 및 절차는 운영정책에 따릅니다.</p>
       <p>② 이용자가 이용 제한 조치에 불복하는 경우, 통지일로부터 15일 이내에 이의 신청서를 제출할 수 있습니다.</p>
       <p>③ 회사는 이의 신청을 접수한 후, 15일 이내에 검토 결과를 회신해야 합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제19조 정보 제공 및 광고 게재</h2>
+      <h2 data-ko="제19조 정보 제공 및 광고 게재" data-en="Article 19: Information and Advertising" data-ja="第19条 情報提供と広告掲載">제19조 정보 제공 및 광고 게재</h2>
       <p>① 회사는 서비스 유지·운영을 위해 광고를 게재할 수 있으며, 이용자는 서비스 이용 시 광고 노출에 동의하는 것으로 간주됩니다.</p>
       <p>② 회사는 이용자의 사전 동의 없이 마케팅 목적의 광고 메시지를 발송하지 않으며, 이용자는 언제든지 수신을 거부할 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제20조 채팅 내용의 저장 및 보관</h2>
+      <h2 data-ko="제20조 채팅 내용의 저장 및 보관" data-en="Article 20: Chat Log Storage" data-ja="第20条 チャット内容の保存">제20조 채팅 내용의 저장 및 보관</h2>
       <p>① 회사는 서비스 내에서 이루어지는 채팅, 게시물, 메시지 등의 데이터를 저장·보관할 수 있습니다.</p>
       <p>② 저장된 정보는 법령 위반, 이용자 분쟁 조정, 운영상 필요에 따라 제한적으로 활용될 수 있으며, 일정 기간이 경과한 후 삭제될 수 있습니다.</p>
       <p>③ 회사는 본 정보에 대한 비밀을 유지하며, 법적 요청이 있을 경우 관계 법령에 따라 제공될 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제21조 저작권 등의 귀속</h2>
+      <h2 data-ko="제21조 저작권 등의 귀속" data-en="Article 21: Copyright" data-ja="第21条 著作権等の帰属">제21조 저작권 등의 귀속</h2>
       <p>① 게임 서비스 내 회사가 제작한 콘텐츠에 대한 저작권 및 지식재산권은 회사에 귀속됩니다.</p>
       <p>② 회사는 이용자에게 콘텐츠를 게임 서비스 내에서 이용할 수 있는 권한만을 부여하며, 이용자는 이를 영리 목적으로 활용하거나 무단 복제·배포·변경할 수 없습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제22조 콘텐츠의 구매</h2>
+      <h2 data-ko="제22조 콘텐츠의 구매" data-en="Article 22: Content Purchase" data-ja="第22条 コンテンツの購入">제22조 콘텐츠의 구매</h2>
       <p>① 이용자는 오픈마켓(구글 플레이, 애플 앱스토어), 이동통신사 결제, 기타 채널을 통해 회사가 제공하는 콘텐츠를 구매할 수 있습니다.</p>
       <p>② 콘텐츠 구매 후, 추가 요금 없이 이용할 수 있는 것이 원칙이나, 일부 네트워크 서비스 이용 시 추가 비용이 발생할 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제23조 콘텐츠의 이용</h2>
+      <h2 data-ko="제23조 콘텐츠의 이용" data-en="Article 23: Content Use" data-ja="第23条 コンテンツの利用">제23조 콘텐츠의 이용</h2>
       <p>① 이용자는 구매한 콘텐츠를 지정된 사용 기기에서만 이용할 수 있으며, 다른 기기로 이전이 제한될 수 있습니다.</p>
       <p>② 유료 콘텐츠의 사용 가능 기간은 구매 시 명시된 기간이며, 별도의 명시가 없는 경우 서비스 종료 시까지 사용 가능합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제24조 대금 결제</h2>
+      <h2 data-ko="제24조 대금 결제" data-en="Article 24: Payment" data-ja="第24条 代金決済">제24조 대금 결제</h2>
       <p>① 콘텐츠의 결제는 오픈마켓, 이동통신사, 신용카드사 등의 결제 정책에 따르며, 이용자는 해당 정책에 따라 결제해야 합니다.</p>
       <p>② 외화 결제 시, 환율 및 수수료 등의 차이로 인해 서비스에서 표시된 가격과 실제 청구 금액이 다를 수 있으며, 이에 대한 책임은 이용자가 부담합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제25조 청약 철회</h2>
+      <h2 data-ko="제25조 청약 철회" data-en="Article 25: Withdrawal of Offer" data-ja="第25条 申込みの撤回">제25조 청약 철회</h2>
       <p>① 이용자는 구매한 유료 콘텐츠에 대해 구매 후 7일 이내에 청약 철회를 신청할 수 있습니다.</p>
       <p>② 다음 각 호의 경우에는 청약 철회가 제한됩니다.</p>
       <ol>
@@ -299,13 +306,13 @@
     </div>
 
     <div class="content-section">
-      <h2>제26조 손해배상</h2>
+      <h2 data-ko="제26조 손해배상" data-en="Article 26: Damages" data-ja="第26条 損害賠償">제26조 손해배상</h2>
       <p>① 이용자가 본 약관을 위반하여 회사에 손해를 끼친 경우, 이용자는 회사의 손해를 배상할 책임이 있습니다.</p>
       <p>② 회사는 무료로 제공하는 서비스(이벤트, 테스트 서비스 포함)에 대해 손해배상 책임을 지지 않으며, 회사의 고의 또는 중대한 과실이 있는 경우는 예외로 합니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제27조 환불</h2>
+      <h2 data-ko="제27조 환불" data-en="Article 27: Refunds" data-ja="第27条 返金">제27조 환불</h2>
       <p>① 이용자는 구매한 유료 콘텐츠 중 미사용 잔여분에 대해 환불 요청을 할 수 있습니다.</p>
       <p>② 다음의 경우, 이용자가 요청할 경우 환불이 진행됩니다.</p>
       <ol>
@@ -316,20 +323,20 @@
     </div>
 
     <div class="content-section">
-      <h2>제28조 면책 조항</h2>
+      <h2 data-ko="제28조 면책 조항" data-en="Article 28: Disclaimer" data-ja="第28条 免責条項">제28조 면책 조항</h2>
       <p>① 회사는 천재지변, 국가 비상사태, 서버 장애 등 불가항력적인 사유로 인해 서비스 제공이 불가능한 경우 책임을 지지 않습니다.</p>
       <p>② 이용자의 귀책사유로 인한 서비스 이용 장애, 데이터 손실 등에 대해 회사는 책임을 지지 않습니다.</p>
       <p>③ 이용자가 타인의 정보를 도용하거나 허위 정보를 제공하여 발생한 모든 법적 책임은 이용자 본인에게 있으며, 회사는 이에 대한 책임을 지지 않습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제29조 분쟁 해결</h2>
+      <h2 data-ko="제29조 분쟁 해결" data-en="Article 29: Dispute Resolution" data-ja="第29条 紛争解決">제29조 분쟁 해결</h2>
       <p>① 회사와 이용자 간에 서비스 이용과 관련하여 분쟁이 발생한 경우, 당사자는 원만한 협의를 통해 해결해야 합니다.</p>
       <p>② 만약 분쟁이 해결되지 않는 경우, 정부 기관 또는 법령에서 정한 분쟁 조정 절차를 따를 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제30조 준거법 및 관할 법원</h2>
+      <h2 data-ko="제30조 준거법 및 관할 법원" data-en="Article 30: Governing Law" data-ja="第30条 準拠法と管轄裁判所">제30조 준거법 및 관할 법원</h2>
       <p>① 본 약관은 대한민국 법률에 따라 해석·적용됩니다.</p>
       <p>② 회사와 이용자 간 발생한 분쟁에 대한 소송은 회사의 본점 소재지를 관할하는 법원(서울중앙지방법원) 또는 이용자의 주소지를 관할하는 법원으로 합니다.</p>
       <p>③ 이용자의 주소 또는 거소가 대한민국 이외의 지역인 경우, 대한민국 서울중앙지방법원을 관할 법원으로 합니다.</p>
@@ -362,6 +369,17 @@
     });
   }, { rootMargin: '-64px 0px -60% 0px' });
   sections.forEach(sec => observer.observe(sec));
+</script>
+<script>
+(function(){
+  var btns = document.querySelectorAll('.lang-btn');
+  function setLang(lang) {
+    btns.forEach(function(b){ b.style.background = b.textContent.toLowerCase()===lang ? '#2563eb' : 'none'; b.style.color = b.textContent.toLowerCase()===lang ? '#fff' : '#64748b'; });
+    document.querySelectorAll('[data-'+lang+']').forEach(function(el){ el.textContent = el.getAttribute('data-'+lang); });
+  }
+  window.setLang = setLang;
+  btns.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.textContent.toLowerCase()); }); });
+})();
 </script>
 </body>
 </html>

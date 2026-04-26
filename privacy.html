@@ -73,23 +73,30 @@
   <div class="top-nav-left">
     <a href="index.html" class="back-btn">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      홈으로
+      <span data-ko="홈으로" data-en="Back to Home" data-ja="ホームへ">홈으로</span>
     </a>
     <div class="nav-divider"></div>
-    <span class="page-title-nav">개인정보처리방침</span>
+    <span class="page-title-nav" data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="プライバシーポリシー">개인정보처리방침</span>
   </div>
-  <a href="index.html" class="nav-logo-small"><img src="logo.png?v=3" alt="SESISOFT"></a>
+  <div class="nav-lang" style="display:flex;align-items:center;gap:2px;border:1px solid #dde5f7;border-radius:20px;padding:4px 6px;font-size:12px;font-weight:700;">
+    <button class="lang-btn active" onclick="setLang('ko')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">KO</button>
+    <span style="color:#dde5f7;font-size:11px">|</span>
+    <button class="lang-btn" onclick="setLang('en')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">EN</button>
+    <span style="color:#dde5f7;font-size:11px">|</span>
+    <button class="lang-btn" onclick="setLang('ja')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">JA</button>
+  </div>
+  <a href="index.html" class="nav-logo-small"><img src="logo.png?v=4" alt="SESISOFT"></a>
 </nav>
 
 <div class="page-wrapper">
   <aside class="toc">
-    <div class="toc-label">목차</div>
+    <div class="toc-label" data-ko="목차" data-en="Contents" data-ja="目次">목차</div>
     <ul id="tocList"></ul>
   </aside>
   <main class="content-area">
     <div class="content-header">
-      <h1>개인정보처리방침</h1>
-      <p class="effective-date">시행일: 2025년 10월 13일</p>
+      <h1 data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="プライバシーポリシー">개인정보처리방침</h1>
+      <p class="effective-date"><span data-ko="시행일" data-en="Effective Date" data-ja="施行日">시행일</span>: 2025년 10월 13일</p>
     </div>
 
     <div class="highlight-box">
@@ -97,7 +104,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제1조 수집하는 개인정보의 항목 및 수집 방법</h2>
+      <h2 data-ko="제1조 수집하는 개인정보의 항목 및 수집 방법" data-en="Article 1: Personal Data Collected" data-ja="第1条 収集する個人情報">제1조 수집하는 개인정보의 항목 및 수집 방법</h2>
       <p>① 회사는 서비스 제공을 위해 다음과 같은 개인정보를 수집합니다.</p>
       <table>
         <tr><th>수집 항목</th><th>수집 목적</th><th>보유 기간</th></tr>
@@ -110,7 +117,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제2조 개인정보의 수집 및 이용 목적</h2>
+      <h2 data-ko="제2조 개인정보의 수집 및 이용 목적" data-en="Article 2: Purpose of Collection" data-ja="第2条 収集・利用目的">제2조 개인정보의 수집 및 이용 목적</h2>
       <p>회사는 다음 목적을 위해 개인정보를 수집·이용합니다.</p>
       <ol>
         <li>회원가입 및 회원 관리: 본인 확인, 개인 식별, 불량 회원 제재</li>
@@ -123,7 +130,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제3조 개인정보의 보유 및 이용 기간</h2>
+      <h2 data-ko="제3조 개인정보의 보유 및 이용 기간" data-en="Article 3: Retention Period" data-ja="第3条 保有・利用期間">제3조 개인정보의 보유 및 이용 기간</h2>
       <p>① 회사는 이용자의 개인정보를 회원 탈퇴 시 또는 수집·이용 목적이 달성된 후 지체 없이 파기합니다.</p>
       <p>② 단, 관계 법령에 따라 다음과 같이 일정 기간 보존합니다.</p>
       <table>
@@ -136,7 +143,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제4조 개인정보의 제3자 제공</h2>
+      <h2 data-ko="제4조 개인정보의 제3자 제공" data-en="Article 4: Third-Party Disclosure" data-ja="第4条 第三者提供">제4조 개인정보의 제3자 제공</h2>
       <p>① 회사는 이용자의 개인정보를 원칙적으로 제3자에게 제공하지 않습니다.</p>
       <p>② 다만, 다음의 경우에는 예외로 합니다.</p>
       <ol>
@@ -147,7 +154,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제5조 개인정보 처리 위탁</h2>
+      <h2 data-ko="제5조 개인정보 처리 위탁" data-en="Article 5: Processing Consignment" data-ja="第5条 処理の委託">제5조 개인정보 처리 위탁</h2>
       <p>회사는 원활한 서비스 제공을 위해 다음과 같이 개인정보 처리 업무를 위탁하고 있습니다.</p>
       <table>
         <tr><th>수탁 업체</th><th>위탁 업무</th></tr>
@@ -158,7 +165,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제6조 이용자 및 법정대리인의 권리와 행사 방법</h2>
+      <h2 data-ko="제6조 이용자 및 법정대리인의 권리와 행사 방법" data-en="Article 6: User Rights" data-ja="第6条 利用者の権利">제6조 이용자 및 법정대리인의 권리와 행사 방법</h2>
       <p>① 이용자 및 법정 대리인은 언제든지 다음의 권리를 행사할 수 있습니다.</p>
       <ol>
         <li>개인정보 열람 요구</li>
@@ -171,7 +178,7 @@
     </div>
 
     <div class="content-section">
-      <h2>제7조 개인정보의 파기</h2>
+      <h2 data-ko="제7조 개인정보의 파기" data-en="Article 7: Data Destruction" data-ja="第7条 個人情報の削除">제7조 개인정보의 파기</h2>
       <p>① 회사는 개인정보 보유 기간의 경과, 처리 목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체 없이 해당 개인정보를 파기합니다.</p>
       <p>② 파기 방법:</p>
       <ul>
@@ -181,14 +188,14 @@
     </div>
 
     <div class="content-section">
-      <h2>제8조 개인정보 자동 수집 장치의 설치·운영 및 거부</h2>
+      <h2 data-ko="제8조 개인정보 자동 수집 장치의 설치·운영 및 거부" data-en="Article 8: Cookies" data-ja="第8条 Cookie等の自動収集">제8조 개인정보 자동 수집 장치의 설치·운영 및 거부</h2>
       <p>① 회사는 이용자에게 개인화된 서비스를 제공하기 위해 쿠키(cookie)를 사용합니다.</p>
       <p>② 쿠키는 웹사이트를 운영하는 데 이용되는 서버가 이용자의 브라우저에 보내는 소량의 정보이며 이용자 컴퓨터의 하드디스크에 저장됩니다.</p>
       <p>③ 이용자는 쿠키 설치에 대한 선택권을 가지고 있습니다. 이용자는 웹 브라우저 설정을 통해 쿠키를 허용하거나 거부할 수 있습니다. 단, 쿠키 설치를 거부하면 로그인이 필요한 일부 서비스 이용이 어려울 수 있습니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제9조 개인정보 보호책임자</h2>
+      <h2 data-ko="제9조 개인정보 보호책임자" data-en="Article 9: Privacy Officer" data-ja="第9条 個人情報保護責任者">제9조 개인정보 보호책임자</h2>
       <p>회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 이용자의 불만 처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
       <table>
         <tr><th>구분</th><th>내용</th></tr>
@@ -200,12 +207,12 @@
     </div>
 
     <div class="content-section">
-      <h2>제10조 개인정보 처리방침의 변경</h2>
+      <h2 data-ko="제10조 개인정보 처리방침의 변경" data-en="Article 10: Policy Changes" data-ja="第10条 方針の変更">제10조 개인정보 처리방침의 변경</h2>
       <p>이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경 내용의 추가·삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.</p>
     </div>
 
     <div class="content-section">
-      <h2>제11조 권익침해 구제 방법</h2>
+      <h2 data-ko="제11조 권익침해 구제 방법" data-en="Article 11: Rights Remedy" data-ja="第11条 権利侵害の救済">제11조 권익침해 구제 방법</h2>
       <p>이용자는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁 해결이나 상담 등을 신청할 수 있습니다.</p>
       <ul>
         <li>개인정보분쟁조정위원회: www.kopico.go.kr / 1833-6972</li>
@@ -242,6 +249,17 @@
     });
   }, { rootMargin: '-64px 0px -60% 0px' });
   sections.forEach(sec => observer.observe(sec));
+</script>
+<script>
+(function(){
+  var btns = document.querySelectorAll('.lang-btn');
+  function setLang(lang) {
+    btns.forEach(function(b){ b.style.background = b.textContent.toLowerCase()===lang ? '#2563eb' : 'none'; b.style.color = b.textContent.toLowerCase()===lang ? '#fff' : '#64748b'; });
+    document.querySelectorAll('[data-'+lang+']').forEach(function(el){ el.textContent = el.getAttribute('data-'+lang); });
+  }
+  window.setLang = setLang;
+  btns.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.textContent.toLowerCase()); }); });
+})();
 </script>
 </body>
 </html>
