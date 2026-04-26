@@ -62,8 +62,18 @@
       display: flex; flex-direction: column; padding: 0; flex-shrink: 0;
       position: fixed; left: 0; top: 0; bottom: 0; z-index: 100;
     }
-    .sidebar-logo { padding: 24px 24px 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
-    .sidebar-logo img { height: 40px; width: auto; filter: brightness(0) invert(1); }
+    .sidebar-logo { padding: 20px 24px 16px; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; justify-content: center; }
+    .sidebar-logo-clip {
+      width: 64px; height: 64px;
+      overflow: hidden;
+      display: flex; align-items: flex-start; justify-content: center;
+    }
+    .sidebar-logo-clip img {
+      width: 106px; height: auto;
+      flex-shrink: 0;
+      filter: invert(1) brightness(10);
+      mix-blend-mode: screen;
+    }
     .sidebar-nav { padding: 16px 12px; flex: 1; }
     .nav-item {
       display: flex; align-items: center; gap: 12px;
@@ -196,7 +206,9 @@
 
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo"><img src="logo.png" alt="SESISOFT"></div>
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-clip"><img src="logo.png" alt="SESISOFT"></div>
+    </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
         <span class="nav-icon">🎮</span> 게임 관리

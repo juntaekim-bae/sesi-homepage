@@ -47,8 +47,15 @@
     .nav-logo {
       display: flex; align-items: center;
     }
-    .nav-logo img {
-      height: 80px; width: auto;
+    .nav-logo-clip {
+      width: 68px; height: 68px;
+      overflow: hidden;
+      display: flex; align-items: flex-start; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-clip img {
+      width: 112px; height: auto;
+      flex-shrink: 0;
       mix-blend-mode: multiply;
     }
     .nav-links {
@@ -398,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <img src="logo.png" alt="SESISOFT">
+    <div class="nav-logo-clip"><img src="logo.png" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -502,7 +509,7 @@
 <section id="about">
   <div class="about-inner">
     <div class="about-visual reveal">
-      <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&auto=format&fit=crop&q=80" alt="Gaming atmosphere">
+      <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=900&auto=format&fit=crop&q=80" alt="Anime cosplay fans enjoying games">
       <div class="about-visual-art">🎮</div>
     </div>
     <div>
