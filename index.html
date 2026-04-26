@@ -906,6 +906,7 @@ document.addEventListener('visibilitychange', () => {
   } catch(e) {}
 })();
 
+let currentLang = 'ko';
 renderGames('all');
 renderHistory();
 renderFooterGames();
@@ -969,7 +970,6 @@ _bc.onmessage = (e) => {
 };
 
 /* ── Language Switcher ── */
-let currentLang = 'ko';
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('ss_lang', lang);
