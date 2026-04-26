@@ -312,7 +312,7 @@
 
     /* ── Footer ── */
     footer { background: var(--text); color: rgba(255,255,255,.85); padding: 64px 56px 36px; }
-    .footer-top { display: grid; grid-template-columns: 1.4fr 2.6fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-top { display: grid; grid-template-columns: 1.4fr 2.6fr 1fr 1fr; gap: 40px 80px; margin-bottom: 48px; }
     #footerGameLinks { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 10px; }
     #footerGameLinks.cols3 { grid-template-columns: 1fr 1fr 1fr; }
     .footer-brand-name { font-size: 20px; font-weight: 900; letter-spacing: .06em; color: #fff; margin-bottom: 14px; }
@@ -694,11 +694,10 @@
   </div>
   <div class="footer-bottom">
     <div style="font-size:12px;color:#8899aa;line-height:2;text-align:center"
-      data-ko="(주)세시소프트 | 사업자번호 : 214-88-37555 | 통신판매업신고번호 : 2011-서울서초-1826 | 대표 : 강성욱 | 서울시 서초구 서초대로26길 7, 라움빌딩 3/4/5/6F | 대표전화 : +82-2-586-9293<br>Copyright © SESISOFT Co.,Ltd. All Rights Reserved."
-      data-en="SESISOFT Co., Ltd. | Business Reg. No.: 214-88-37555 | E-commerce Reg.: 2011-Seoul Seocho-1826 | CEO: Kang Seong-uk | 7, Seochodaero 26-gil, Seocho-gu, Seoul, Raum Building 3/4/5/6F | Tel: +82-2-586-9293<br>Copyright © SESISOFT Co.,Ltd. All Rights Reserved."
-      data-ja="（株）セシソフト | 事業者登録番号: 214-88-37555 | 通信販売業届出番号: 2011-ソウル瑞草-1826 | 代表取締役: 강성욱 | ソウル市瑞草区瑞草大路26ギル7, ラウムビル 3/4/5/6F | Tel: +82-2-586-9293<br>Copyright © SESISOFT Co.,Ltd. All Rights Reserved.">
-      (주)세시소프트 | 사업자번호 : 214-88-37555 | 통신판매업신고번호 : 2011-서울서초-1826 | 대표 : 강성욱 | 서울시 서초구 서초대로26길 7, 라움빌딩 3/4/5/6F | 대표전화 : +82-2-586-9293<br>
-      Copyright © SESISOFT Co.,Ltd. All Rights Reserved.
+      data-ko="(주)세시소프트 | 사업자번호 : 214-88-37555 | 통신판매업신고번호 : 2011-서울서초-1826 | 대표 : 강성욱 | 서울시 서초구 서초대로26길 7, 라움빌딩 3/4/5/6F | 대표전화 : +82-2-586-9293 | Copyright © SESISOFT Co.,Ltd. All Rights Reserved."
+      data-en="SESISOFT Co., Ltd. | Business Reg. No.: 214-88-37555 | E-commerce Reg.: 2011-Seoul Seocho-1826 | CEO: Kang Seong-uk | 7, Seochodaero 26-gil, Seocho-gu, Seoul, Raum Building 3/4/5/6F | Tel: +82-2-586-9293 | Copyright © SESISOFT Co.,Ltd. All Rights Reserved."
+      data-ja="（株）セシソフト | 事業者登録番号: 214-88-37555 | 通信販売業届出番号: 2011-ソウル瑞草-1826 | 代表取締役: 강성욱 | ソウル市瑞草区瑞草大路26ギル7, ラウムビル 3/4/5/6F | Tel: +82-2-586-9293 | Copyright © SESISOFT Co.,Ltd. All Rights Reserved.">
+      (주)세시소프트 | 사업자번호 : 214-88-37555 | 통신판매업신고번호 : 2011-서울서초-1826 | 대표 : 강성욱 | 서울시 서초구 서초대로26길 7, 라움빌딩 3/4/5/6F | 대표전화 : +82-2-586-9293 | Copyright © SESISOFT Co.,Ltd. All Rights Reserved.
     </div>
   </div>
 </footer>
@@ -710,7 +709,7 @@
 const DEFAULT_GAMES = [
   { id:1,  title:'천상비M',              genre:'2D MMORPG',         platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.and1003bm', apple:'https://apps.apple.com/kr/app/id1636438292' },
   { id:2,  title:'뿌요뿌요!! Quest',     genre:'캐주얼 퍼즐 RPG',   platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://puyopuyoquest.sesisoft.com/_html/assets/images/sec1_logo.png', site:'https://puyopuyoquest.sesisoft.com/', google:'https://sesisoft.onelink.me/uo8L/jqhe3bhd', apple:'https://sesisoft.onelink.me/uo8L/fiae00al' },
-  { id:3,  title:'꿈왕국과 잠자는 100명의 왕자님', genre:'로맨틱 퍼즐 RPG', platform:'mobile', icon:'👑', color:'135deg,#fef9c3,#fefce8', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/100sleepingprincesAnimecover.jpg/250px-100sleepingprincesAnimecover.jpg', site:'', google:'#', apple:'#' },
+  { id:3,  title:'꿈왕국과 잠자는 100명의 왕자님', short_title:'꿈왕국', genre:'로맨틱 퍼즐 RPG', platform:'mobile', icon:'👑', color:'135deg,#fef9c3,#fefce8', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/100sleepingprincesAnimecover.jpg/250px-100sleepingprincesAnimecover.jpg', site:'', google:'#', apple:'#' },
   { id:5,  title:'조선협객전',           genre:'레트로 IP MMORPG',  platform:'mobile', icon:'🗡️',color:'135deg,#fef3c7,#fffbeb', thumb:'https://play-lh.googleusercontent.com/WVBetaT3wvoRQozzfnHaX1z__mDHrw8tboKtdi4m7KT2WGxLmnwzGdPgZIlchEiRLf4PwZm7Y58owyXoeszyfnE=w240-h480', site:'', google:'#', apple:'#' },
   { id:6,  title:'언던 (Undawn)',        genre:'오픈월드 슈팅 MMO',  platform:'mobile', icon:'🌍', color:'135deg,#1e3a5f,#2d5a8e', thumb:'https://image.winudf.com/v2/image1/Y29tLnRlbmNlbnQuY29zbmFfaWNvbl8xNjg1NjEwMzgzXzAyNg/icon.png?w=140&fakeurl=1', site:'https://www.undawn.game/', google:'https://play.google.com/store/apps/details?id=com.tencent.cosna', apple:'#' },
   { id:7,  title:'드래곤네스트2',        genre:'3D MMORPG',         platform:'mobile', icon:'🐉', color:'135deg,#dde7fe,#eef2ff', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/DragonNestLogo.png/250px-DragonNestLogo.png', site:'', google:'#', apple:'#' },
@@ -822,7 +821,8 @@ function renderFooterGames() {
   if (!ul) return;
   const games = loadGames();
   ul.innerHTML = games.map(g => {
-    const title = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
+    const fullTitle = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
+    const title = g.short_title || fullTitle;
     const href = g.site || g.google || g.apple || '#';
     const ext = href !== '#' ? ' target="_blank" rel="noopener"' : '';
     return `<li><a href="${href}"${ext}>${title}</a></li>`;
