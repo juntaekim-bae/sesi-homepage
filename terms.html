@@ -374,11 +374,14 @@
 (function(){
   var btns = document.querySelectorAll('.lang-btn');
   function setLang(lang) {
+    localStorage.setItem('ss_lang', lang);
     btns.forEach(function(b){ b.style.background = b.textContent.toLowerCase()===lang ? '#2563eb' : 'none'; b.style.color = b.textContent.toLowerCase()===lang ? '#fff' : '#64748b'; });
-    document.querySelectorAll('[data-'+lang+']').forEach(function(el){ el.textContent = el.getAttribute('data-'+lang); });
+    document.querySelectorAll('[data-'+lang+']').forEach(function(el){ el.innerHTML = el.getAttribute('data-'+lang); });
   }
   window.setLang = setLang;
   btns.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.textContent.toLowerCase()); }); });
+  var saved = localStorage.getItem('ss_lang');
+  if (saved && saved !== 'ko') setLang(saved);
 })();
 </script>
 </body>
