@@ -557,29 +557,12 @@
 <section id="careers">
   <div class="careers-inner">
     <p class="section-label reveal">Careers</p>
-    <h2 class="section-title reveal">함께 만들어요</h2>
-    <p class="section-desc reveal">
+    <h2 class="section-title reveal" id="careersTitleEl">함께 만들어요</h2>
+    <p class="section-desc reveal" id="careersDescEl">
       세시소프트는 열정 있는 개발자, 디자이너, 기획자를 찾고 있습니다. 재미있는 게임을 함께 만들어 나갈 당신을 기다립니다.
     </p>
-    <div class="open-positions">
-      <div class="position-card reveal">
-        <div><div class="position-name">서버 개발자</div><div class="position-meta">개발팀 · 정규직 · 서울</div></div>
-        <span class="position-arrow">→</span>
-      </div>
-      <div class="position-card reveal">
-        <div><div class="position-name">클라이언트 개발자</div><div class="position-meta">개발팀 · 정규직 · 서울</div></div>
-        <span class="position-arrow">→</span>
-      </div>
-      <div class="position-card reveal">
-        <div><div class="position-name">게임 기획자</div><div class="position-meta">기획팀 · 정규직 · 서울</div></div>
-        <span class="position-arrow">→</span>
-      </div>
-      <div class="position-card reveal">
-        <div><div class="position-name">UI/UX 디자이너</div><div class="position-meta">디자인팀 · 정규직 · 서울</div></div>
-        <span class="position-arrow">→</span>
-      </div>
-    </div>
-    <a href="mailto:recruit@sesisoft.com" class="btn btn-primary" style="font-size:15px;padding:14px 36px;">채용 공고 보기</a>
+    <div class="open-positions" id="careersJobsEl"></div>
+    <a id="careersBtnEl" href="mailto:biz@sesisoft.com" class="btn btn-primary" style="font-size:15px;padding:14px 36px;">채용 공고 보기</a>
   </div>
 </section>
 
@@ -888,10 +871,6 @@ document.querySelectorAll('.stat-num[data-target]').forEach(el => countObserver.
 
 /* ── BroadcastChannel: admin에서 저장 즉시 반영 ── */
 const _bc = new BroadcastChannel('sesisoft_sync');
-_bc.onmessage = (e) => {
-  if (e.data.type === 'games')   { renderGames(currentFilter); renderFooterGames(); }
-  if (e.data.type === 'history') { renderHistory(); }
-};
 
 /* ── storage 이벤트 (다른 브라우저 창 대비 fallback) ── */
 window.addEventListener('storage', (e) => {
@@ -934,6 +913,58 @@ document.addEventListener('visibilitychange', () => {
 renderGames('all');
 renderHistory();
 renderFooterGames();
+
+/* ── Careers ── */
+function renderCareers() {
+  const DEFAULT = {
+    title: '함께 만들어요',
+    desc: '세시소프트는 열정 있는 개발자, 디자이너, 기획자를 찾고 있습니다. 재미있는 게임을 함께 만들어 나갈 당신을 기다립니다.',
+    btnLabel: '채용 공고 보기',
+    btnUrl: 'mailto:biz@sesisoft.com',
+    email: 'biz@sesisoft.com',
+    jobs: []
+  };
+  let d = DEFAULT;
+  try { const s = localStorage.getItem('ss_careers'); if (s) d = {...DEFAULT, ...JSON.parse(s)}; } catch(e) {}
+
+  const titleEl = document.getElementById('careersTitleEl');
+  const descEl  = document.getElementById('careersDescEl');
+  const btnEl   = document.getElementById('careersBtnEl');
+  const jobsEl  = document.getElementById('careersJobsEl');
+
+  if (titleEl) titleEl.textContent = d.title;
+  if (descEl)  descEl.textContent  = d.desc;
+  if (btnEl) {
+    btnEl.textContent = d.btnLabel;
+    btnEl.href = d.btnUrl || ('mailto:' + d.email);
+  }
+  if (jobsEl) {
+    if (d.jobs && d.jobs.length > 0) {
+      jobsEl.innerHTML = d.jobs.map(j => `
+        <a href="${j.url || ('mailto:' + d.email)}" class="position-card reveal" target="_blank" rel="noopener">
+          <div>
+            <div class="position-name">${j.title}</div>
+            ${j.desc ? `<div class="position-meta">${j.desc}</div>` : ''}
+          </div>
+          <span class="position-arrow">→</span>
+        </a>`).join('');
+      jobsEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    } else {
+      jobsEl.innerHTML = `
+        <a href="mailto:biz@sesisoft.com" class="position-card reveal">
+          <div><div class="position-name">채용 문의</div><div class="position-meta">biz@sesisoft.com 으로 이메일을 보내주세요</div></div>
+          <span class="position-arrow">→</span>
+        </a>`;
+      jobsEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    }
+  }
+}
+renderCareers();
+_bc.onmessage = (e) => {
+  if (e.data.type === 'games')   { renderGames(currentFilter); renderFooterGames(); }
+  if (e.data.type === 'history') { renderHistory(); }
+  if (e.data.type === 'careers') { renderCareers(); }
+};
 
 /* ── Language Switcher ── */
 let currentLang = 'ko';

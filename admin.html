@@ -216,6 +216,9 @@
       <div class="nav-item" onclick="showTab('history', this)">
         <span class="nav-icon">📅</span> 회사연혁 관리
       </div>
+      <div class="nav-item" onclick="showTab('careers', this)">
+        <span class="nav-icon">💼</span> 채용 관리
+      </div>
       <div class="nav-item" onclick="showTab('password', this)">
         <span class="nav-icon">🔐</span> 비밀번호 변경
       </div>
@@ -292,6 +295,50 @@
     </div>
 
     <!-- Password Tab -->
+    <!-- Careers Tab -->
+    <div id="tab-careers" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">채용 관리</div>
+          <div class="page-desc">홈페이지 채용 섹션의 공고 링크와 문구를 관리합니다.</div>
+        </div>
+        <button class="btn btn-primary" onclick="saveCareers()">저장</button>
+      </div>
+
+      <div class="card" style="max-width:680px">
+        <div class="card-body">
+          <div class="form-row">
+            <label>채용 페이지 제목</label>
+            <input id="careerTitle" placeholder="예: 함께 만들어가는 세시소프트" />
+          </div>
+          <div class="form-row">
+            <label>부제목 (설명)</label>
+            <textarea id="careerDesc" rows="3" placeholder="예: 세시소프트는 열정 있는 게임 개발자를 찾고 있습니다." style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;resize:vertical;font-family:inherit"></textarea>
+          </div>
+          <div class="form-row">
+            <label>채용 버튼 레이블</label>
+            <input id="careerBtnLabel" placeholder="예: 채용 공고 보기" />
+          </div>
+          <div class="form-row">
+            <label>채용 링크 URL</label>
+            <input id="careerBtnUrl" placeholder="예: https://recruit.sesisoft.com" />
+          </div>
+          <div class="form-row">
+            <label>채용 이메일</label>
+            <input id="careerEmail" placeholder="예: recruit@sesisoft.com" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:680px;margin-top:20px">
+        <div class="card-body">
+          <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em">채용 공고 목록</div>
+          <div id="jobList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
+          <button class="btn btn-outline" onclick="addJob()" style="width:100%;justify-content:center">+ 공고 추가</button>
+        </div>
+      </div>
+    </div>
+
     <div id="tab-password" style="display:none">
       <div class="page-header">
         <div>
@@ -500,10 +547,78 @@ function changePassword() {
 
 /* ── Tabs ── */
 function showTab(name, el) {
-  ['games','history','password'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
+  ['games','history','careers','password'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
   document.getElementById('tab-'+name).style.display = '';
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
+  if (name === 'careers') loadCareersForm();
+}
+
+/* ── Careers ── */
+const DEFAULT_CAREERS = {
+  title: '함께 게임을 만들어요',
+  desc: '세시소프트는 재미있는 게임을 만들기 위해 열정을 가진 사람들을 찾고 있습니다.',
+  btnLabel: '채용 공고 보기',
+  btnUrl: 'mailto:biz@sesisoft.com',
+  email: 'biz@sesisoft.com',
+  jobs: []
+};
+function getCareers() { try { return JSON.parse(localStorage.getItem('ss_careers')) || DEFAULT_CAREERS; } catch(e) { return DEFAULT_CAREERS; } }
+function saveCareers() {
+  const data = {
+    title:    document.getElementById('careerTitle').value.trim()    || DEFAULT_CAREERS.title,
+    desc:     document.getElementById('careerDesc').value.trim()     || DEFAULT_CAREERS.desc,
+    btnLabel: document.getElementById('careerBtnLabel').value.trim() || DEFAULT_CAREERS.btnLabel,
+    btnUrl:   document.getElementById('careerBtnUrl').value.trim()   || DEFAULT_CAREERS.btnUrl,
+    email:    document.getElementById('careerEmail').value.trim()    || DEFAULT_CAREERS.email,
+    jobs: collectJobs()
+  };
+  localStorage.setItem('ss_careers', JSON.stringify(data));
+  _bc.postMessage({type:'careers'});
+  showToast('채용 정보가 저장되었습니다.', 'success');
+}
+function loadCareersForm() {
+  const d = getCareers();
+  document.getElementById('careerTitle').value    = d.title;
+  document.getElementById('careerDesc').value     = d.desc;
+  document.getElementById('careerBtnLabel').value = d.btnLabel;
+  document.getElementById('careerBtnUrl').value   = d.btnUrl;
+  document.getElementById('careerEmail').value    = d.email;
+  renderJobList(d.jobs || []);
+}
+function renderJobList(jobs) {
+  const list = document.getElementById('jobList');
+  list.innerHTML = jobs.map((j, i) => `
+    <div style="display:flex;gap:8px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px">
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+        <input value="${j.title||''}" placeholder="직무명 (예: 게임 기획자)" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;width:100%" data-job-title="${i}"/>
+        <input value="${j.url||''}" placeholder="지원 링크 URL" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;width:100%" data-job-url="${i}"/>
+        <input value="${j.desc||''}" placeholder="간단한 설명 (선택)" style="border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;width:100%" data-job-desc="${i}"/>
+      </div>
+      <button onclick="removeJob(${i})" style="background:none;border:none;cursor:pointer;color:#ef4444;font-size:18px;padding:4px;flex-shrink:0">✕</button>
+    </div>
+  `).join('');
+}
+function collectJobs() {
+  const items = document.querySelectorAll('[data-job-title]');
+  return Array.from(items).map(el => {
+    const i = el.getAttribute('data-job-title');
+    return {
+      title: el.value,
+      url:   document.querySelector(`[data-job-url="${i}"]`)?.value  || '',
+      desc:  document.querySelector(`[data-job-desc="${i}"]`)?.value || ''
+    };
+  }).filter(j => j.title);
+}
+function addJob() {
+  const jobs = collectJobs();
+  jobs.push({title:'', url:'', desc:''});
+  renderJobList(jobs);
+}
+function removeJob(i) {
+  const jobs = collectJobs();
+  jobs.splice(i, 1);
+  renderJobList(jobs);
 }
 
 /* ── Toast ── */
