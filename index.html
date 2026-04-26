@@ -52,7 +52,7 @@
       flex-shrink: 0;
     }
     .nav-logo-clip img {
-      height: 44px; width: auto;
+      height: 36px; width: auto;
       flex-shrink: 0;
     }
     .nav-links {
@@ -404,7 +404,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="logo.png?v=4" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="logo.png?v=5" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -752,7 +752,18 @@ const DEFAULT_HISTORY = [
 ];
 
 function loadGames()   { try { return JSON.parse(localStorage.getItem('ss_games'))   || DEFAULT_GAMES;   } catch(e){ return DEFAULT_GAMES; } }
-function loadHistory() { try { return JSON.parse(localStorage.getItem('ss_history')) || DEFAULT_HISTORY; } catch(e){ return DEFAULT_HISTORY; } }
+function loadHistory() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('ss_history'));
+    if (!saved) return DEFAULT_HISTORY;
+    return saved.map(h => {
+      const def = DEFAULT_HISTORY.find(d => d.id === h.id) || {};
+      return Object.assign({}, def, h,
+        { en: h.en || def.en || h.title, en_desc: h.en_desc || def.en_desc || h.desc,
+          ja: h.ja || def.ja || h.title, ja_desc: h.ja_desc || def.ja_desc || h.desc });
+    });
+  } catch(e) { return DEFAULT_HISTORY; }
+}
 
 /* ── Render games ── */
 function renderGames(platform) {
