@@ -52,7 +52,7 @@
       flex-shrink: 0;
     }
     .nav-logo-clip img {
-      height: 36px; width: auto;
+      height: 46px; width: auto;
       flex-shrink: 0;
     }
     .nav-links {
@@ -404,7 +404,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="logo.png?v=6" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="logo.png?v=7" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -657,7 +657,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="logo.png?v=6" alt="SESISOFT" style="height:64px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="footer-brand-name"><img src="logo.png?v=7" alt="SESISOFT" style="height:64px;width:auto;filter:brightness(0) invert(1);"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Kang Seong-uk<br>Tel: +82-2-586-9293"
@@ -707,21 +707,52 @@
    Default data (used if no admin data saved)
 ──────────────────────────────────────────── */
 const DEFAULT_GAMES = [
-  { id:1,  title:'천상비M',              genre:'2D MMORPG',         platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.and1003bm', apple:'https://apps.apple.com/kr/app/id1636438292' },
-  { id:2,  title:'뿌요뿌요!! Quest',     genre:'캐주얼 퍼즐 RPG',   platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://puyopuyoquest.sesisoft.com/_html/assets/images/sec1_logo.png', site:'https://puyopuyoquest.sesisoft.com/', google:'https://sesisoft.onelink.me/uo8L/jqhe3bhd', apple:'https://sesisoft.onelink.me/uo8L/fiae00al' },
-  { id:3,  title:'꿈왕국과 잠자는 100명의 왕자님', short_title:'꿈왕국', genre:'로맨틱 퍼즐 RPG', platform:'mobile', icon:'👑', color:'135deg,#fef9c3,#fefce8', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/100sleepingprincesAnimecover.jpg/250px-100sleepingprincesAnimecover.jpg', site:'', google:'#', apple:'#' },
-  { id:5,  title:'조선협객전',           genre:'레트로 IP MMORPG',  platform:'mobile', icon:'🗡️',color:'135deg,#fef3c7,#fffbeb', thumb:'https://play-lh.googleusercontent.com/WVBetaT3wvoRQozzfnHaX1z__mDHrw8tboKtdi4m7KT2WGxLmnwzGdPgZIlchEiRLf4PwZm7Y58owyXoeszyfnE=w240-h480', site:'', google:'#', apple:'#' },
-  { id:6,  title:'언던 (Undawn)',        genre:'오픈월드 슈팅 MMO',  platform:'mobile', icon:'🌍', color:'135deg,#1e3a5f,#2d5a8e', thumb:'https://image.winudf.com/v2/image1/Y29tLnRlbmNlbnQuY29zbmFfaWNvbl8xNjg1NjEwMzgzXzAyNg/icon.png?w=140&fakeurl=1', site:'https://www.undawn.game/', google:'https://play.google.com/store/apps/details?id=com.tencent.cosna', apple:'#' },
-  { id:7,  title:'드래곤네스트2',        genre:'3D MMORPG',         platform:'mobile', icon:'🐉', color:'135deg,#dde7fe,#eef2ff', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/DragonNestLogo.png/250px-DragonNestLogo.png', site:'', google:'#', apple:'#' },
-  { id:10, title:'구운몽M',              genre:'연애 어드벤처',      platform:'mobile', icon:'🌸', color:'135deg,#dcfce7,#f0fdf4', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmRyZWFtOS5nb29nbGVfaWNvbl8xNjU4OTMwMjQxXzAwNw/icon.png?w=140&fakeurl=1', site:'', google:'#', apple:'#' },
-  { id:11, title:'CarpeDiem',            genre:'마상전투 MMORPG',   platform:'pc',     icon:'🏰', color:'135deg,#dbeafe,#eff6ff', thumb:'https://info.sesisoft.com/img/game2.png', site:'https://caem.sesisoft.com/', google:'', apple:'' },
-  { id:12, title:'WindSlayer',           genre:'고감도 액션 판타지', platform:'pc',     icon:'🏹', color:'135deg,#d1fae5,#ecfdf5', thumb:'https://info.sesisoft.com/img/game1.png', site:'https://windslayer.sesisoft.com/', google:'', apple:'' },
-  { id:13, title:'ARD : BlackStone',       genre:'MMORPG',            platform:'mobile', icon:'🛡️',color:'135deg,#cffafe,#ecfeff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFyZC5nb29nbGVfaWNvbl8xNzQ3MTc0Mzg1XzA3MQ/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.ard.google', apple:'#' },
-  { id:15, title:'Metin M',             genre:'MMORPG',            platform:'mobile', icon:'🔱', color:'135deg,#fef3c7,#fffbeb', thumb:'https://upload.wikimedia.org/wikipedia/commons/f/fb/Metin2logo.png', site:'', google:'#', apple:'#' },
-  { id:16, title:'포키포키',            genre:'캐주얼 파티',       platform:'pc',     icon:'🎉', color:'135deg,#fef9c3,#fefce8', thumb:'https://pokipoki.co.kr/img/main/main_visual.png', site:'https://pokipoki.co.kr/', google:'', apple:'' },
-  { id:17, title:'열혈강호: 화룡전',   genre:'무협 액션 MMORPG',  platform:'mobile', icon:'⚔️', color:'135deg,#fef2f2,#fff5f5', thumb:'https://yulgang.sesisoft.com/image/main/logo.png', site:'https://yulgang.sesisoft.com/', google:'https://abr.ge/3u89q3', apple:'https://abr.ge/r0ll5i' },
-  { id:18, title:'엘로아',             genre:'태세변환 액션 판타지 MMORPG', platform:'pc', icon:'⚡', color:'135deg,#ede9fe,#f5f3ff', thumb:'https://info.sesisoft.com/img/game3.png', site:'https://eloa.sesisoft.com/', google:'', apple:'' },
-  { id:19, title:'아스텔리아M',        genre:'MMORPG',            platform:'mobile', icon:'🌟', color:'135deg,#fef3c7,#fffbeb', thumb:'https://astellia.game.onstove.com/home/kr/logo.png', site:'https://astellia.game.onstove.com/', google:'https://play.google.com/store/apps/details?id=com.sesisoft.astellia.google', apple:'https://apps.apple.com/kr/app/id6749603786' },
+  { id:1,  title:'천상비M',              title_en:'Cheongsangbi M',          title_ja:'天上秘M',
+           genre:'2D MMORPG',            genre_en:'2D MMORPG',               genre_ja:'2D MMORPG',
+           platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.and1003bm', apple:'https://apps.apple.com/kr/app/id1636438292' },
+  { id:2,  title:'뿌요뿌요!! Quest',     title_en:'Puyo Puyo!! Quest',        title_ja:'ぷよぷよ！！クエスト',
+           genre:'캐주얼 퍼즐 RPG',      genre_en:'Casual Puzzle RPG',        genre_ja:'カジュアルパズルRPG',
+           platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://puyopuyoquest.sesisoft.com/_html/assets/images/sec1_logo.png', site:'https://puyopuyoquest.sesisoft.com/', google:'https://sesisoft.onelink.me/uo8L/jqhe3bhd', apple:'https://sesisoft.onelink.me/uo8L/fiae00al' },
+  { id:3,  title:'꿈왕국과 잠자는 100명의 왕자님', short_title:'꿈왕국',
+           title_en:'Dream Kingdom',      title_ja:'夢王国',
+           genre:'로맨틱 퍼즐 RPG',      genre_en:'Romantic Puzzle RPG',      genre_ja:'ロマンチックパズルRPG',
+           platform:'mobile', icon:'👑', color:'135deg,#fef9c3,#fefce8', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/100sleepingprincesAnimecover.jpg/250px-100sleepingprincesAnimecover.jpg', site:'', google:'#', apple:'#' },
+  { id:5,  title:'조선협객전',           title_en:'Joseon Hyeokgaekjeon',    title_ja:'朝鮮の剣客伝',
+           genre:'레트로 IP MMORPG',     genre_en:'Retro IP MMORPG',          genre_ja:'レトロIPMMORPG',
+           platform:'mobile', icon:'🗡️',color:'135deg,#fef3c7,#fffbeb', thumb:'https://play-lh.googleusercontent.com/WVBetaT3wvoRQozzfnHaX1z__mDHrw8tboKtdi4m7KT2WGxLmnwzGdPgZIlchEiRLf4PwZm7Y58owyXoeszyfnE=w240-h480', site:'', google:'#', apple:'#' },
+  { id:6,  title:'언던 (Undawn)',        title_en:'Undawn',                  title_ja:'アンドーン',
+           genre:'오픈월드 슈팅 MMO',    genre_en:'Open World Shooting MMO',  genre_ja:'オープンワールドシューティングMMO',
+           platform:'mobile', icon:'🌍', color:'135deg,#1e3a5f,#2d5a8e', thumb:'https://image.winudf.com/v2/image1/Y29tLnRlbmNlbnQuY29zbmFfaWNvbl8xNjg1NjEwMzgzXzAyNg/icon.png?w=140&fakeurl=1', site:'https://www.undawn.game/', google:'https://play.google.com/store/apps/details?id=com.tencent.cosna', apple:'#' },
+  { id:7,  title:'드래곤네스트2',        title_en:'Dragon Nest 2',           title_ja:'ドラゴンネスト2',
+           genre:'3D MMORPG',            genre_en:'3D MMORPG',               genre_ja:'3D MMORPG',
+           platform:'mobile', icon:'🐉', color:'135deg,#dde7fe,#eef2ff', thumb:'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/DragonNestLogo.png/250px-DragonNestLogo.png', site:'', google:'#', apple:'#' },
+  { id:10, title:'구운몽M',              title_en:'Guunmong M',              title_ja:'九雲夢M',
+           genre:'연애 어드벤처',        genre_en:'Romance Adventure',        genre_ja:'恋愛アドベンチャー',
+           platform:'mobile', icon:'🌸', color:'135deg,#dcfce7,#f0fdf4', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmRyZWFtOS5nb29nbGVfaWNvbl8xNjU4OTMwMjQxXzAwNw/icon.png?w=140&fakeurl=1', site:'', google:'#', apple:'#' },
+  { id:11, title:'CarpeDiem',            title_en:'CarpeDiem',               title_ja:'CarpeDiem',
+           genre:'마상전투 MMORPG',      genre_en:'Mounted Combat MMORPG',    genre_ja:'騎馬戦闘MMORPG',
+           platform:'pc',     icon:'🏰', color:'135deg,#dbeafe,#eff6ff', thumb:'https://info.sesisoft.com/img/game2.png', site:'https://caem.sesisoft.com/', google:'', apple:'' },
+  { id:12, title:'WindSlayer',           title_en:'WindSlayer',              title_ja:'WindSlayer',
+           genre:'고감도 액션 판타지',   genre_en:'High-Sensation Action Fantasy', genre_ja:'爽快アクションファンタジー',
+           platform:'pc',     icon:'🏹', color:'135deg,#d1fae5,#ecfdf5', thumb:'https://info.sesisoft.com/img/game1.png', site:'https://windslayer.sesisoft.com/', google:'', apple:'' },
+  { id:13, title:'ARD : BlackStone',     title_en:'ARD : BlackStone',        title_ja:'ARD : BlackStone',
+           genre:'MMORPG',               genre_en:'MMORPG',                  genre_ja:'MMORPG',
+           platform:'mobile', icon:'🛡️',color:'135deg,#cffafe,#ecfeff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFyZC5nb29nbGVfaWNvbl8xNzQ3MTc0Mzg1XzA3MQ/icon.png?w=140&fakeurl=1', site:'', google:'https://play.google.com/store/apps/details?id=com.sesisoft.ard.google', apple:'#' },
+  { id:15, title:'Metin M',              title_en:'Metin M',                 title_ja:'Metin M',
+           genre:'MMORPG',               genre_en:'MMORPG',                  genre_ja:'MMORPG',
+           platform:'mobile', icon:'🔱', color:'135deg,#fef3c7,#fffbeb', thumb:'https://upload.wikimedia.org/wikipedia/commons/f/fb/Metin2logo.png', site:'', google:'#', apple:'#' },
+  { id:16, title:'포키포키',             title_en:'Pokipoki',                title_ja:'ポキポキ',
+           genre:'캐주얼 파티',          genre_en:'Casual Party',             genre_ja:'カジュアルパーティ',
+           platform:'pc',     icon:'🎉', color:'135deg,#fef9c3,#fefce8', thumb:'https://pokipoki.co.kr/img/main/main_visual.png', site:'https://pokipoki.co.kr/', google:'', apple:'' },
+  { id:17, title:'열혈강호: 화룡전',    title_en:'Yulgang: Hwaryongjeon',   title_ja:'熱血江湖：火龍傳',
+           genre:'무협 액션 MMORPG',     genre_en:'Martial Arts Action MMORPG', genre_ja:'武侠アクションMMORPG',
+           platform:'mobile', icon:'⚔️', color:'135deg,#fef2f2,#fff5f5', thumb:'https://yulgang.sesisoft.com/image/main/logo.png', site:'https://yulgang.sesisoft.com/', google:'https://abr.ge/3u89q3', apple:'https://abr.ge/r0ll5i' },
+  { id:18, title:'엘로아',              title_en:'ELOA',                    title_ja:'ELOA',
+           genre:'태세변환 액션 판타지 MMORPG', genre_en:'Action Fantasy MMORPG', genre_ja:'アクションファンタジーMMORPG',
+           platform:'pc',     icon:'⚡', color:'135deg,#ede9fe,#f5f3ff', thumb:'https://info.sesisoft.com/img/game3.png', site:'https://eloa.sesisoft.com/', google:'', apple:'' },
+  { id:19, title:'아스텔리아M',         title_en:'Astellia M',              title_ja:'アステリアM',
+           genre:'MMORPG',               genre_en:'MMORPG',                  genre_ja:'MMORPG',
+           platform:'mobile', icon:'🌟', color:'135deg,#fef3c7,#fffbeb', thumb:'https://astellia.game.onstove.com/home/kr/logo.png', site:'https://astellia.game.onstove.com/', google:'https://play.google.com/store/apps/details?id=com.sesisoft.astellia.google', apple:'https://apps.apple.com/kr/app/id6749603786' },
 ];
 
 const DEFAULT_HISTORY = [
@@ -751,7 +782,21 @@ const DEFAULT_HISTORY = [
     ja:'自社PC MMORPGサービス・グローバル事業強化', ja_desc:'CarpeDiem、WindSlayerなど自社PC MMORPGをパブリッシング。モバイルMMORPG ARD：BlackStone（Horizon）をサービス。グローバルパートナーシップを30社以上に拡大。' },
 ];
 
-function loadGames()   { try { return JSON.parse(localStorage.getItem('ss_games'))   || DEFAULT_GAMES;   } catch(e){ return DEFAULT_GAMES; } }
+function loadGames() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('ss_games'));
+    if (!saved) return DEFAULT_GAMES;
+    return saved.map(g => {
+      const def = DEFAULT_GAMES.find(d => d.id === g.id) || {};
+      return Object.assign({}, def, g,
+        { short_title: g.short_title || def.short_title,
+          title_en: g.title_en || def.title_en,
+          title_ja: g.title_ja || def.title_ja,
+          genre_en: g.genre_en || def.genre_en,
+          genre_ja: g.genre_ja || def.genre_ja });
+    });
+  } catch(e) { return DEFAULT_GAMES; }
+}
 function loadHistory() {
   try {
     const saved = JSON.parse(localStorage.getItem('ss_history'));
@@ -781,9 +826,9 @@ function renderGames(platform) {
         const title = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
         const genre = currentLang === 'en' ? (g.genre_en || g.genre) : currentLang === 'ja' ? (g.genre_ja || g.genre) : g.genre;
         const links = [
-          g.site   ? `<a href="${g.site}"   class="store-btn">${siteLabel}</a>` : '',
-          g.google ? `<a href="${g.google}" class="store-btn">▶ Google Play</a>`  : '',
-          g.apple  ? `<a href="${g.apple}"  class="store-btn">🍎 App Store</a>`   : '',
+          g.site   ? `<a href="${g.site}"   class="store-btn" target="_blank" rel="noopener">${siteLabel}</a>` : '',
+          g.google ? `<a href="${g.google}" class="store-btn" target="_blank" rel="noopener">▶ Google Play</a>`  : '',
+          g.apple  ? `<a href="${g.apple}"  class="store-btn" target="_blank" rel="noopener">🍎 App Store</a>`   : '',
         ].filter(Boolean).join('');
         const thumbContent = g.thumb
           ? `<img src="${g.thumb}" alt="${title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
@@ -832,8 +877,9 @@ function renderFooterGames() {
   if (!ul) return;
   const games = loadGames();
   ul.innerHTML = games.map(g => {
-    const fullTitle = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
-    const title = g.short_title || fullTitle;
+    const title = currentLang === 'en' ? (g.title_en || g.short_title || g.title)
+                : currentLang === 'ja' ? (g.title_ja || g.short_title || g.title)
+                : (g.short_title || g.title);
     const href = g.site || g.google || g.apple || '#';
     const ext = href !== '#' ? ' target="_blank" rel="noopener"' : '';
     return `<li><a href="${href}"${ext}>${title}</a></li>`;
