@@ -48,7 +48,7 @@
       display: flex; align-items: center;
     }
     .nav-logo img {
-      height: 56px; width: auto;
+      height: 72px; width: auto;
       mix-blend-mode: multiply;
     }
     .nav-links {
@@ -61,11 +61,20 @@
     .nav-links a:hover { color: var(--accent); }
     .nav-right { display: flex; align-items: center; gap: 12px; }
     .nav-lang {
-      font-size: 13px; color: var(--muted); cursor: pointer;
+      display: flex; align-items: center; gap: 2px;
       border: 1px solid var(--border); border-radius: 20px;
-      padding: 6px 14px; background: var(--surface); transition: all .2s;
+      padding: 4px 6px; background: var(--surface);
+      font-size: 12px; font-weight: 700;
     }
-    .nav-lang:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      padding: 4px 8px; border-radius: 14px;
+      font-size: 12px; font-weight: 700; color: var(--muted);
+      transition: all .2s;
+    }
+    .lang-btn:hover { color: var(--accent); }
+    .lang-btn.active { background: var(--accent); color: #fff; }
+    .lang-sep { color: var(--border); font-size: 11px; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
 
@@ -343,6 +352,24 @@
     }
     .partner-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(37,99,235,.05); }
 
+    /* ── Location / Map ── */
+    #location { background: var(--bg); text-align: center; }
+    .map-wrapper {
+      margin-top: 48px;
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+    }
+    .map-wrapper iframe { display: block; width: 100%; height: 460px; border: 0; }
+    .map-info {
+      display: flex; justify-content: center; gap: 48px;
+      margin-top: 36px; flex-wrap: wrap;
+    }
+    .map-info-item { text-align: center; }
+    .map-info-icon { font-size: 28px; margin-bottom: 8px; }
+    .map-info-label { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .map-info-value { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.6; }
+
     /* ── Reveal animation ── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.visible { opacity: 1; transform: none; }
@@ -374,15 +401,22 @@
     <img src="logo.png" alt="SESISOFT">
   </a>
   <ul class="nav-links">
-    <li><a href="#games">게임</a></li>
-    <li><a href="#about">회사소개</a></li>
-    <li><a href="#history">회사연혁</a></li>
-    <li><a href="#careers">채용</a></li>
-    <li><a href="#partners">파트너</a></li>
-    <li><a href="#support">고객지원</a></li>
+    <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
+    <li><a href="#about"   data-ko="회사소개" data-en="About"   data-ja="会社概要">회사소개</a></li>
+    <li><a href="#history" data-ko="회사연혁" data-en="History" data-ja="会社沿革">회사연혁</a></li>
+    <li><a href="#careers" data-ko="채용"    data-en="Careers" data-ja="採用">채용</a></li>
+    <li><a href="#partners" data-ko="파트너"  data-en="Partners" data-ja="パートナー">파트너</a></li>
+    <li><a href="#support" data-ko="고객지원" data-en="Support" data-ja="サポート">고객지원</a></li>
+    <li><a href="#location" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</a></li>
   </ul>
   <div class="nav-right">
-    <div class="nav-lang">KO | EN</div>
+    <div class="nav-lang">
+      <button class="lang-btn active" onclick="setLang('ko')">KO</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" onclick="setLang('ja')">JA</button>
+    </div>
     <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
   </div>
 </nav>
@@ -390,12 +424,13 @@
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <span class="mobile-close" id="mobileClose">✕</span>
-  <a href="#games"   onclick="closeMobile()">게임</a>
-  <a href="#about"   onclick="closeMobile()">회사소개</a>
-  <a href="#history" onclick="closeMobile()">회사연혁</a>
-  <a href="#careers" onclick="closeMobile()">채용</a>
-  <a href="#partners" onclick="closeMobile()">파트너</a>
-  <a href="#support" onclick="closeMobile()">고객지원</a>
+  <a href="#games"    onclick="closeMobile()" data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a>
+  <a href="#about"    onclick="closeMobile()" data-ko="회사소개" data-en="About"   data-ja="会社概要">회사소개</a>
+  <a href="#history"  onclick="closeMobile()" data-ko="회사연혁" data-en="History" data-ja="会社沿革">회사연혁</a>
+  <a href="#careers"  onclick="closeMobile()" data-ko="채용"    data-en="Careers" data-ja="採用">채용</a>
+  <a href="#partners" onclick="closeMobile()" data-ko="파트너"  data-en="Partners" data-ja="パートナー">파트너</a>
+  <a href="#support"  onclick="closeMobile()" data-ko="고객지원" data-en="Support" data-ja="サポート">고객지원</a>
+  <a href="#location" onclick="closeMobile()" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</a>
 </div>
 
 <!-- Hero -->
@@ -605,11 +640,48 @@
   </div>
 </section>
 
+<!-- Location / Map -->
+<section id="location">
+  <p class="section-eyebrow reveal" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</p>
+  <h2 class="section-title reveal" data-ko="본사 위치" data-en="Our Office" data-ja="本社所在地">본사 위치</h2>
+  <p class="section-desc reveal" data-ko="서울특별시 서초구에 위치한 세시소프트 본사를 방문해 주세요." data-en="Visit SESISOFT headquarters located in Seocho-gu, Seoul." data-ja="ソウル特別市瑞草区にあるSESISOFT本社をご訪問ください。">서울특별시 서초구에 위치한 세시소프트 본사를 방문해 주세요.</p>
+  <div class="map-wrapper reveal">
+    <iframe
+      src="https://maps.google.com/maps?q=%EC%84%B8%EC%8B%9C%EC%86%8C%ED%94%84%ED%8A%B8+%EC%84%9C%EC%9A%B8+%EC%84%9C%EC%B4%88%EA%B5%AC&output=embed&hl=ko&z=15"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+  <div class="map-info reveal">
+    <div class="map-info-item">
+      <div class="map-info-icon">📍</div>
+      <div class="map-info-label" data-ko="주소" data-en="Address" data-ja="住所">주소</div>
+      <div class="map-info-value">서울특별시 서초구<br>(주)세시소프트</div>
+    </div>
+    <div class="map-info-item">
+      <div class="map-info-icon">🚇</div>
+      <div class="map-info-label" data-ko="지하철" data-en="Subway" data-ja="地下鉄">지하철</div>
+      <div class="map-info-value" data-ko="서초역 / 교대역 인근" data-en="Near Seocho / Gyodae Station" data-ja="瑞草駅 / 教大駅近く">서초역 / 교대역 인근</div>
+    </div>
+    <div class="map-info-item">
+      <div class="map-info-icon">📞</div>
+      <div class="map-info-label" data-ko="전화" data-en="Phone" data-ja="電話">전화</div>
+      <div class="map-info-value">(02) 586-9293</div>
+    </div>
+    <div class="map-info-item">
+      <div class="map-info-icon">🕐</div>
+      <div class="map-info-label" data-ko="업무시간" data-en="Hours" data-ja="営業時間">업무시간</div>
+      <div class="map-info-value" data-ko="평일 10:00 — 18:00" data-en="Mon-Fri 10:00 — 18:00" data-ja="平日 10:00 — 18:00">평일 10:00 — 18:00</div>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="logo.png" alt="SESISOFT" style="height:48px;width:auto;filter:brightness(0) invert(1);"></div>
+      <div class="footer-brand-name"><img src="logo.png" alt="SESISOFT" style="height:64px;width:auto;filter:brightness(0) invert(1);"></div>
       <div class="footer-brand-desc">
         (주)세시소프트<br>
         서울특별시 서초구<br>
@@ -640,18 +712,18 @@
       <div class="footer-col-title">지원</div>
       <ul class="footer-col-links">
         <li><a href="#support">고객센터</a></li>
-        <li><a href="#">이용약관</a></li>
-        <li><a href="#">개인정보처리방침</a></li>
-        <li><a href="#">청소년보호정책</a></li>
+        <li><a href="terms.html">이용약관</a></li>
+        <li><a href="privacy.html">개인정보처리방침</a></li>
+        <li><a href="youth.html">청소년보호정책</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <span>Copyright © SESISOFT Co.,Ltd. All Rights Reserved.</span>
     <div class="footer-legal">
-      <a href="#">이용약관</a>
-      <a href="#">개인정보처리방침</a>
-      <a href="#">청소년보호정책</a>
+      <a href="terms.html">이용약관</a>
+      <a href="privacy.html">개인정보처리방침</a>
+      <a href="youth.html">청소년보호정책</a>
     </div>
   </div>
 </footer>
@@ -845,6 +917,18 @@ document.addEventListener('visibilitychange', () => {
 renderGames('all');
 renderHistory();
 renderFooterGames();
+
+/* ── Language Switcher ── */
+let currentLang = 'ko';
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === lang);
+  });
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+}
 </script>
 </body>
 </html>
