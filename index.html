@@ -312,7 +312,9 @@
 
     /* ── Footer ── */
     footer { background: var(--text); color: rgba(255,255,255,.85); padding: 64px 56px 36px; }
-    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-top { display: grid; grid-template-columns: 1.4fr 2.6fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    #footerGameLinks { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 10px; }
+    #footerGameLinks.cols3 { grid-template-columns: 1fr 1fr 1fr; }
     .footer-brand-name { font-size: 20px; font-weight: 900; letter-spacing: .06em; color: #fff; margin-bottom: 14px; }
     .footer-brand-desc { font-size: 13px; line-height: 1.9; color: rgba(255,255,255,.5); margin-bottom: 22px; }
     .social-links { display: flex; gap: 10px; }
@@ -818,9 +820,14 @@ function renderHistory() {
 function renderFooterGames() {
   const ul = document.getElementById('footerGameLinks');
   if (!ul) return;
-  ul.innerHTML = loadGames().slice(0,6).map(g =>
-    `<li><a href="${g.site || '#'}">${g.title}</a></li>`
-  ).join('');
+  const games = loadGames();
+  ul.innerHTML = games.map(g => {
+    const title = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
+    const href = g.site || g.google || g.apple || '#';
+    const ext = href !== '#' ? ' target="_blank" rel="noopener"' : '';
+    return `<li><a href="${href}"${ext}>${title}</a></li>`;
+  }).join('');
+  ul.classList.toggle('cols3', games.length > 10);
 }
 
 /* ── Filter ── */
@@ -989,6 +996,7 @@ function setLang(lang) {
     el.innerHTML = el.getAttribute('data-' + lang);
   });
   renderGames(currentFilter);
+  renderFooterGames();
   renderHistory();
   renderCareers();
 }
