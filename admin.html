@@ -483,13 +483,35 @@
         <label>연도 *</label>
         <input id="hYear" placeholder="예: 2024" />
       </div>
-      <div class="form-row">
-        <label>제목 *</label>
-        <input id="hTitle" placeholder="예: 모바일 게임 출시" />
+      <div class="lang-group">
+        <div class="lang-group-label">🌐 제목</div>
+        <div class="form-row">
+          <label>🇰🇷 한국어 *</label>
+          <input id="hTitle" placeholder="예: 모바일 게임 출시" />
+        </div>
+        <div class="form-row">
+          <label>🇺🇸 English</label>
+          <input id="hTitleEn" placeholder="e.g. Mobile Game Launch" />
+        </div>
+        <div class="form-row">
+          <label>🇯🇵 日本語</label>
+          <input id="hTitleJa" placeholder="例: モバイルゲームリリース" />
+        </div>
       </div>
-      <div class="form-row">
-        <label>내용</label>
-        <textarea id="hDesc" placeholder="상세 내용을 입력하세요"></textarea>
+      <div class="lang-group">
+        <div class="lang-group-label">🌐 내용</div>
+        <div class="form-row">
+          <label>🇰🇷 한국어</label>
+          <textarea id="hDesc" placeholder="상세 내용을 입력하세요"></textarea>
+        </div>
+        <div class="form-row">
+          <label>🇺🇸 English</label>
+          <textarea id="hDescEn" placeholder="Detailed description in English"></textarea>
+        </div>
+        <div class="form-row">
+          <label>🇯🇵 日本語</label>
+          <textarea id="hDescJa" placeholder="日本語で詳細内容を入力してください"></textarea>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -850,11 +872,15 @@ function openHistoryModal(id) {
   if (id) {
     const h = getHistory().find(x=>x.id===id);
     if (!h) return;
-    document.getElementById('hYear').value  = h.year;
-    document.getElementById('hTitle').value = h.title;
-    document.getElementById('hDesc').value  = h.desc || '';
+    document.getElementById('hYear').value    = h.year;
+    document.getElementById('hTitle').value   = h.title;
+    document.getElementById('hTitleEn').value = h.en      || '';
+    document.getElementById('hTitleJa').value = h.ja      || '';
+    document.getElementById('hDesc').value    = h.desc    || '';
+    document.getElementById('hDescEn').value  = h.en_desc || '';
+    document.getElementById('hDescJa').value  = h.ja_desc || '';
   } else {
-    ['hYear','hTitle','hDesc'].forEach(id => document.getElementById(id).value = '');
+    ['hYear','hTitle','hTitleEn','hTitleJa','hDesc','hDescEn','hDescJa'].forEach(id => document.getElementById(id).value = '');
   }
   openModal('historyModal');
 }
@@ -866,7 +892,14 @@ function saveHistory() {
   if (!year || !title) { showToast('연도와 제목은 필수입니다.','error'); return; }
   const items  = getHistory();
   const editId = parseInt(document.getElementById('editHistoryId').value);
-  const data   = { year, title, desc: document.getElementById('hDesc').value.trim() };
+  const data   = {
+    year, title,
+    en:      document.getElementById('hTitleEn').value.trim(),
+    ja:      document.getElementById('hTitleJa').value.trim(),
+    desc:    document.getElementById('hDesc').value.trim(),
+    en_desc: document.getElementById('hDescEn').value.trim(),
+    ja_desc: document.getElementById('hDescJa').value.trim(),
+  };
   if (editId) {
     const idx = items.findIndex(h=>h.id===editId);
     if (idx > -1) items[idx] = { id:editId, ...data };
