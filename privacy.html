@@ -41,19 +41,22 @@
     .toc { position: sticky; top: calc(var(--nav-h) + 32px); align-self: start; }
     .toc-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
     .toc ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-    .toc a { display: block; font-size: 13.5px; color: var(--muted); padding: 7px 12px; border-radius: 8px; border-left: 2px solid transparent; transition: all .2s; }
+    .toc a { display: block; font-size: 13px; color: var(--muted); padding: 6px 12px; border-radius: 8px; border-left: 2px solid transparent; transition: all .2s; }
     .toc a:hover { color: var(--accent); background: rgba(37,99,235,.06); }
     .toc a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(37,99,235,.07); font-weight: 600; }
     .content-area { background: var(--surface); border-radius: 20px; border: 1px solid var(--border); padding: 56px 60px; box-shadow: 0 4px 24px rgba(37,99,235,.06); }
     .content-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
     .content-header h1 { font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 10px; }
     .effective-date { font-size: 14px; color: var(--muted); }
-    .content-section { margin-bottom: 48px; scroll-margin-top: calc(var(--nav-h) + 24px); }
-    .content-section h2 { font-size: 18px; font-weight: 800; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-    .content-section p { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 12px; }
-    .content-section ul, .content-section ol { padding-left: 20px; margin-bottom: 12px; }
-    .content-section li { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 4px; }
+    .content-section { margin-bottom: 44px; scroll-margin-top: calc(var(--nav-h) + 24px); }
+    .content-section h2 { font-size: 17px; font-weight: 800; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .content-section p { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 10px; }
+    .content-section ul, .content-section ol { padding-left: 22px; margin-bottom: 10px; }
+    .content-section li { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 2px; }
     .content-section strong { color: var(--text); font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px; }
+    th { background: var(--bg); font-weight: 700; padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+    td { padding: 10px 14px; border: 1px solid var(--border); color: #334155; line-height: 1.8; vertical-align: top; }
     .highlight-box { background: rgba(37,99,235,.05); border: 1px solid rgba(37,99,235,.15); border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; font-size: 14px; line-height: 1.9; color: #1e3a8a; }
     .page-footer { text-align: center; padding: 32px 48px 48px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
     @media (max-width: 768px) {
@@ -86,16 +89,136 @@
   <main class="content-area">
     <div class="content-header">
       <h1>개인정보처리방침</h1>
-      <p class="effective-date">시행일: 준비 중입니다.</p>
+      <p class="effective-date">시행일: 2025년 10월 13일</p>
     </div>
+
+    <div class="highlight-box">
+      ㈜세시소프트(이하 '회사')는 이용자의 개인정보를 중요시하며, 「개인정보 보호법」 등 관련 법령을 준수합니다. 본 방침을 통해 이용자가 제공하는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보 보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
+    </div>
+
     <div class="content-section">
-      <h2>내용 준비 중</h2>
-      <p>개인정보처리방침 내용을 입력해 주세요.</p>
+      <h2>제1조 수집하는 개인정보의 항목 및 수집 방법</h2>
+      <p>① 회사는 서비스 제공을 위해 다음과 같은 개인정보를 수집합니다.</p>
+      <table>
+        <tr><th>수집 항목</th><th>수집 목적</th><th>보유 기간</th></tr>
+        <tr><td>이름, 이메일, 비밀번호</td><td>회원가입 및 본인확인</td><td>회원 탈퇴 시까지</td></tr>
+        <tr><td>기기 정보, 접속 IP, 서비스 이용 기록</td><td>서비스 제공 및 부정 이용 방지</td><td>3년</td></tr>
+        <tr><td>결제 정보(카드사, 결제 수단)</td><td>유료 서비스 결제 처리</td><td>5년 (전자상거래법)</td></tr>
+        <tr><td>문의 내용, 민원 처리 내역</td><td>고객 지원 및 분쟁 해결</td><td>3년</td></tr>
+      </table>
+      <p>② 개인정보 수집 방법: 회원가입, 서비스 이용, 고객센터 문의, 이벤트 참여 등을 통해 수집합니다.</p>
     </div>
+
+    <div class="content-section">
+      <h2>제2조 개인정보의 수집 및 이용 목적</h2>
+      <p>회사는 다음 목적을 위해 개인정보를 수집·이용합니다.</p>
+      <ol>
+        <li>회원가입 및 회원 관리: 본인 확인, 개인 식별, 불량 회원 제재</li>
+        <li>서비스 제공: 게임 서비스, 고객 지원, 공지사항 전달</li>
+        <li>유료 서비스 제공: 결제, 환불, 부정 거래 방지</li>
+        <li>마케팅 및 광고 활용: 이벤트·프로모션 안내 (별도 동의 시)</li>
+        <li>서비스 개선: 통계 분석, 이용 패턴 파악, 신규 서비스 개발</li>
+        <li>법적 의무 이행: 관련 법령에 따른 기록 보존</li>
+      </ol>
+    </div>
+
+    <div class="content-section">
+      <h2>제3조 개인정보의 보유 및 이용 기간</h2>
+      <p>① 회사는 이용자의 개인정보를 회원 탈퇴 시 또는 수집·이용 목적이 달성된 후 지체 없이 파기합니다.</p>
+      <p>② 단, 관계 법령에 따라 다음과 같이 일정 기간 보존합니다.</p>
+      <table>
+        <tr><th>보존 항목</th><th>보존 근거</th><th>보존 기간</th></tr>
+        <tr><td>계약 또는 청약 철회에 관한 기록</td><td>전자상거래법</td><td>5년</td></tr>
+        <tr><td>대금 결제 및 재화 공급에 관한 기록</td><td>전자상거래법</td><td>5년</td></tr>
+        <tr><td>소비자 불만 또는 분쟁 처리에 관한 기록</td><td>전자상거래법</td><td>3년</td></tr>
+        <tr><td>접속 로그, 접속 IP 정보</td><td>통신비밀보호법</td><td>3개월</td></tr>
+      </table>
+    </div>
+
+    <div class="content-section">
+      <h2>제4조 개인정보의 제3자 제공</h2>
+      <p>① 회사는 이용자의 개인정보를 원칙적으로 제3자에게 제공하지 않습니다.</p>
+      <p>② 다만, 다음의 경우에는 예외로 합니다.</p>
+      <ol>
+        <li>이용자가 사전에 동의한 경우</li>
+        <li>법령의 규정에 의하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</li>
+        <li>서비스 제공에 필요한 업무 위탁의 경우 (위탁 업체 목록은 별도 공개)</li>
+      </ol>
+    </div>
+
+    <div class="content-section">
+      <h2>제5조 개인정보 처리 위탁</h2>
+      <p>회사는 원활한 서비스 제공을 위해 다음과 같이 개인정보 처리 업무를 위탁하고 있습니다.</p>
+      <table>
+        <tr><th>수탁 업체</th><th>위탁 업무</th></tr>
+        <tr><td>구글, 애플(앱스토어)</td><td>인앱 결제 처리</td></tr>
+        <tr><td>AWS(Amazon Web Services)</td><td>서버 및 데이터 관리</td></tr>
+        <tr><td>고객센터 운영 업체</td><td>이용자 상담 및 민원 처리</td></tr>
+      </table>
+    </div>
+
+    <div class="content-section">
+      <h2>제6조 이용자 및 법정대리인의 권리와 행사 방법</h2>
+      <p>① 이용자 및 법정 대리인은 언제든지 다음의 권리를 행사할 수 있습니다.</p>
+      <ol>
+        <li>개인정보 열람 요구</li>
+        <li>오류 등이 있을 경우 정정 요구</li>
+        <li>삭제 요구</li>
+        <li>처리 정지 요구</li>
+      </ol>
+      <p>② 위 권리 행사는 고객센터를 통해 서면, 전화 또는 이메일로 하실 수 있으며, 회사는 이에 대해 지체 없이 조치하겠습니다.</p>
+      <p>③ 이용자가 개인정보의 오류 등에 대한 정정 또는 삭제를 요구한 경우에는 회사는 정정 또는 삭제를 완료할 때까지 해당 개인정보를 이용하거나 제공하지 않습니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제7조 개인정보의 파기</h2>
+      <p>① 회사는 개인정보 보유 기간의 경과, 처리 목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체 없이 해당 개인정보를 파기합니다.</p>
+      <p>② 파기 방법:</p>
+      <ul>
+        <li>전자적 파일 형태: 복구 불가능한 방법으로 영구 삭제</li>
+        <li>종이 문서: 분쇄기로 분쇄하거나 소각</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>제8조 개인정보 자동 수집 장치의 설치·운영 및 거부</h2>
+      <p>① 회사는 이용자에게 개인화된 서비스를 제공하기 위해 쿠키(cookie)를 사용합니다.</p>
+      <p>② 쿠키는 웹사이트를 운영하는 데 이용되는 서버가 이용자의 브라우저에 보내는 소량의 정보이며 이용자 컴퓨터의 하드디스크에 저장됩니다.</p>
+      <p>③ 이용자는 쿠키 설치에 대한 선택권을 가지고 있습니다. 이용자는 웹 브라우저 설정을 통해 쿠키를 허용하거나 거부할 수 있습니다. 단, 쿠키 설치를 거부하면 로그인이 필요한 일부 서비스 이용이 어려울 수 있습니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제9조 개인정보 보호책임자</h2>
+      <p>회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 이용자의 불만 처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+      <table>
+        <tr><th>구분</th><th>내용</th></tr>
+        <tr><td>개인정보 보호책임자</td><td>㈜세시소프트 대표이사</td></tr>
+        <tr><td>연락처</td><td>Tel: (02) 586-9293</td></tr>
+        <tr><td>이메일</td><td>privacy@sesisoft.com</td></tr>
+      </table>
+      <p>이용자는 회사의 서비스를 이용하면서 발생한 모든 개인정보 보호 관련 문의, 불만 처리, 피해구제 등에 관한 사항을 개인정보 보호책임자에게 문의할 수 있습니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제10조 개인정보 처리방침의 변경</h2>
+      <p>이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경 내용의 추가·삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제11조 권익침해 구제 방법</h2>
+      <p>이용자는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁 해결이나 상담 등을 신청할 수 있습니다.</p>
+      <ul>
+        <li>개인정보분쟁조정위원회: www.kopico.go.kr / 1833-6972</li>
+        <li>개인정보침해신고센터: privacy.kisa.or.kr / 118</li>
+        <li>대검찰청 사이버범죄수사단: www.spo.go.kr / 1301</li>
+        <li>경찰청 사이버수사국: ecrm.cyber.go.kr / 182</li>
+      </ul>
+    </div>
+
   </main>
 </div>
 
-<div class="page-footer">© 2024 SESISOFT Corp. All rights reserved.</div>
+<div class="page-footer">© 2025 ㈜세시소프트 All rights reserved.</div>
 
 <script>
   const sections = document.querySelectorAll('.content-section');

@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open /Users/kim/sesisoft-homepage/)",
+      "WebFetch(domain:zippy-wisp-d2b9b6.netlify.app)",
+      "Bash(ssh -o StrictHostKeyChecking=no -R 80:localhost:8080 nokey@localhost.run)",
+      "Bash(jobs)",
+      "WebFetch(domain:play.google.com)",
+      "WebFetch(domain:store.steampowered.com)",
+      "WebSearch",
+      "WebFetch(domain:page.onstove.com)",
+      "Bash(curl -s \"https://page.onstove.com/astellia/kr/view/11058449\")",
+      "Bash(curl -s \"https://page.onstove.com/api/v2/community/astellia/kr/board/general/article/11058449\" -H \"Accept: application/json\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s \"https://page.onstove.com/api/v1/articles/11058449\" -H \"Accept: application/json\")",
+      "Bash(curl -s \"https://page.onstove.com/storee-cp/config/run-type/config.js\")",
+      "Bash(curl -s \"https://api.onstove.com/community/v2/board/astellia/kr/articles/11058449\" -H \"Accept: application/json\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('data',{}\\).get\\('content','NO CONTENT'\\)[:2000]\\)\")",
+      "Bash(curl -s \"https://windslayer.sesisoft.com/youth\")",
+      "Bash(python3 -c \" import sys from html.parser import HTMLParser class TextExtractor\\(HTMLParser\\): def __init__\\(self\\): super\\(\\).__init__\\(\\) self.text = [] self.skip = False def handle_starttag\\(self, tag, attrs\\): if tag in \\('script', 'style', 'nav', 'header'\\): self.skip = True def handle_endtag\\(self, tag\\): if tag in \\('script', 'style', 'nav', 'header'\\): self.skip = False def handle_data\\(self, data\\): if not self.skip: s = data.strip\\(\\) if s: self.text.append\\(s\\) p = TextExtractor\\(\\) p.feed\\(sys.stdin.read\\(\\)\\) print\\('\\\\n'.join\\(p.text\\)\\) \")",
+      "Bash(python3 -c \" import sys, re from html.parser import HTMLParser class ArticleExtractor\\(HTMLParser\\): def __init__\\(self\\): super\\(\\).__init__\\(\\) self.in_article = False self.in_skip = False self.depth = 0 self.text = [] self.current = '' def handle_starttag\\(self, tag, attrs\\): attrs_dict = dict\\(attrs\\) cls = attrs_dict.get\\('class', ''\\) if 'article' in cls.lower\\(\\) or 'view-content' in cls.lower\\(\\) or 'post-content' in cls.lower\\(\\): self.in_article = True if tag in \\('script', 'style'\\): self.in_skip = True def handle_endtag\\(self, tag\\): if tag in \\('script', 'style'\\): self.in_skip = False def handle_data\\(self, data\\): if not self.in_skip: s = data.strip\\(\\) if s and len\\(s\\) > 2: self.text.append\\(s\\) p = ArticleExtractor\\(\\) content = sys.stdin.read\\(\\) p.feed\\(content\\) print\\('\\\\n'.join\\(p.text[:300]\\)\\) \")",
+      "Bash(python3 /private/tmp/extract_terms.py)"
+    ]
+  }
+}

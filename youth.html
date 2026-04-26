@@ -41,20 +41,21 @@
     .toc { position: sticky; top: calc(var(--nav-h) + 32px); align-self: start; }
     .toc-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
     .toc ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-    .toc a { display: block; font-size: 13.5px; color: var(--muted); padding: 7px 12px; border-radius: 8px; border-left: 2px solid transparent; transition: all .2s; }
+    .toc a { display: block; font-size: 13px; color: var(--muted); padding: 6px 12px; border-radius: 8px; border-left: 2px solid transparent; transition: all .2s; }
     .toc a:hover { color: var(--accent); background: rgba(37,99,235,.06); }
     .toc a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(37,99,235,.07); font-weight: 600; }
     .content-area { background: var(--surface); border-radius: 20px; border: 1px solid var(--border); padding: 56px 60px; box-shadow: 0 4px 24px rgba(37,99,235,.06); }
     .content-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
     .content-header h1 { font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 10px; }
     .effective-date { font-size: 14px; color: var(--muted); }
-    .content-section { margin-bottom: 48px; scroll-margin-top: calc(var(--nav-h) + 24px); }
-    .content-section h2 { font-size: 18px; font-weight: 800; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-    .content-section p { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 12px; }
-    .content-section ul, .content-section ol { padding-left: 20px; margin-bottom: 12px; }
-    .content-section li { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 4px; }
+    .content-section { margin-bottom: 44px; scroll-margin-top: calc(var(--nav-h) + 24px); }
+    .content-section h2 { font-size: 17px; font-weight: 800; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .content-section p { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 10px; }
+    .content-section ul, .content-section ol { padding-left: 22px; margin-bottom: 10px; }
+    .content-section li { font-size: 14.5px; line-height: 2; color: #334155; margin-bottom: 2px; }
     .content-section strong { color: var(--text); font-weight: 700; }
     .highlight-box { background: rgba(37,99,235,.05); border: 1px solid rgba(37,99,235,.15); border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; font-size: 14px; line-height: 1.9; color: #1e3a8a; }
+    .warn-box { background: rgba(234,179,8,.07); border: 1px solid rgba(234,179,8,.3); border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; font-size: 14px; line-height: 1.9; color: #854d0e; }
     .page-footer { text-align: center; padding: 32px 48px 48px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
     @media (max-width: 768px) {
       .top-nav { padding: 0 20px; }
@@ -86,16 +87,102 @@
   <main class="content-area">
     <div class="content-header">
       <h1>청소년보호정책</h1>
-      <p class="effective-date">시행일: 준비 중입니다.</p>
+      <p class="effective-date">시행일: 2025년 10월 13일</p>
     </div>
+
+    <div class="highlight-box">
+      ㈜세시소프트(이하 '회사')는 청소년들이 유해한 환경으로부터 보호될 수 있도록 건전한 서비스 이용환경을 조성하고자 노력하고 있습니다. 「청소년 보호법」 및 관련 법령을 준수하여 청소년 보호를 위한 다음의 정책을 시행합니다.
+    </div>
+
     <div class="content-section">
-      <h2>내용 준비 중</h2>
-      <p>청소년보호정책 내용을 입력해 주세요.</p>
+      <h2>제1조 청소년 유해 매체물 결정 및 표시</h2>
+      <p>① 회사는 운영하는 서비스 중 청소년에게 유해한 것으로 판단되는 경우, 청소년보호법의 규정에 의한 청소년 유해매체물로 결정하고, 이를 표시합니다.</p>
+      <p>② 유해 매체물로 결정된 게임·콘텐츠에는 "청소년 이용불가" 표시를 명확히 하며, 청소년이 해당 서비스에 접근하지 못하도록 기술적 차단 조치를 시행합니다.</p>
+      <p>③ 회사가 제공하는 모든 게임은 게임물관리위원회의 게임 등급 분류를 준수합니다.</p>
     </div>
+
+    <div class="content-section">
+      <h2>제2조 청소년 유해 매체물의 광고 제한</h2>
+      <p>① 회사는 청소년 유해 매체물을 청소년을 대상으로 광고하지 않습니다.</p>
+      <p>② 청소년 이용불가 서비스에 대한 광고는 청소년 유해 매체물 게재 금지 및 성인 전용 매체에만 게재합니다.</p>
+      <p>③ 청소년이 주로 이용하는 매체(교육 플랫폼, 청소년 커뮤니티 등)에는 청소년 유해 콘텐츠 광고를 게재하지 않습니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제3조 청소년 유해 매체물의 유통 방지</h2>
+      <p>① 회사는 청소년에게 유해한 콘텐츠가 유통되지 않도록 다음과 같은 기술적·관리적 조치를 취합니다.</p>
+      <ol>
+        <li>회원가입 시 생년월일 인증 또는 성인 인증 절차를 통해 청소년의 유해 매체 접근을 차단합니다.</li>
+        <li>청소년 이용불가 등급의 게임 접속 시 본인 인증을 요구합니다.</li>
+        <li>법정대리인이 청소년의 게임 이용 내역을 확인하고 관리할 수 있는 기능을 제공합니다.</li>
+        <li>게임 내 불건전한 콘텐츠 유통을 24시간 모니터링합니다.</li>
+      </ol>
+    </div>
+
+    <div class="content-section">
+      <h2>제4조 청소년의 결제 및 게임 시간 관리</h2>
+      <p>① 회사는 청소년의 과도한 결제를 방지하기 위해 다음의 조치를 시행합니다.</p>
+      <ol>
+        <li>만 18세 미만 이용자의 월 결제 한도를 법령에서 정한 기준에 따라 제한합니다.</li>
+        <li>법정대리인의 동의 없이 이루어진 미성년자의 결제는 취소 신청이 가능합니다.</li>
+        <li>오픈마켓(구글 플레이, 애플 앱스토어) 결제 시 해당 플랫폼의 청소년 보호 정책을 준수합니다.</li>
+      </ol>
+      <p>② 회사는 「게임산업진흥에 관한 법률」에 따른 게임시간 선택제를 운영합니다.</p>
+      <ul>
+        <li>만 18세 미만 이용자는 법정대리인이 게임 이용 시간 및 결제를 관리할 수 있습니다.</li>
+        <li>게임시간 선택제 신청은 각 게임 홈페이지 또는 고객센터를 통해 가능합니다.</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>제5조 청소년 보호를 위한 서비스 이용 환경 조성</h2>
+      <p>① 회사는 게임 서비스 내 채팅, 커뮤니티 등 이용자 간 소통 공간에서 청소년에게 유해한 내용이 유포되지 않도록 모니터링하고 즉시 삭제 조치합니다.</p>
+      <p>② 다음 유형의 콘텐츠는 서비스에서 즉시 차단됩니다.</p>
+      <ul>
+        <li>폭력·선정적·혐오 표현이 담긴 게시물</li>
+        <li>사기·도박·불법 거래를 유도하는 내용</li>
+        <li>청소년에게 심리적·경제적 피해를 주는 행위</li>
+        <li>욕설, 비하 발언, 사이버 괴롭힘</li>
+      </ul>
+      <p>③ 청소년 이용자를 대상으로 한 불건전한 접촉(개인정보 요구, 만남 유도 등)이 신고되면 즉각적으로 조치하고 수사기관에 신고합니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제6조 청소년 보호 관련 피해 신고 및 처리</h2>
+      <p>① 청소년 보호 관련 피해 및 유해 매체물 신고는 고객센터를 통해 접수할 수 있습니다.</p>
+      <p>② 신고 접수 후 24시간 이내에 초기 확인 조치를 취하며, 필요 시 수사기관에 협조합니다.</p>
+      <p>③ 청소년 보호 관련 신고·상담 기관:</p>
+      <ul>
+        <li>여성가족부 청소년보호과: www.mogef.go.kr</li>
+        <li>한국청소년상담복지개발원: www.kyci.or.kr / 1388</li>
+        <li>방송통신심의위원회: www.kocsc.or.kr / 1377</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>제7조 청소년보호책임자 지정</h2>
+      <p>회사는 「청소년 보호법」에 따라 다음과 같이 청소년보호책임자를 지정하여 청소년 보호 업무를 전담하도록 하고 있습니다.</p>
+      <div class="warn-box">
+        <strong>청소년보호책임자</strong><br>
+        성명: 강성욱 (대표이사)<br>
+        소속: ㈜세시소프트<br>
+        연락처: (02) 586-9293<br>
+        이메일: youth@sesisoft.com
+      </div>
+      <p>청소년 보호와 관련한 문의사항 또는 피해 신고는 위 연락처로 접수해 주시기 바랍니다. 회사는 청소년 보호를 위한 책임자의 역할을 충실히 이행하겠습니다.</p>
+    </div>
+
+    <div class="content-section">
+      <h2>제8조 정책의 변경 및 시행</h2>
+      <p>① 본 청소년보호정책은 관련 법령 개정 또는 회사 정책 변경에 따라 수시로 업데이트될 수 있습니다.</p>
+      <p>② 정책이 변경될 경우 시행 7일 전에 홈페이지를 통해 공지합니다.</p>
+      <p>③ 본 정책은 2025년 10월 13일부터 시행합니다.</p>
+    </div>
+
   </main>
 </div>
 
-<div class="page-footer">© 2024 SESISOFT Corp. All rights reserved.</div>
+<div class="page-footer">© 2025 ㈜세시소프트 All rights reserved.</div>
 
 <script>
   const sections = document.querySelectorAll('.content-section');
