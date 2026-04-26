@@ -48,13 +48,13 @@
       display: flex; align-items: center;
     }
     .nav-logo-clip {
-      width: 68px; height: 68px;
+      width: 84px; height: 84px;
       overflow: hidden;
       display: flex; align-items: flex-start; justify-content: center;
       flex-shrink: 0;
     }
     .nav-logo-clip img {
-      width: 112px; height: auto;
+      width: 140px; height: auto;
       flex-shrink: 0;
       mix-blend-mode: multiply;
     }
@@ -496,10 +496,20 @@
       <h2 class="section-title">세시소프트의 게임들</h2>
       <p class="section-desc">PC, 웹, 모바일까지 다양한 플랫폼에서 즐길 수 있는 게임들을 만나보세요.</p>
     </div>
-    <div class="games-tabs">
-      <button class="tab active" onclick="filterGames('all',this)">전체</button>
-      <button class="tab" onclick="filterGames('pc',this)">PC / 웹</button>
-      <button class="tab" onclick="filterGames('mobile',this)">모바일</button>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div class="games-tabs">
+        <button class="tab active" onclick="filterGames('all',this)">전체</button>
+        <button class="tab" onclick="filterGames('pc',this)">PC / 웹</button>
+        <button class="tab" onclick="filterGames('mobile',this)">모바일</button>
+      </div>
+      <a href="https://www.youtube.com/@SesiSoft" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:13px;padding:8px 18px;display:inline-flex;align-items:center;gap:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>
+        YouTube
+      </a>
+      <a href="https://play.google.com/store/apps/dev?id=9072870946790778868&pli=1" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:13px;padding:8px 18px;display:inline-flex;align-items:center;gap:6px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.34.19.73.22 1.1.08l12.16-6.98-2.52-2.52-10.74 9.42zm-1.84-1.92A1.96 1.96 0 0 1 1 20.82V3.18c0-.35.1-.69.28-.98L13.4 14.34 1.34 21.84zM20.7 10.7l-2.62-1.5-2.86 2.86 2.86 2.86 2.64-1.52A1.97 1.97 0 0 0 20.7 10.7zm-17.52-8.46L14.34 9.66l-2.52 2.52L-.66 3.16c.36-.5.9-.84 1.52-.92a2 2 0 0 1 2.32 0z"/></svg>
+        Google Play
+      </a>
     </div>
   </div>
   <div class="games-grid" id="gamesGrid"></div>
@@ -578,10 +588,12 @@
       <a href="tel:02-586-9293" class="btn btn-outline" style="font-size:14px;padding:9px 22px;justify-content:center">(02) 586-9293</a>
     </div>
     <div class="support-card reveal">
-      <div class="support-icon">💬</div>
-      <div class="support-name">1:1 문의</div>
-      <div class="support-desc">게임별 고객센터를 통해 1:1 문의를 남겨주세요. 빠르게 답변드리겠습니다.</div>
-      <a href="#" class="btn btn-outline" style="font-size:14px;padding:9px 22px;justify-content:center">문의하기</a>
+      <div class="support-icon">✉️</div>
+      <div class="support-name">메일 문의</div>
+      <div class="support-desc" style="text-align:left">게임 관련 문의 및 처리<br><br>
+        <strong>천상비M</strong> <a href="mailto:1003b@sesisoft.com" style="color:var(--accent)">1003b@sesisoft.com</a><br>
+        <strong>그 외 게임</strong> <a href="mailto:cs@sesisoft.com" style="color:var(--accent)">cs@sesisoft.com</a>
+      </div>
     </div>
     <div class="support-card reveal">
       <div class="support-icon">📋</div>
@@ -633,46 +645,16 @@
 <!-- Location / Map -->
 <section id="location">
   <p class="section-eyebrow reveal" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</p>
-  <h2 class="section-title reveal" data-ko="본사 위치" data-en="Our Office" data-ja="本社所在地">본사 위치</h2>
-  <p class="section-desc reveal" data-ko="서울특별시 서초구에 위치한 세시소프트 본사를 방문해 주세요." data-en="Visit SESISOFT headquarters located in Seocho-gu, Seoul." data-ja="ソウル特別市瑞草区にあるSESISOFT本社をご訪問ください。">서울특별시 서초구에 위치한 세시소프트 본사를 방문해 주세요.</p>
+  <p class="reveal" style="font-size:16px;font-weight:600;color:var(--text);margin:8px 0 24px">
+    서울시 서초구 서초대로26길 7 라움빌딩 3/4/5/6F
+  </p>
   <div class="map-wrapper reveal">
     <iframe
-      src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%EC%8B%9C+%EC%84%9C%EC%B4%88%EA%B5%AC+%EC%84%9C%EC%B4%88%EB%8C%80%EB%A1%9C26%EA%B8%B8+7+%EB%9D%BC%EC%9B%80%EB%B9%8C%EB%94%A9&output=embed&hl=ko&z=17"
+      src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%EC%8B%9C+%EC%84%9C%EC%B4%88%EA%B5%AC+%EC%84%9C%EC%B4%88%EB%8C%80%EB%A1%9C26%EA%B8%B8+7+%EB%9D%BC%EC%9B%80%EB%B9%8C%EB%94%A9&output=embed&hl=ko&z=18&iwloc=B"
       allowfullscreen
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade">
     </iframe>
-  </div>
-  <div class="map-info reveal">
-    <div class="map-info-item">
-      <div class="map-info-icon">📍</div>
-      <div class="map-info-label" data-ko="주소" data-en="Address" data-ja="住所">주소</div>
-      <div class="map-info-value" style="font-size:14px">
-        서울시 서초구 서초대로26길 7<br>
-        라움빌딩 3/4/5/6F<br>
-        <span style="font-size:12px;color:var(--muted)">(주)세시소프트</span>
-      </div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-icon">🏢</div>
-      <div class="map-info-label" data-ko="건물" data-en="Building" data-ja="建物">건물</div>
-      <div class="map-info-value">라움빌딩<br><span style="font-size:13px;color:var(--muted)">3F · 4F · 5F · 6F</span></div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-icon">🚇</div>
-      <div class="map-info-label" data-ko="지하철" data-en="Subway" data-ja="地下鉄">지하철</div>
-      <div class="map-info-value" data-ko="방배역 인근" data-en="Near Bangbae Station" data-ja="方背駅近く">방배역 인근</div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-icon">📞</div>
-      <div class="map-info-label" data-ko="전화" data-en="Phone" data-ja="電話">전화</div>
-      <div class="map-info-value">(02) 586-9293</div>
-    </div>
-    <div class="map-info-item">
-      <div class="map-info-icon">🕐</div>
-      <div class="map-info-label" data-ko="업무시간" data-en="Hours" data-ja="営業時間">업무시간</div>
-      <div class="map-info-value" data-ko="평일 10:00 — 18:00" data-en="Mon-Fri 10:00 — 18:00" data-ja="平日 10:00 — 18:00">평일 10:00 — 18:00</div>
-    </div>
   </div>
 </section>
 
@@ -688,12 +670,6 @@
         사업자등록번호: 214-88-37555<br>
         대표이사: 강성욱<br>
         Tel: (02) 586-9293
-      </div>
-      <div class="social-links">
-        <div class="social-btn">▶</div>
-        <div class="social-btn">f</div>
-        <div class="social-btn">📷</div>
-        <div class="social-btn">𝕏</div>
       </div>
     </div>
     <div>
@@ -841,7 +817,15 @@ window.addEventListener('scroll', () => {
 });
 
 /* ── Mobile menu ── */
-document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+document.getElementById('hamburger').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  if (menu.classList.contains('open')) {
+    menu.classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    menu.classList.add('open');
+  }
+});
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 
