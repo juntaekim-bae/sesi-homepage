@@ -261,7 +261,8 @@
   window.setLang = setLang;
   btns.forEach(function(b){ b.addEventListener('click', function(){ setLang(b.textContent.toLowerCase()); }); });
   var saved = localStorage.getItem('ss_lang');
-  if (saved && saved !== 'ko') setLang(saved);
+  if (saved) { if (saved !== 'ko') setLang(saved); }
+  else { var bl = (navigator.language || navigator.userLanguage || '').toLowerCase(); if (bl.startsWith('ja')) setLang('ja'); else if (!bl.startsWith('ko')) setLang('en'); }
 })();
 </script>
 </body>
