@@ -754,18 +754,22 @@ function renderGames(platform) {
   const grid  = document.getElementById('gamesGrid');
   const filtered = platform === 'all' ? games : games.filter(g => g.platform === platform);
 
+  const siteLabel = currentLang === 'en' ? '🌐 Official Site' : currentLang === 'ja' ? '🌐 公式サイト' : '🌐 공식 사이트';
+  const noGamesMsg = currentLang === 'en' ? 'No games available.' : currentLang === 'ja' ? '登録されたゲームはありません。' : '등록된 게임이 없습니다.';
   grid.innerHTML = filtered.length === 0
-    ? '<div class="no-games-msg">등록된 게임이 없습니다.</div>'
+    ? `<div class="no-games-msg">${noGamesMsg}</div>`
     : filtered.map(g => {
         const badgeClass = g.platform === 'mobile' ? 'badge-mobile' : (g.platform === 'web' ? 'badge-web' : 'badge-pc');
         const badgeLabel = g.platform === 'mobile' ? 'MOBILE' : (g.platform === 'web' ? 'WEB' : 'PC');
+        const title = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
+        const genre = currentLang === 'en' ? (g.genre_en || g.genre) : currentLang === 'ja' ? (g.genre_ja || g.genre) : g.genre;
         const links = [
-          g.site   ? `<a href="${g.site}"   class="store-btn">🌐 공식 사이트</a>` : '',
+          g.site   ? `<a href="${g.site}"   class="store-btn">${siteLabel}</a>` : '',
           g.google ? `<a href="${g.google}" class="store-btn">▶ Google Play</a>`  : '',
           g.apple  ? `<a href="${g.apple}"  class="store-btn">🍎 App Store</a>`   : '',
         ].filter(Boolean).join('');
         const thumbContent = g.thumb
-          ? `<img src="${g.thumb}" alt="${g.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          ? `<img src="${g.thumb}" alt="${title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
             + `<div class="game-thumb-icon" style="display:none">${g.icon || '🎮'}</div>`
           : `<div class="game-thumb-icon">${g.icon || '🎮'}</div>`;
         return `
@@ -775,8 +779,8 @@ function renderGames(platform) {
               <span class="game-badge ${badgeClass}">${badgeLabel}</span>
             </div>
             <div class="game-info">
-              <div class="game-title">${g.title}</div>
-              <div class="game-genre">${g.genre} · ${badgeLabel}</div>
+              <div class="game-title">${title}</div>
+              <div class="game-genre">${genre} · ${badgeLabel}</div>
               <div class="game-links">${links}</div>
             </div>
           </div>`;
@@ -979,6 +983,7 @@ function setLang(lang) {
   document.querySelectorAll('[data-' + lang + ']').forEach(el => {
     el.innerHTML = el.getAttribute('data-' + lang);
   });
+  renderGames(currentFilter);
   renderHistory();
   renderCareers();
 }
