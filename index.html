@@ -405,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=24" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=25" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -595,12 +595,18 @@
         data-ko="게임 관련 문의 및 처리"
         data-en="Game inquiries &amp; support"
         data-ja="ゲームに関するお問い合わせ">게임 관련 문의 및 처리</div>
-      <a href="mailto:1003b@sesisoft.com" class="btn btn-outline" style="font-size:13px;padding:9px 18px;justify-content:center;width:100%;box-sizing:border-box;margin-bottom:8px">
-        <span data-ko="천상비M" data-en="Cheongsangbi M" data-ja="天上秘M">천상비M</span>&nbsp;1003b@sesisoft.com
-      </a>
-      <a href="mailto:cs@sesisoft.com" class="btn btn-outline" style="font-size:13px;padding:9px 18px;justify-content:center;width:100%;box-sizing:border-box">
-        <span data-ko="그 외 게임" data-en="Other games" data-ja="その他のゲーム">그 외 게임</span>&nbsp;cs@sesisoft.com
-      </a>
+      <div style="display:flex;align-items:center;gap:8px;width:100%;margin-bottom:8px">
+        <a href="mailto:1003b@sesisoft.com" class="btn btn-outline" style="font-size:13px;padding:9px 18px;justify-content:center;flex:1;box-sizing:border-box">
+          <span data-ko="천상비M" data-en="Cheongsangbi M" data-ja="天上秘M">천상비M</span>&nbsp;1003b@sesisoft.com
+        </a>
+        <button onclick="copyEmail('1003b@sesisoft.com',this)" class="btn btn-outline" style="font-size:12px;padding:9px 12px;flex-shrink:0" title="이메일 복사" data-ko="복사" data-en="Copy" data-ja="コピー">복사</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;width:100%">
+        <a href="mailto:cs@sesisoft.com" class="btn btn-outline" style="font-size:13px;padding:9px 18px;justify-content:center;flex:1;box-sizing:border-box">
+          <span data-ko="그 외 게임" data-en="Other games" data-ja="その他のゲーム">그 외 게임</span>&nbsp;cs@sesisoft.com
+        </a>
+        <button onclick="copyEmail('cs@sesisoft.com',this)" class="btn btn-outline" style="font-size:12px;padding:9px 12px;flex-shrink:0" title="이메일 복사" data-ko="복사" data-en="Copy" data-ja="コピー">복사</button>
+      </div>
     </div>
   </div>
 </section>
@@ -661,7 +667,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=24" alt="SESISOFT" style="height:64px;width:auto;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=25" alt="SESISOFT" style="height:64px;width:auto;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -931,6 +937,25 @@ document.getElementById('hamburger').addEventListener('click', () => {
 });
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+function copyEmail(email, btn) {
+  const ok = () => {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    btn.style.color = 'var(--success, #10b981)';
+    setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1500);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(email).then(ok).catch(() => {
+      const t = document.createElement('textarea');
+      t.value = email; document.body.appendChild(t); t.select();
+      document.execCommand('copy'); document.body.removeChild(t); ok();
+    });
+  } else {
+    const t = document.createElement('textarea');
+    t.value = email; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); document.body.removeChild(t); ok();
+  }
+}
 
 /* ── Scroll reveal ── */
 const revealObserver = new IntersectionObserver((entries) => {
