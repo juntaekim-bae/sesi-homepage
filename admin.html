@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=23" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=24" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=23" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=24" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -319,10 +319,6 @@
           <div class="form-row">
             <label>부제목 (설명)</label>
             <textarea id="careerDesc" rows="3" placeholder="예: 세시소프트는 열정 있는 게임 개발자를 찾고 있습니다." style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;resize:vertical;font-family:inherit"></textarea>
-          </div>
-          <div class="form-row">
-            <label>채용 버튼 레이블</label>
-            <input id="careerBtnLabel" placeholder="예: 채용 공고 보기" />
           </div>
           <div class="form-row">
             <label>채용 링크 URL</label>
@@ -634,8 +630,7 @@ function saveCareers() {
   const data = {
     title:    document.getElementById('careerTitle').value.trim()    || DEFAULT_CAREERS.title,
     desc:     document.getElementById('careerDesc').value.trim()     || DEFAULT_CAREERS.desc,
-    btnLabel: document.getElementById('careerBtnLabel').value.trim() || DEFAULT_CAREERS.btnLabel,
-    btnUrl:   document.getElementById('careerBtnUrl').value.trim()   || DEFAULT_CAREERS.btnUrl,
+    btnUrl:   document.getElementById('careerBtnUrl').value.trim(),
     email:    document.getElementById('careerEmail').value.trim()    || DEFAULT_CAREERS.email,
     jobs: collectJobs()
   };
@@ -647,8 +642,7 @@ function loadCareersForm() {
   const d = getCareers();
   document.getElementById('careerTitle').value    = d.title;
   document.getElementById('careerDesc').value     = d.desc;
-  document.getElementById('careerBtnLabel').value = d.btnLabel;
-  document.getElementById('careerBtnUrl').value   = d.btnUrl;
+  document.getElementById('careerBtnUrl').value   = d.btnUrl && !d.btnUrl.startsWith('mailto:') ? d.btnUrl : '';
   document.getElementById('careerEmail').value    = d.email;
   renderJobList(d.jobs || []);
 }

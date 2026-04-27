@@ -405,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=23" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=24" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -661,7 +661,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=23" alt="SESISOFT" style="height:64px;width:auto;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=24" alt="SESISOFT" style="height:64px;width:auto;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -1031,8 +1031,7 @@ function renderCareers() {
   if (btnEl) {
     const hasRealUrl = d.btnUrl && !d.btnUrl.startsWith('mailto:');
     if (hasRealUrl) {
-      const prepLabel = {ko:'채용공고 준비중', en:'Job Openings Coming Soon', ja:'採用情報準備中'};
-      btnEl.textContent = currentLang === 'ko' ? d.btnLabel : L.btnLabel;
+      btnEl.textContent = L.btnLabel;
       btnEl.href = d.btnUrl;
       btnEl.style.opacity = '';
       btnEl.style.pointerEvents = '';
@@ -1058,9 +1057,15 @@ function renderCareers() {
         </a>`).join('');
       jobsEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     } else {
+      const fallbackEmail = d.email || 'biz@sesisoft.com';
+      const fallbackMeta = {
+        ko: `${fallbackEmail} 으로 이메일을 보내주세요`,
+        en: `Send an email to ${fallbackEmail}`,
+        ja: `${fallbackEmail} にメールをお送りください`
+      };
       jobsEl.innerHTML = `
-        <a href="mailto:biz@sesisoft.com" class="position-card reveal">
-          <div><div class="position-name">${L.fallbackName}</div><div class="position-meta">${L.fallbackMeta}</div></div>
+        <a href="mailto:${fallbackEmail}" class="position-card reveal">
+          <div><div class="position-name">${L.fallbackName}</div><div class="position-meta">${fallbackMeta[currentLang] || fallbackMeta.ko}</div></div>
           <span class="position-arrow">→</span>
         </a>`;
       jobsEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
