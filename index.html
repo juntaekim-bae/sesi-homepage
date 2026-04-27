@@ -302,8 +302,9 @@
       display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; max-width: 700px; margin: 48px auto 0;
     }
     .support-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--surface); border: 1px solid rgba(37,99,235,.12); border-radius: var(--radius);
       padding: 36px 24px; transition: all .3s;
+      box-shadow: 0 2px 12px rgba(37,99,235,.06);
     }
     .support-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .support-icon { font-size: 36px; margin-bottom: 16px; }
@@ -405,7 +406,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=45" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=46" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -577,6 +578,20 @@
   </div>
 </section>
 
+<!-- Partners -->
+<section id="partners" style="background:var(--bg2);text-align:center;">
+  <p style="text-align:center;margin-bottom:0"><span class="section-label reveal">Partners</span></p>
+  <h2 class="section-title reveal" data-ko="글로벌 파트너" data-en="Global Partners" data-ja="グローバルパートナー">글로벌 파트너</h2>
+  <p class="section-desc reveal" style="margin:0 auto 48px" data-ko="국내외 30개 이상의 게임사와 함께 최고의 게임을 서비스합니다." data-en="We partner with 30+ game companies worldwide to deliver the best games." data-ja="国内外30社以上のゲーム会社と共に最高のゲームをお届けします。">국내외 30개 이상의 게임사와 함께 최고의 게임을 서비스합니다.</p>
+
+  <div style="max-width:900px;margin:0 auto">
+    <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal" data-ko="국내 협력사" data-en="Domestic Partners" data-ja="国内パートナー">국내 협력사</p>
+    <div id="partnersDomestic" class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px"></div>
+    <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal" data-ko="해외 협력사" data-en="Global Partners" data-ja="海外パートナー">해외 협력사</p>
+    <div id="partnersGlobal" class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center"></div>
+  </div>
+</section>
+
 <!-- Support -->
 <section id="support">
   <p style="text-align:center;margin-bottom:0"><span class="section-label reveal">Support</span></p>
@@ -611,20 +626,6 @@
   </div>
 </section>
 
-<!-- Partners -->
-<section id="partners" style="background:var(--bg2);text-align:center;">
-  <p style="text-align:center;margin-bottom:0"><span class="section-label reveal">Partners</span></p>
-  <h2 class="section-title reveal" data-ko="글로벌 파트너" data-en="Global Partners" data-ja="グローバルパートナー">글로벌 파트너</h2>
-  <p class="section-desc reveal" style="margin:0 auto 48px" data-ko="국내외 30개 이상의 게임사와 함께 최고의 게임을 서비스합니다." data-en="We partner with 30+ game companies worldwide to deliver the best games." data-ja="国内外30社以上のゲーム会社と共に最高のゲームをお届けします。">국내외 30개 이상의 게임사와 함께 최고의 게임을 서비스합니다.</p>
-
-  <div style="max-width:900px;margin:0 auto">
-    <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal" data-ko="국내 협력사" data-en="Domestic Partners" data-ja="国内パートナー">국내 협력사</p>
-    <div id="partnersDomestic" class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px"></div>
-    <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal" data-ko="해외 협력사" data-en="Global Partners" data-ja="海外パートナー">해외 협력사</p>
-    <div id="partnersGlobal" class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center"></div>
-  </div>
-</section>
-
 <!-- Location / Map -->
 <section id="location">
   <p style="text-align:center;margin-bottom:0"><span class="section-label reveal" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</span></p>
@@ -643,7 +644,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=45" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=46" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
