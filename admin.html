@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=37" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=38" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=37" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=38" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -230,14 +230,9 @@
       <div class="nav-item" onclick="showTab('password', this)">
         <span class="nav-icon">🔐</span> 비밀번호 변경
       </div>
-      <div class="nav-item" onclick="showTab('github', this)">
-        <span class="nav-icon">🔗</span> 서버 연동 설정
-      </div>
     </nav>
     <div class="sidebar-footer">
-      <a href="#" onclick="syncToServer();showToast('DB에 저장했습니다.','success')" style="color:#4ade80;font-weight:700">☁️ DB 저장</a>
-      <a href="#" onclick="triggerDeploy()" style="color:#fb923c;font-weight:700;margin-top:4px">🚀 코드 배포</a>
-      <a href="index.html" target="_blank" style="margin-top:4px">🌐 홈페이지 보기</a>
+      <a href="index.html" target="_blank">🌐 홈페이지 보기</a>
       <a href="#" onclick="doLogout()" style="margin-top:4px">🚪 로그아웃</a>
     </div>
   </aside>
@@ -396,40 +391,6 @@
             <input type="password" id="pwConfirm" placeholder="새 비밀번호 재입력" />
           </div>
           <button class="btn btn-primary" onclick="changePassword()" style="width:100%;justify-content:center">비밀번호 변경</button>
-        </div>
-      </div>
-    </div>
-
-    <div id="tab-github" style="display:none">
-      <div class="page-header">
-        <div>
-          <div class="page-title">서버 연동 설정</div>
-          <div class="page-desc">DB 저장 및 코드 배포 설정을 관리합니다.</div>
-        </div>
-      </div>
-
-      <div id="ghStatus" style="margin-top:-16px;margin-bottom:20px;font-size:13px;color:var(--muted)"></div>
-
-      <!-- 코드 배포 (GitHub Actions) -->
-      <div class="card" style="max-width:560px;margin-top:20px">
-        <div class="card-header"><span class="card-title">🚀 코드 배포 (GitHub Actions)</span></div>
-        <div class="card-body">
-          <div class="form-row">
-            <label>GitHub 저장소 (owner/repo)</label>
-            <input id="ghRepo" placeholder="예: username/sesi-homepage" />
-          </div>
-          <div class="form-row">
-            <label>GitHub Personal Access Token</label>
-            <input id="ghToken" type="password" placeholder="ghp_xxxxxxxxxxxx" />
-          </div>
-          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">
-            HTML·이미지 등 코드 파일을 변경했을 때만 필요합니다.<br>
-            권한: <strong>Actions: Read and write</strong>
-          </p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn-ghost" onclick="saveGithubSettings()">GitHub 설정 저장</button>
-            <button class="btn btn-primary" onclick="triggerDeploy()">🚀 코드 배포하기</button>
-          </div>
         </div>
       </div>
     </div>
@@ -709,7 +670,6 @@ function showTab(name, el) {
   el.classList.add('active');
   if (name === 'careers')  loadCareersForm();
   if (name === 'partners') loadPartnersForm();
-  if (name === 'github')   loadGithubSettings();
 }
 /* ── Partners ── */
 const DEFAULT_PARTNERS = {
@@ -752,26 +712,10 @@ function savePartners() {
   syncToServer();
   showToast('파트너 정보가 저장되었습니다.', 'success');
 }
-function saveApiKey() {
-  localStorage.setItem('api_key', document.getElementById('apiKeyInput').value.trim());
-  showToast('API 키가 저장되었습니다.', 'success');
-}
-function saveGithubSettings() {
-  localStorage.setItem('gh_repo',  document.getElementById('ghRepo').value.trim());
-  localStorage.setItem('gh_token', document.getElementById('ghToken').value.trim());
-  showToast('GitHub 설정이 저장되었습니다.', 'success');
-}
-function loadGithubSettings() {
-  document.getElementById('ghRepo').value  = localStorage.getItem('gh_repo')  || '';
-  document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
-}
 /* ── DB API 동기화 ── */
 async function syncToServer() {
   const apiKey = localStorage.getItem('api_key') || '';
-  if (!apiKey) {
-    showToast('⚠️ 서버 연동 설정에서 API 키를 먼저 입력하세요', 'error');
-    return;
-  }
+  if (!apiKey) return;
   const cfg = {
     games:    getGames(),
     history:  getHistory(),
@@ -784,93 +728,12 @@ async function syncToServer() {
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
       body: JSON.stringify(cfg)
     });
-    const statusEl = document.getElementById('ghStatus');
-    if (r.ok) {
-      if (statusEl) statusEl.textContent = '✅ ' + new Date().toLocaleString() + ' DB 저장 완료';
-    } else {
+    if (!r.ok) {
       const err = await r.json().catch(() => ({}));
-      if (statusEl) statusEl.textContent = '❌ ' + (err.error || r.status);
       showToast('DB 저장 오류: ' + (err.error || r.status), 'error');
     }
   } catch(e) {
     console.error('syncToServer:', e);
-  }
-}
-
-async function pushToGitHub() {
-  const token = localStorage.getItem('gh_token') || '';
-  const repo  = localStorage.getItem('gh_repo')  || '';
-  const statusEl = document.getElementById('ghStatus');
-  if (!token || !repo) {
-    showToast('서버 연동 설정에서 GitHub 토큰과 저장소를 먼저 입력해주세요.', 'error');
-    return;
-  }
-  const cfg = {
-    games:    getGames(),
-    history:  getHistory(),
-    careers:  getCareers(),
-    partners: getPartners(),
-    updated:  new Date().toISOString()
-  };
-  if (statusEl) statusEl.textContent = '📡 GitHub에 저장 중...';
-  let sha;
-  try {
-    const r = await fetch(`https://api.github.com/repos/${repo}/contents/config.json`, {
-      headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
-    });
-    if (r.ok) sha = (await r.json()).sha;
-  } catch(e) {}
-  const body = {
-    message: `admin: update site config (${new Date().toISOString().slice(0,10)})`,
-    content: btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2))))
-  };
-  if (sha) body.sha = sha;
-  try {
-    const r = await fetch(`https://api.github.com/repos/${repo}/contents/config.json`, {
-      method: 'PUT',
-      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
-      body: JSON.stringify(body)
-    });
-    if (r.ok) {
-      showToast('✅ 서버(GitHub)에 저장 완료! GitHub Actions가 배포를 시작합니다.', 'success');
-      if (statusEl) statusEl.textContent = '✅ ' + new Date().toLocaleString() + ' 저장 완료';
-    } else {
-      const err = await r.json();
-      showToast('오류: ' + err.message, 'error');
-      if (statusEl) statusEl.textContent = '❌ 오류: ' + err.message;
-    }
-  } catch(e) {
-    showToast('네트워크 오류: ' + e.message, 'error');
-    if (statusEl) statusEl.textContent = '❌ ' + e.message;
-  }
-}
-
-async function triggerDeploy() {
-  const token = localStorage.getItem('gh_token') || '';
-  const repo  = localStorage.getItem('gh_repo')  || '';
-  const statusEl = document.getElementById('ghStatus');
-  if (!token || !repo) {
-    showToast('서버 연동 설정에서 GitHub 토큰과 저장소를 먼저 입력해주세요.', 'error');
-    return;
-  }
-  if (statusEl) statusEl.textContent = '🚀 배포 요청 중...';
-  try {
-    const r = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/deploy.yml/dispatches`, {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
-      body: JSON.stringify({ ref: 'main' })
-    });
-    if (r.status === 204) {
-      showToast('🚀 배포가 시작되었습니다! 약 1~2분 후 반영됩니다.', 'success');
-      if (statusEl) statusEl.textContent = '🚀 ' + new Date().toLocaleString() + ' 배포 시작됨';
-    } else {
-      const err = await r.json().catch(() => ({}));
-      showToast('배포 오류: ' + (err.message || r.status), 'error');
-      if (statusEl) statusEl.textContent = '❌ 배포 오류: ' + (err.message || r.status);
-    }
-  } catch(e) {
-    showToast('네트워크 오류: ' + e.message, 'error');
-    if (statusEl) statusEl.textContent = '❌ ' + e.message;
   }
 }
 
