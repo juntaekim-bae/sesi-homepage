@@ -312,7 +312,8 @@
 
     /* ── Footer ── */
     footer { background: var(--text); color: rgba(255,255,255,.85); padding: 44px 56px 24px; }
-    .footer-top { display: grid; grid-template-columns: 1.4fr 2.2fr 1fr 1fr; gap: 40px 60px; margin-bottom: 48px; }
+    .footer-top { display: grid; grid-template-columns: 1.4fr 2.6fr auto; gap: 40px 60px; margin-bottom: 48px; }
+    .footer-nav-group { display: flex; justify-content: space-between; gap: 60px; align-items: flex-start; }
     #footerGameLinks { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 10px; }
     #footerGameLinks.cols3 { grid-template-columns: 1fr 1fr 1fr; }
     .footer-brand-name { font-size: 20px; font-weight: 900; letter-spacing: .06em; color: #fff; margin-bottom: 14px; }
@@ -404,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=16" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=17" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -657,7 +658,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=16" alt="SESISOFT" style="height:64px;width:auto;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=17" alt="SESISOFT" style="height:64px;width:auto;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -674,22 +675,24 @@
       <div class="footer-col-title" data-ko="게임" data-en="Games" data-ja="ゲーム">게임</div>
       <ul class="footer-col-links" id="footerGameLinks"></ul>
     </div>
-    <div>
-      <div class="footer-col-title" data-ko="회사" data-en="Company" data-ja="会社">회사</div>
-      <ul class="footer-col-links">
-        <li><a href="#about" data-ko="회사 소개" data-en="About" data-ja="会社概要">회사 소개</a></li>
-        <li><a href="#history" data-ko="회사 연혁" data-en="History" data-ja="会社沿革">회사 연혁</a></li>
-        <li><a href="#careers" data-ko="채용" data-en="Careers" data-ja="採用">채용</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title" data-ko="지원" data-en="Support" data-ja="サポート">지원</div>
-      <ul class="footer-col-links">
-        <li><a href="#support" data-ko="고객센터" data-en="Customer Support" data-ja="カスタマーサポート">고객센터</a></li>
-        <li><a href="terms.html" data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</a></li>
-        <li><a href="privacy.html" data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="個人情報保護方針">개인정보처리방침</a></li>
-        <li><a href="youth.html" data-ko="청소년보호정책" data-en="Youth Protection Policy" data-ja="青少年保護方針">청소년보호정책</a></li>
-      </ul>
+    <div class="footer-nav-group">
+      <div>
+        <div class="footer-col-title" data-ko="회사" data-en="Company" data-ja="会社">회사</div>
+        <ul class="footer-col-links">
+          <li><a href="#about" data-ko="회사 소개" data-en="About" data-ja="会社概要">회사 소개</a></li>
+          <li><a href="#history" data-ko="회사 연혁" data-en="History" data-ja="会社沿革">회사 연혁</a></li>
+          <li><a href="#careers" data-ko="채용" data-en="Careers" data-ja="採用">채용</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title" data-ko="지원" data-en="Support" data-ja="サポート">지원</div>
+        <ul class="footer-col-links">
+          <li><a href="#support" data-ko="고객센터" data-en="Customer Support" data-ja="カスタマーサポート">고객센터</a></li>
+          <li><a href="terms.html" data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</a></li>
+          <li><a href="privacy.html" data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="個人情報保護方針">개인정보처리방침</a></li>
+          <li><a href="youth.html" data-ko="청소년보호정책" data-en="Youth Protection Policy" data-ja="青少年保護方針">청소년보호정책</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="footer-bottom">
@@ -753,6 +756,9 @@ const DEFAULT_GAMES = [
   { id:19, title:'아스텔리아M',         title_en:'Astellia M',              title_ja:'アステリアM',
            genre:'MMORPG',               genre_en:'MMORPG',                  genre_ja:'MMORPG',
            platform:'mobile', icon:'🌟', color:'135deg,#fef3c7,#fffbeb', thumb:'https://astellia.game.onstove.com/home/kr/logo.png', site:'https://astellia.game.onstove.com/', google:'https://play.google.com/store/apps/details?id=com.sesisoft.astellia.google', apple:'https://apps.apple.com/kr/app/id6749603786' },
+  { id:20, title:'진구지 사부로 Oldies',   title_en:'Jinguji Saburo Oldies',   title_ja:'神宮寺三郎 Oldies',
+           genre:'추리 어드벤처',           genre_en:'Mystery Adventure',       genre_ja:'推理アドベンチャー',
+           platform:'mobile', icon:'🔍', color:'135deg,#e0f2fe,#f0f9ff', thumb:'', site:'http://www.jinguji.co.kr', google:'https://play.google.com/store/apps/details?id=com.sesisoft.jinguji', apple:'https://apps.apple.com/kr/app/id1297160734' },
 ];
 
 const DEFAULT_HISTORY = [
