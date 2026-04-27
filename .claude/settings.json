@@ -6,7 +6,10 @@
       "WebFetch(domain:namu.wiki)",
       "WebFetch(domain:en.wikipedia.org)",
       "Bash(curl -s \"https://member.nexon.com/policy/youthprotection.aspx\")",
-      "Bash(python3 -c \" import sys from html.parser import HTMLParser class E\\(HTMLParser\\): def __init__\\(self\\): super\\(\\).__init__\\(\\); self.skip=False; self.t=[] def handle_starttag\\(self,t,a\\): if t in \\('script','style'\\): self.skip=True def handle_endtag\\(self,t\\): if t in \\('script','style'\\): self.skip=False def handle_data\\(self,d\\): if not self.skip: s=d.strip\\(\\) if s and len\\(s\\)>2: self.t.append\\(s\\) p=E\\(\\); p.feed\\(sys.stdin.read\\(\\)\\); print\\('\\\\n'.join\\(p.t\\)\\) \")"
+      "Bash(python3 -c \" import sys from html.parser import HTMLParser class E\\(HTMLParser\\): def __init__\\(self\\): super\\(\\).__init__\\(\\); self.skip=False; self.t=[] def handle_starttag\\(self,t,a\\): if t in \\('script','style'\\): self.skip=True def handle_endtag\\(self,t\\): if t in \\('script','style'\\): self.skip=False def handle_data\\(self,d\\): if not self.skip: s=d.strip\\(\\) if s and len\\(s\\)>2: self.t.append\\(s\\) p=E\\(\\); p.feed\\(sys.stdin.read\\(\\)\\); print\\('\\\\n'.join\\(p.t\\)\\) \")",
+      "Bash(python3 -c ' *)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/kim/sesisoft-homepage/whitelogo.png)",
+      "Bash(bash /Users/kim/sesisoft-homepage/deploy.sh \"feat: footer grid tweak, add subway direction to location section\")"
     ]
   }
 }

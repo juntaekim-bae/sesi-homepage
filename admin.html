@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=28" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=29" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=28" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=29" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -236,6 +236,7 @@
     </nav>
     <div class="sidebar-footer">
       <a href="#" onclick="pushToGitHub()" style="color:#4ade80;font-weight:700">☁️ 서버에 저장</a>
+      <a href="#" onclick="triggerDeploy()" style="color:#fb923c;font-weight:700;margin-top:4px">🚀 배포하기</a>
       <a href="index.html" target="_blank" style="margin-top:4px">🌐 홈페이지 보기</a>
       <a href="#" onclick="doLogout()" style="margin-top:4px">🚪 로그아웃</a>
     </div>
@@ -437,7 +438,10 @@
             <strong>필요한 GitHub Secret:</strong> <code style="background:var(--bg);padding:2px 6px;border-radius:4px">FLY_API_TOKEN</code><br>
             fly.io → Account → Access Tokens에서 발급
           </p>
-          <button class="btn btn-success" onclick="pushToGitHub()" style="margin-top:16px">☁️ 지금 서버에 저장</button>
+          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+            <button class="btn btn-success" onclick="pushToGitHub()">☁️ 서버에 저장</button>
+            <button class="btn btn-primary" onclick="triggerDeploy()">🚀 배포하기</button>
+          </div>
           <div id="ghStatus" style="margin-top:12px;font-size:13px;color:var(--muted)"></div>
         </div>
       </div>
@@ -784,6 +788,35 @@ async function pushToGitHub() {
       const err = await r.json();
       showToast('오류: ' + err.message, 'error');
       if (statusEl) statusEl.textContent = '❌ 오류: ' + err.message;
+    }
+  } catch(e) {
+    showToast('네트워크 오류: ' + e.message, 'error');
+    if (statusEl) statusEl.textContent = '❌ ' + e.message;
+  }
+}
+
+async function triggerDeploy() {
+  const token = localStorage.getItem('gh_token') || '';
+  const repo  = localStorage.getItem('gh_repo')  || '';
+  const statusEl = document.getElementById('ghStatus');
+  if (!token || !repo) {
+    showToast('서버 연동 설정에서 GitHub 토큰과 저장소를 먼저 입력해주세요.', 'error');
+    return;
+  }
+  if (statusEl) statusEl.textContent = '🚀 배포 요청 중...';
+  try {
+    const r = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/deploy.yml/dispatches`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+      body: JSON.stringify({ ref: 'main' })
+    });
+    if (r.status === 204) {
+      showToast('🚀 배포가 시작되었습니다! 약 1~2분 후 반영됩니다.', 'success');
+      if (statusEl) statusEl.textContent = '🚀 ' + new Date().toLocaleString() + ' 배포 시작됨';
+    } else {
+      const err = await r.json().catch(() => ({}));
+      showToast('배포 오류: ' + (err.message || r.status), 'error');
+      if (statusEl) statusEl.textContent = '❌ 배포 오류: ' + (err.message || r.status);
     }
   } catch(e) {
     showToast('네트워크 오류: ' + e.message, 'error');
