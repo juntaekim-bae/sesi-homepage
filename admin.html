@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=44" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=45" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=44" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=45" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -226,6 +226,9 @@
       </div>
       <div class="nav-item" onclick="showTab('partners', this)">
         <span class="nav-icon">🤝</span> 파트너 관리
+      </div>
+      <div class="nav-item" onclick="showTab('legal', this)">
+        <span class="nav-icon">📄</span> 법적 문서
       </div>
       <div class="nav-item" onclick="showTab('password', this)">
         <span class="nav-icon">🔐</span> 비밀번호 변경
@@ -390,6 +393,99 @@
           <div style="display:flex;gap:8px">
             <input id="newGlobalPartner" placeholder="협력사명 입력" style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:inherit;background:var(--bg)" onkeydown="if(event.key==='Enter')addPartner('global')" />
             <button class="btn btn-primary" onclick="addPartner('global')">+ 추가</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal Tab -->
+    <div id="tab-legal" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">법적 문서 관리</div>
+          <div class="page-desc">이용약관·개인정보처리방침·청소년보호정책의 다국어 내용을 관리합니다.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <button id="legalSubBtn-terms"   class="btn btn-primary" onclick="showLegalSub('terms')"   style="font-size:13px">이용약관</button>
+        <button id="legalSubBtn-privacy" class="btn btn-ghost"   onclick="showLegalSub('privacy')" style="font-size:13px">개인정보처리방침</button>
+        <button id="legalSubBtn-youth"   class="btn btn-ghost"   onclick="showLegalSub('youth')"   style="font-size:13px">청소년보호정책</button>
+      </div>
+
+      <div id="legalSub-terms">
+        <div class="card" style="max-width:900px">
+          <div class="card-header">
+            <span class="card-title">이용약관</span>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" style="font-size:13px" onclick="autoTranslateLegal('terms')">🤖 자동 번역</button>
+              <button class="btn btn-primary" style="font-size:13px" onclick="saveLegal('terms')">저장</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="lang-group">
+              <div class="lang-group-label">🇰🇷 한국어</div>
+              <div class="form-row"><textarea id="legalKo-terms" style="min-height:360px;font-size:12px;font-family:monospace" placeholder="<h2>제1조...</h2>&#10;<p>내용...</p>"></textarea></div>
+            </div>
+            <div class="lang-group">
+              <div class="lang-group-label">🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></div>
+              <div class="form-row"><textarea id="legalEn-terms" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+            <div class="lang-group">
+              <div class="lang-group-label">🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></div>
+              <div class="form-row"><textarea id="legalJa-terms" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="legalSub-privacy" style="display:none">
+        <div class="card" style="max-width:900px">
+          <div class="card-header">
+            <span class="card-title">개인정보처리방침</span>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" style="font-size:13px" onclick="autoTranslateLegal('privacy')">🤖 자동 번역</button>
+              <button class="btn btn-primary" style="font-size:13px" onclick="saveLegal('privacy')">저장</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="lang-group">
+              <div class="lang-group-label">🇰🇷 한국어</div>
+              <div class="form-row"><textarea id="legalKo-privacy" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+            <div class="lang-group">
+              <div class="lang-group-label">🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></div>
+              <div class="form-row"><textarea id="legalEn-privacy" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+            <div class="lang-group">
+              <div class="lang-group-label">🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></div>
+              <div class="form-row"><textarea id="legalJa-privacy" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="legalSub-youth" style="display:none">
+        <div class="card" style="max-width:900px">
+          <div class="card-header">
+            <span class="card-title">청소년보호정책</span>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" style="font-size:13px" onclick="autoTranslateLegal('youth')">🤖 자동 번역</button>
+              <button class="btn btn-primary" style="font-size:13px" onclick="saveLegal('youth')">저장</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="lang-group">
+              <div class="lang-group-label">🇰🇷 한국어</div>
+              <div class="form-row"><textarea id="legalKo-youth" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+            <div class="lang-group">
+              <div class="lang-group-label">🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></div>
+              <div class="form-row"><textarea id="legalEn-youth" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
+            <div class="lang-group">
+              <div class="lang-group-label">🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></div>
+              <div class="form-row"><textarea id="legalJa-youth" style="min-height:360px;font-size:12px;font-family:monospace"></textarea></div>
+            </div>
           </div>
         </div>
       </div>
@@ -728,12 +824,13 @@ async function changePassword() {
 
 /* ── Tabs ── */
 function showTab(name, el) {
-  ['games','history','careers','partners','password'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
+  ['games','history','careers','partners','legal','password'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
   document.getElementById('tab-'+name).style.display = '';
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
   if (name === 'careers')  loadCareersForm();
   if (name === 'partners') loadPartnersForm();
+  if (name === 'legal')    loadLegalForm();
 }
 /* ── Partners ── */
 const DEFAULT_PARTNERS = {
@@ -780,13 +877,15 @@ function savePartners() {
 async function syncToServer() {
   const apiKey = localStorage.getItem('api_key') || '';
   if (!apiKey) return;
-  const cfg = {
-    games:    getGames(),
-    history:  getHistory(),
-    careers:  getCareers(),
-    partners: getPartners()
-  };
   try {
+    const existing = await fetch('/api/config').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    const cfg = {
+      ...existing,
+      games:    getGames(),
+      history:  getHistory(),
+      careers:  getCareers(),
+      partners: getPartners()
+    };
     const r = await fetch('/api/config', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
@@ -799,6 +898,134 @@ async function syncToServer() {
   } catch(e) {
     console.error('syncToServer:', e);
   }
+}
+
+/* ── Legal ── */
+function showLegalSub(doc) {
+  ['terms','privacy','youth'].forEach(d => {
+    document.getElementById('legalSub-' + d).style.display = d === doc ? '' : 'none';
+    const btn = document.getElementById('legalSubBtn-' + d);
+    btn.className = 'btn ' + (d === doc ? 'btn-primary' : 'btn-ghost');
+    btn.style.fontSize = '13px';
+  });
+}
+
+async function loadLegalForm() {
+  try {
+    const r = await fetch('/api/config');
+    if (!r.ok) return;
+    const cfg = await r.json();
+    const legal = cfg.legal || {};
+    ['terms','privacy','youth'].forEach(doc => {
+      const d = legal[doc] || {};
+      document.getElementById('legalKo-' + doc).value = d.ko || '';
+      document.getElementById('legalEn-' + doc).value = d.en || '';
+      document.getElementById('legalJa-' + doc).value = d.ja || '';
+    });
+    showLegalSub('terms');
+  } catch(e) {
+    showToast('법적 문서 로드 실패: ' + e.message, 'error');
+  }
+}
+
+function replaceCompetitors(text) {
+  const rules = [
+    ['스마일게이트', '세시소프트'], ['넥슨', '세시소프트'],
+    ['SMILEGATE', 'SESISOFT'],   ['Smilegate', 'Sesisoft'],   ['smilegate', 'sesisoft'],
+    ['NEXON', 'SESISOFT'],       ['Nexon', 'Sesisoft'],       ['nexon', 'sesisoft'],
+  ];
+  let result = text;
+  const found = [];
+  for (const [from, to] of rules) {
+    if (result.includes(from)) { result = result.split(from).join(to); found.push(from); }
+  }
+  return { text: result, found };
+}
+
+async function saveLegal(doc) {
+  let ko = document.getElementById('legalKo-' + doc).value;
+  let en = document.getElementById('legalEn-' + doc).value;
+  let ja = document.getElementById('legalJa-' + doc).value;
+
+  const koR = replaceCompetitors(ko);
+  const enR = replaceCompetitors(en);
+  const jaR = replaceCompetitors(ja);
+  ko = koR.text; en = enR.text; ja = jaR.text;
+
+  document.getElementById('legalKo-' + doc).value = ko;
+  document.getElementById('legalEn-' + doc).value = en;
+  document.getElementById('legalJa-' + doc).value = ja;
+
+  const allFound = [...new Set([...koR.found, ...enR.found, ...jaR.found])];
+
+  const apiKey = localStorage.getItem('api_key') || '';
+  if (!apiKey) { showToast('로그인이 필요합니다', 'error'); return; }
+
+  try {
+    const cfgRes = await fetch('/api/config');
+    const cfg = cfgRes.ok ? await cfgRes.json() : {};
+    cfg.legal = { ...(cfg.legal || {}), [doc]: { ko, en, ja } };
+
+    const r = await fetch('/api/config', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify(cfg)
+    });
+    if (r.ok) {
+      let msg = '저장 완료!';
+      if (allFound.length) msg += ' 치환: ' + allFound.join(', ') + ' → 세시소프트/sesisoft';
+      showToast(msg, 'success');
+    } else {
+      showToast('저장 실패: ' + r.status, 'error');
+    }
+  } catch(e) {
+    showToast('저장 오류: ' + e.message, 'error');
+  }
+}
+
+async function autoTranslateLegal(doc) {
+  const ko = document.getElementById('legalKo-' + doc).value.trim();
+  if (!ko) { showToast('한국어 내용을 먼저 입력하세요', 'error'); return; }
+  showToast('번역 중... 잠시 기다려 주세요', 'success');
+
+  const sections = ko.split(/(?=<h2>)/).filter(p => p.startsWith('<h2>'));
+  if (!sections.length) { showToast('h2 섹션을 찾을 수 없습니다', 'error'); return; }
+
+  const enParts = [], jaParts = [];
+  for (const part of sections) {
+    const h2end = part.indexOf('</h2>');
+    const title = part.slice(4, h2end);
+    const body  = part.slice(h2end + 5).trim();
+
+    const enTitle = await translateText(title.slice(0, 480), 'en') || title;
+    const jaTitle = await translateText(title.slice(0, 480), 'ja') || title;
+
+    const bodyPlain = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const enChunks = [], jaChunks = [];
+    if (bodyPlain) {
+      const words = bodyPlain.split(' ');
+      let chunk = '';
+      for (const w of words) {
+        if (chunk && (chunk + ' ' + w).length > 440) {
+          const [ec, jc] = await Promise.all([translateText(chunk,'en'), translateText(chunk,'ja')]);
+          enChunks.push(ec || chunk); jaChunks.push(jc || chunk);
+          chunk = w;
+        } else { chunk = chunk ? chunk + ' ' + w : w; }
+      }
+      if (chunk) {
+        const [ec, jc] = await Promise.all([translateText(chunk,'en'), translateText(chunk,'ja')]);
+        enChunks.push(ec || chunk); jaChunks.push(jc || chunk);
+      }
+    }
+    const enBody = enChunks.length ? `<p>${enChunks.join(' ')}</p>` : body;
+    const jaBody = jaChunks.length ? `<p>${jaChunks.join(' ')}</p>` : body;
+
+    enParts.push(`<h2>${enTitle}</h2>\n${enBody}`);
+    jaParts.push(`<h2>${jaTitle}</h2>\n${jaBody}`);
+  }
+  document.getElementById('legalEn-' + doc).value = enParts.join('\n\n');
+  document.getElementById('legalJa-' + doc).value = jaParts.join('\n\n');
+  showToast('번역 완료! EN/JA 내용을 확인하고 필요 시 수정하세요', 'success');
 }
 
 /* ── Careers ── */

@@ -15,7 +15,7 @@ done
 # 변경사항 확인
 CHANGED=$(git status --porcelain)
 if [ -n "$CHANGED" ]; then
-  git add *.html Dockerfile nginx.conf *.png *.jpg *.jpeg *.gif *.svg *.webp *.ico 2>/dev/null || git add *.html
+  git add *.html Dockerfile nginx.conf supervisord.conf docker-compose.yml api/ *.png *.jpg *.jpeg *.gif *.svg *.webp *.ico 2>/dev/null || git add *.html
   MSG="${1:-deploy: bump asset version to v$NEW_V}"
   git commit -m "$MSG
 

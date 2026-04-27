@@ -83,7 +83,7 @@
     <span style="color:#dde5f7;font-size:11px">|</span>
     <button class="lang-btn" onclick="setLang('ja')" style="background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:14px;font-size:12px;font-weight:700;color:#64748b;transition:all .2s">JA</button>
   </div>
-  <a href="index.html" class="nav-logo-small"><img src="bluelogo.png?v=44" alt="SESISOFT"></a>
+  <a href="index.html" class="nav-logo-small"><img src="bluelogo.png?v=45" alt="SESISOFT"></a>
 </nav>
 
 <div class="page-wrapper">
@@ -334,27 +334,31 @@ Email: youth@sesisoft.com
 <div class="page-footer">© 2025 ㈜세시소프트 All rights reserved.</div>
 
 <script>
-  const sections = document.querySelectorAll('.content-section');
-  const tocList = document.getElementById('tocList');
-  sections.forEach((sec, i) => {
-    const h2 = sec.querySelector('h2'); if (!h2) return;
-    const id = 'sec-' + i; sec.id = id;
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href = '#' + id; a.textContent = h2.textContent;
-    li.appendChild(a); tocList.appendChild(li);
-  });
-  const tocLinks = tocList.querySelectorAll('a');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        tocLinks.forEach(a => a.classList.remove('active'));
-        const al = tocList.querySelector('a[href="#' + entry.target.id + '"]');
-        if (al) al.classList.add('active');
-      }
+  function _buildToc() {
+    const sections = document.querySelectorAll('.content-section');
+    const tocList  = document.getElementById('tocList');
+    tocList.innerHTML = '';
+    sections.forEach((sec, i) => {
+      const h2 = sec.querySelector('h2'); if (!h2) return;
+      const id = 'sec-' + i; sec.id = id;
+      const li = document.createElement('li');
+      const a  = document.createElement('a');
+      a.href = '#' + id; a.textContent = h2.textContent;
+      li.appendChild(a); tocList.appendChild(li);
     });
-  }, { rootMargin: '-64px 0px -60% 0px' });
-  sections.forEach(sec => observer.observe(sec));
+    if (window._tocObserver) window._tocObserver.disconnect();
+    window._tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('#tocList a').forEach(a => a.classList.remove('active'));
+          const al = document.querySelector('#tocList a[href="#' + entry.target.id + '"]');
+          if (al) al.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-64px 0px -60% 0px' });
+    sections.forEach(sec => window._tocObserver.observe(sec));
+  }
+  _buildToc();
 </script>
 <script>
 (function(){
@@ -382,6 +386,55 @@ Email: youth@sesisoft.com
   var saved = localStorage.getItem('ss_lang');
   if (saved) { if (saved !== 'ko') setLang(saved); }
   else { var bl = (navigator.language || navigator.userLanguage || '').toLowerCase(); if (bl.startsWith('ja')) setLang('ja'); else if (!bl.startsWith('ko')) setLang('en'); }
+})();
+</script>
+<script>
+(async function() {
+  try {
+    const res = await fetch('/api/config');
+    if (!res.ok) return;
+    const cfg = await res.json();
+    const legal = cfg.legal && cfg.legal.youth;
+    if (!legal || !legal.ko) return;
+
+    function parseSecs(html) {
+      return html.split(/(?=<h2>)/).filter(p => p.startsWith('<h2>')).map(p => {
+        const e = p.indexOf('</h2>');
+        return { title: p.slice(4, e), body: p.slice(e + 5).trim() };
+      });
+    }
+    const ko = parseSecs(legal.ko);
+    const en = parseSecs(legal.en || '');
+    const ja = parseSecs(legal.ja || '');
+
+    const area = document.querySelector('.content-area');
+    area.querySelectorAll('.content-section').forEach(s => s.remove());
+
+    ko.forEach((s, i) => {
+      const eS = en[i] || s, jS = ja[i] || s;
+      const div = document.createElement('div');
+      div.className = 'content-section';
+
+      const h2 = document.createElement('h2');
+      h2.setAttribute('data-ko', s.title);
+      h2.setAttribute('data-en', eS.title);
+      h2.setAttribute('data-ja', jS.title);
+      h2.textContent = s.title;
+      div.appendChild(h2);
+
+      const bd = document.createElement('div');
+      bd.setAttribute('data-ko', s.body);
+      bd.setAttribute('data-en', eS.body);
+      bd.setAttribute('data-ja', jS.body);
+      bd.innerHTML = s.body;
+      div.appendChild(bd);
+      area.appendChild(div);
+    });
+
+    _buildToc();
+    const lang = localStorage.getItem('ss_lang') || 'ko';
+    if (lang !== 'ko' && window.setLang) window.setLang(lang);
+  } catch(e) {}
 })();
 </script>
 </body>

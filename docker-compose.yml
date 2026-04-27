@@ -1,0 +1,30 @@
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - DATABASE_URL=postgresql://sesisoft:sesisoft@db:5432/sesisoft
+      - ADMIN_PASSWORD=sesisoft2026
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: sesisoft
+      POSTGRES_USER: sesisoft
+      POSTGRES_PASSWORD: sesisoft
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sesisoft"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  pgdata:
