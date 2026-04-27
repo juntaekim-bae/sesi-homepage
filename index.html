@@ -405,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=25" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=26" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -667,7 +667,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=25" alt="SESISOFT" style="height:64px;width:auto;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=26" alt="SESISOFT" style="height:64px;width:auto;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -1023,9 +1023,31 @@ document.addEventListener('visibilitychange', () => {
 })();
 
 let currentLang = 'ko';
-renderGames('all');
-renderHistory();
-renderFooterGames();
+
+/* ── config.json 로드 (서버 설정 우선) ── */
+(async function initConfig() {
+  try {
+    const res = await fetch('config.json', {cache:'no-store'});
+    if (res.ok) {
+      const cfg = await res.json();
+      if (cfg.games)   localStorage.setItem('ss_games',   JSON.stringify(cfg.games));
+      if (cfg.history) localStorage.setItem('ss_history', JSON.stringify(cfg.history));
+      if (cfg.careers) localStorage.setItem('ss_careers', JSON.stringify(cfg.careers));
+    }
+  } catch(e) {}
+  renderGames('all');
+  renderHistory();
+  renderFooterGames();
+  renderCareers();
+
+  const saved = localStorage.getItem('ss_lang');
+  if (saved) { if (saved !== 'ko') setLang(saved); }
+  else {
+    const bl = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (bl.startsWith('ja')) setLang('ja');
+    else if (!bl.startsWith('ko')) setLang('en');
+  }
+})();
 
 /* ── Careers ── */
 const CAREERS_I18N = {
@@ -1089,15 +1111,14 @@ function renderCareers() {
         ja: `${fallbackEmail} にメールをお送りください`
       };
       jobsEl.innerHTML = `
-        <a href="mailto:${fallbackEmail}" class="position-card reveal">
+        <div class="position-card reveal" style="cursor:default">
           <div><div class="position-name">${L.fallbackName}</div><div class="position-meta">${fallbackMeta[currentLang] || fallbackMeta.ko}</div></div>
-          <span class="position-arrow">→</span>
-        </a>`;
+          <button onclick="copyEmail('${fallbackEmail}',this)" class="btn btn-outline" style="font-size:12px;padding:8px 14px;flex-shrink:0">복사</button>
+        </div>`;
       jobsEl.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     }
   }
 }
-renderCareers();
 _bc.onmessage = (e) => {
   if (e.data.type === 'games')   { renderGames(currentFilter); renderFooterGames(); }
   if (e.data.type === 'history') { renderHistory(); }
@@ -1119,15 +1140,6 @@ function setLang(lang) {
   renderHistory();
   renderCareers();
 }
-(function() {
-  const saved = localStorage.getItem('ss_lang');
-  if (saved) { if (saved !== 'ko') setLang(saved); }
-  else {
-    const bl = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (bl.startsWith('ja')) setLang('ja');
-    else if (!bl.startsWith('ko')) setLang('en');
-  }
-})();
 </script>
 </body>
 </html>
