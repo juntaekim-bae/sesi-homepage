@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=29" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=30" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=29" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=30" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -235,8 +235,8 @@
       </div>
     </nav>
     <div class="sidebar-footer">
-      <a href="#" onclick="pushToGitHub()" style="color:#4ade80;font-weight:700">☁️ 서버에 저장</a>
-      <a href="#" onclick="triggerDeploy()" style="color:#fb923c;font-weight:700;margin-top:4px">🚀 배포하기</a>
+      <a href="#" onclick="syncToServer();showToast('DB에 저장했습니다.','success')" style="color:#4ade80;font-weight:700">☁️ DB 저장</a>
+      <a href="#" onclick="triggerDeploy()" style="color:#fb923c;font-weight:700;margin-top:4px">🚀 코드 배포</a>
       <a href="index.html" target="_blank" style="margin-top:4px">🌐 홈페이지 보기</a>
       <a href="#" onclick="doLogout()" style="margin-top:4px">🚪 로그아웃</a>
     </div>
@@ -408,11 +408,27 @@
       <div class="page-header">
         <div>
           <div class="page-title">서버 연동 설정</div>
-          <div class="page-desc">GitHub API를 통해 config.json을 저장하면 어디서든 동일한 설정을 사용할 수 있습니다.</div>
+          <div class="page-desc">DB 저장 및 코드 배포 설정을 관리합니다.</div>
         </div>
-        <button class="btn btn-primary" onclick="saveGithubSettings()">설정 저장</button>
       </div>
+
+      <!-- DB API 키 -->
       <div class="card" style="max-width:560px">
+        <div class="card-header"><span class="card-title">🗄️ DB 연동</span></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label>API 키 (ADMIN_PASSWORD)</label>
+            <input id="apiKeyInput" type="password" placeholder="서버 배포 시 설정한 ADMIN_PASSWORD 값" />
+            <div class="form-hint">서버에 저장 시 인증에 사용됩니다. 이 브라우저에만 보관됩니다.</div>
+          </div>
+          <button class="btn btn-primary" onclick="saveApiKey()">설정 저장</button>
+          <div id="ghStatus" style="margin-top:12px;font-size:13px;color:var(--muted)"></div>
+        </div>
+      </div>
+
+      <!-- 코드 배포 (GitHub Actions) -->
+      <div class="card" style="max-width:560px;margin-top:20px">
+        <div class="card-header"><span class="card-title">🚀 코드 배포 (GitHub Actions)</span></div>
         <div class="card-body">
           <div class="form-row">
             <label>GitHub 저장소 (owner/repo)</label>
@@ -420,29 +436,16 @@
           </div>
           <div class="form-row">
             <label>GitHub Personal Access Token</label>
-            <input id="ghToken" type="password" placeholder="ghp_xxxxxxxxxxxx (repo 쓰기 권한 필요)" />
+            <input id="ghToken" type="password" placeholder="ghp_xxxxxxxxxxxx" />
           </div>
-          <p style="font-size:13px;color:var(--muted);margin-top:4px;line-height:1.7">
-            토큰은 이 브라우저에만 저장되며 외부로 전송되지 않습니다.<br>
-            GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens<br>
-            권한: <strong>Contents: Read and write</strong>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">
+            HTML·이미지 등 코드 파일을 변경했을 때만 필요합니다.<br>
+            권한: <strong>Actions: Read and write</strong>
           </p>
-        </div>
-      </div>
-      <div class="card" style="max-width:560px;margin-top:20px">
-        <div class="card-body">
-          <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:.08em">자동 배포 (GitHub Actions)</div>
-          <p style="font-size:13px;color:var(--muted);line-height:1.8">
-            저장소에 <code style="background:var(--bg);padding:2px 6px;border-radius:4px">.github/workflows/deploy.yml</code> 파일이 있으면<br>
-            서버에 저장 클릭 시 GitHub Actions가 자동으로 fly.io에 배포합니다.<br><br>
-            <strong>필요한 GitHub Secret:</strong> <code style="background:var(--bg);padding:2px 6px;border-radius:4px">FLY_API_TOKEN</code><br>
-            fly.io → Account → Access Tokens에서 발급
-          </p>
-          <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
-            <button class="btn btn-success" onclick="pushToGitHub()">☁️ 서버에 저장</button>
-            <button class="btn btn-primary" onclick="triggerDeploy()">🚀 배포하기</button>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-ghost" onclick="saveGithubSettings()">GitHub 설정 저장</button>
+            <button class="btn btn-primary" onclick="triggerDeploy()">🚀 코드 배포하기</button>
           </div>
-          <div id="ghStatus" style="margin-top:12px;font-size:13px;color:var(--muted)"></div>
         </div>
       </div>
     </div>
@@ -654,8 +657,8 @@ const _bc = new BroadcastChannel('sesisoft_sync');
 /* ── Storage ── */
 function getGames()   { try { return JSON.parse(localStorage.getItem('ss_games'))    || DEFAULT_GAMES;   } catch(e){ return DEFAULT_GAMES; } }
 function getHistory() { try { return JSON.parse(localStorage.getItem('ss_history'))  || DEFAULT_HISTORY; } catch(e){ return DEFAULT_HISTORY; } }
-function saveGames(d)   { localStorage.setItem('ss_games',   JSON.stringify(d)); _bc.postMessage({type:'games'}); }
-function saveHistoryData(d) { localStorage.setItem('ss_history', JSON.stringify(d)); _bc.postMessage({type:'history'}); }
+function saveGames(d)   { localStorage.setItem('ss_games',   JSON.stringify(d)); _bc.postMessage({type:'games'});   syncToServer(); }
+function saveHistoryData(d) { localStorage.setItem('ss_history', JSON.stringify(d)); _bc.postMessage({type:'history'}); syncToServer(); }
 function getPassword()  { return localStorage.getItem('ss_pw') || 'sesisoft2026'; }
 function nextId(arr)    { return arr.length ? Math.max(...arr.map(x=>x.id)) + 1 : 1; }
 
@@ -736,7 +739,12 @@ function savePartners() {
   const p = getPartners();
   localStorage.setItem('ss_partners', JSON.stringify(p));
   _bc.postMessage({type:'partners'});
+  syncToServer();
   showToast('파트너 정보가 저장되었습니다.', 'success');
+}
+function saveApiKey() {
+  localStorage.setItem('api_key', document.getElementById('apiKeyInput').value.trim());
+  showToast('API 키가 저장되었습니다.', 'success');
 }
 function saveGithubSettings() {
   localStorage.setItem('gh_repo',  document.getElementById('ghRepo').value.trim());
@@ -744,9 +752,39 @@ function saveGithubSettings() {
   showToast('GitHub 설정이 저장되었습니다.', 'success');
 }
 function loadGithubSettings() {
-  document.getElementById('ghRepo').value  = localStorage.getItem('gh_repo')  || '';
-  document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
+  document.getElementById('apiKeyInput').value = localStorage.getItem('api_key')  || '';
+  document.getElementById('ghRepo').value      = localStorage.getItem('gh_repo')  || '';
+  document.getElementById('ghToken').value     = localStorage.getItem('gh_token') || '';
 }
+/* ── DB API 동기화 ── */
+async function syncToServer() {
+  const apiKey = localStorage.getItem('api_key') || '';
+  if (!apiKey) return;
+  const cfg = {
+    games:    getGames(),
+    history:  getHistory(),
+    careers:  getCareers(),
+    partners: getPartners()
+  };
+  try {
+    const r = await fetch('/api/config', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify(cfg)
+    });
+    const statusEl = document.getElementById('ghStatus');
+    if (r.ok) {
+      if (statusEl) statusEl.textContent = '✅ ' + new Date().toLocaleString() + ' DB 저장 완료';
+    } else {
+      const err = await r.json().catch(() => ({}));
+      if (statusEl) statusEl.textContent = '❌ ' + (err.error || r.status);
+      showToast('DB 저장 오류: ' + (err.error || r.status), 'error');
+    }
+  } catch(e) {
+    console.error('syncToServer:', e);
+  }
+}
+
 async function pushToGitHub() {
   const token = localStorage.getItem('gh_token') || '';
   const repo  = localStorage.getItem('gh_repo')  || '';
@@ -844,6 +882,7 @@ function saveCareers() {
   };
   localStorage.setItem('ss_careers', JSON.stringify(data));
   _bc.postMessage({type:'careers'});
+  syncToServer();
   showToast('채용 정보가 저장되었습니다.', 'success');
 }
 function loadCareersForm() {
