@@ -312,7 +312,7 @@
 
     /* ── Footer ── */
     footer { background: var(--text); color: rgba(255,255,255,.85); padding: 44px 56px 24px; }
-    .footer-top { display: grid; grid-template-columns: 1.4fr 2.6fr auto; gap: 40px 60px; margin-bottom: 48px; }
+    .footer-top { display: grid; grid-template-columns: 1.2fr 2.8fr 1.1fr 1fr; gap: 40px 80px; margin-bottom: 48px; }
     .footer-nav-group { display: flex; justify-content: space-between; gap: 60px; align-items: flex-start; }
     #footerGameLinks { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 10px; }
     #footerGameLinks.cols3 { grid-template-columns: 1fr 1fr 1fr; }
@@ -405,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=18" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=19" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -658,7 +658,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=18" alt="SESISOFT" style="height:64px;width:auto;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=19" alt="SESISOFT" style="height:64px;width:auto;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -675,24 +675,22 @@
       <div class="footer-col-title" data-ko="게임" data-en="Games" data-ja="ゲーム">게임</div>
       <ul class="footer-col-links" id="footerGameLinks"></ul>
     </div>
-    <div class="footer-nav-group">
-      <div>
-        <div class="footer-col-title" data-ko="회사" data-en="Company" data-ja="会社">회사</div>
-        <ul class="footer-col-links">
-          <li><a href="#about" data-ko="회사 소개" data-en="About" data-ja="会社概要">회사 소개</a></li>
-          <li><a href="#history" data-ko="회사 연혁" data-en="History" data-ja="会社沿革">회사 연혁</a></li>
-          <li><a href="#careers" data-ko="채용" data-en="Careers" data-ja="採用">채용</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title" data-ko="지원" data-en="Support" data-ja="サポート">지원</div>
-        <ul class="footer-col-links">
-          <li><a href="#support" data-ko="고객센터" data-en="Customer Support" data-ja="カスタマーサポート">고객센터</a></li>
-          <li><a href="terms.html" data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</a></li>
-          <li><a href="privacy.html" data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="個人情報保護方針">개인정보처리방침</a></li>
-          <li><a href="youth.html" data-ko="청소년보호정책" data-en="Youth Protection Policy" data-ja="青少年保護方針">청소년보호정책</a></li>
-        </ul>
-      </div>
+    <div>
+      <div class="footer-col-title" data-ko="회사" data-en="Company" data-ja="会社">회사</div>
+      <ul class="footer-col-links">
+        <li><a href="#about" data-ko="회사 소개" data-en="About" data-ja="会社概要">회사 소개</a></li>
+        <li><a href="#history" data-ko="회사 연혁" data-en="History" data-ja="会社沿革">회사 연혁</a></li>
+        <li><a href="#careers" data-ko="채용" data-en="Careers" data-ja="採用">채용</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title" data-ko="지원" data-en="Support" data-ja="サポート">지원</div>
+      <ul class="footer-col-links">
+        <li><a href="#support" data-ko="고객센터" data-en="Customer Support" data-ja="カスタマーサポート">고객센터</a></li>
+        <li><a href="terms.html" data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</a></li>
+        <li><a href="privacy.html" data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="個人情報保護方針">개인정보처리방침</a></li>
+        <li><a href="youth.html" data-ko="청소년보호정책" data-en="Youth Protection Policy" data-ja="青少年保護方針">청소년보호정책</a></li>
+      </ul>
     </div>
   </div>
   <div class="footer-bottom">
@@ -712,10 +710,10 @@
 const DEFAULT_GAMES = [
   { id:1,  title:'천상비M',              title_en:'Cheongsangbi M',          title_ja:'天上秘M',
            genre:'2D MMORPG',            genre_en:'2D MMORPG',               genre_ja:'2D MMORPG',
-           platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'https://1003bm.sesisoft.com/', google:'https://play.google.com/store/apps/details?id=com.sesisoft.and1003bm', apple:'https://apps.apple.com/kr/app/id1636438292' },
+           platform:'mobile', icon:'⚔️', color:'135deg,#dbeafe,#eff6ff', thumb:'https://image.winudf.com/v2/image1/Y29tLnNlc2lzb2Z0LmFuZDEwMDNibV9pY29uXzE2NjY0MjY4MDdfMDc2/icon.png?w=140&fakeurl=1', site:'https://1003bm.sesisoft.com/', google:'https://play.google.com/store/apps/details?id=com.sesisoft.and1003bm', onestore:'http://onesto.re/0000764544', galaxy:'https://galaxystore.samsung.com/detail/com.sesisoft.glx1003bm', apple:'https://apps.apple.com/kr/app/id1636438292' },
   { id:2,  title:'뿌요뿌요!! Quest',     title_en:'Puyo Puyo!! Quest',        title_ja:'ぷよぷよ！！クエスト',
            genre:'캐주얼 퍼즐 RPG',      genre_en:'Casual Puzzle RPG',        genre_ja:'カジュアルパズルRPG',
-           platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://puyopuyoquest.sesisoft.com/_html/assets/images/sec1_logo.png', site:'https://puyopuyoquest.sesisoft.com/', google:'https://sesisoft.onelink.me/uo8L/jqhe3bhd', apple:'https://sesisoft.onelink.me/uo8L/fiae00al' },
+           platform:'mobile', icon:'🫧', color:'135deg,#fce7f3,#fff1f2', thumb:'https://puyopuyoquest.sesisoft.com/_html/assets/images/sec1_logo.png', site:'https://puyopuyoquest.sesisoft.com/', google:'https://sesisoft.onelink.me/uo8L/jqhe3bhd', onestore:'https://sesisoft.onelink.me/uo8L/rfzv7wys', apple:'https://sesisoft.onelink.me/uo8L/fiae00al' },
   { id:3,  title:'꿈왕국과 잠자는 100명의 왕자님', short_title:'꿈왕자',
            title_en:'Dream Kingdom',      title_ja:'夢王国',
            genre:'로맨틱 퍼즐 RPG',      genre_en:'Romantic Puzzle RPG',      genre_ja:'ロマンチックパズルRPG',
@@ -749,7 +747,7 @@ const DEFAULT_GAMES = [
            platform:'pc',     icon:'🎉', color:'135deg,#fef9c3,#fefce8', thumb:'https://pokipoki.co.kr/img/main/main_visual.png', site:'https://pokipoki.co.kr/', google:'', apple:'' },
   { id:17, title:'열혈강호: 화룡전',    title_en:'Yulgang: Hwaryongjeon',   title_ja:'熱血江湖：火龍傳',
            genre:'무협 액션 MMORPG',     genre_en:'Martial Arts Action MMORPG', genre_ja:'武侠アクションMMORPG',
-           platform:'mobile', icon:'⚔️', color:'135deg,#fef2f2,#fff5f5', thumb:'https://yulgang.sesisoft.com/image/main/logo.png', site:'https://yulgang.sesisoft.com/', google:'https://abr.ge/3u89q3', apple:'https://abr.ge/r0ll5i' },
+           platform:'mobile', icon:'⚔️', color:'135deg,#fef2f2,#fff5f5', thumb:'https://yulgang.sesisoft.com/image/main/logo.png', site:'https://yulgang.sesisoft.com/', google:'https://abr.ge/3u89q3', onestore:'https://abr.ge/imjbuq', apple:'https://abr.ge/r0ll5i' },
   { id:18, title:'엘로아',              title_en:'ELOA',                    title_ja:'ELOA',
            genre:'태세변환 액션 판타지 MMORPG', genre_en:'Action Fantasy MMORPG', genre_ja:'アクションファンタジーMMORPG',
            platform:'pc',     icon:'⚡', color:'135deg,#ede9fe,#f5f3ff', thumb:'https://info.sesisoft.com/img/game3.png', site:'https://eloa.sesisoft.com/', google:'', apple:'' },
@@ -799,10 +797,12 @@ function loadGames() {
       const def = DEFAULT_GAMES.find(d => d.id === g.id) || {};
       return Object.assign({}, def, g,
         { short_title: g.short_title || def.short_title,
-          title_en: g.title_en || def.title_en,
-          title_ja: g.title_ja || def.title_ja,
-          genre_en: g.genre_en || def.genre_en,
-          genre_ja: g.genre_ja || def.genre_ja });
+          title_en:  g.title_en  || def.title_en,
+          title_ja:  g.title_ja  || def.title_ja,
+          genre_en:  g.genre_en  || def.genre_en,
+          genre_ja:  g.genre_ja  || def.genre_ja,
+          onestore:  g.onestore  || def.onestore  || '',
+          galaxy:    g.galaxy    || def.galaxy    || '' });
     });
   } catch(e) { return DEFAULT_GAMES; }
 }
@@ -835,17 +835,23 @@ function renderGames(platform) {
         const title = currentLang === 'en' ? (g.title_en || g.title) : currentLang === 'ja' ? (g.title_ja || g.title) : g.title;
         const genre = currentLang === 'en' ? (g.genre_en || g.genre) : currentLang === 'ja' ? (g.genre_ja || g.genre) : g.genre;
         const links = [
-          g.site   ? `<a href="${g.site}"   class="store-btn" target="_blank" rel="noopener">${siteLabel}</a>` : '',
-          g.google ? `<a href="${g.google}" class="store-btn" target="_blank" rel="noopener">▶ Google Play</a>`  : '',
-          g.apple  ? `<a href="${g.apple}"  class="store-btn" target="_blank" rel="noopener">🍎 App Store</a>`   : '',
+          g.site     ? `<a href="${g.site}"     class="store-btn" target="_blank" rel="noopener">${siteLabel}</a>` : '',
+          g.google   ? `<a href="${g.google}"   class="store-btn" target="_blank" rel="noopener">▶ Google Play</a>` : '',
+          g.onestore ? `<a href="${g.onestore}" class="store-btn" target="_blank" rel="noopener">🔵 One Store</a>` : '',
+          g.galaxy   ? `<a href="${g.galaxy}"   class="store-btn" target="_blank" rel="noopener">⬡ Galaxy Store</a>` : '',
+          g.apple    ? `<a href="${g.apple}"    class="store-btn" target="_blank" rel="noopener">🍎 App Store</a>` : '',
         ].filter(Boolean).join('');
+        const thumbHref = g.site || g.google || g.onestore || g.galaxy || g.apple || '';
+        const thumbClick = thumbHref
+          ? `onclick="window.open('${thumbHref.replace(/'/g,"\\'")}','_blank')" style="background:linear-gradient(${g.color || '135deg,#dbeafe,#eff6ff'});position:relative;cursor:pointer"`
+          : `style="background:linear-gradient(${g.color || '135deg,#dbeafe,#eff6ff'});position:relative"`;
         const thumbContent = g.thumb
           ? `<img src="${g.thumb}" alt="${title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
             + `<div class="game-thumb-icon" style="display:none">${g.icon || '🎮'}</div>`
           : `<div class="game-thumb-icon">${g.icon || '🎮'}</div>`;
         return `
           <div class="game-card reveal" data-platform="${g.platform}">
-            <div class="game-thumb" style="background:linear-gradient(${g.color || '135deg,#dbeafe,#eff6ff'});position:relative">
+            <div class="game-thumb" ${thumbClick}>
               ${thumbContent}
               <span class="game-badge ${badgeClass}">${badgeLabel}</span>
             </div>
@@ -889,7 +895,7 @@ function renderFooterGames() {
     const title = currentLang === 'en' ? (g.title_en || g.short_title || g.title)
                 : currentLang === 'ja' ? (g.title_ja || g.short_title || g.title)
                 : (g.short_title || g.title);
-    const href = g.site || g.google || g.apple || '#';
+    const href = g.site || g.google || g.onestore || g.galaxy || g.apple || '#';
     const ext = href !== '#' ? ' target="_blank" rel="noopener"' : '';
     return `<li><a href="${href}"${ext}>${title}</a></li>`;
   }).join('');

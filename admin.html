@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=18" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=19" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=18" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=19" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -456,6 +456,14 @@
       <div class="form-row">
         <label>Google Play URL (모바일)</label>
         <input id="gGoogle" placeholder="https://play.google.com/..." />
+      </div>
+      <div class="form-row">
+        <label>One Store URL (모바일)</label>
+        <input id="gOnestore" placeholder="https://m.onestore.co.kr/..." />
+      </div>
+      <div class="form-row">
+        <label>Galaxy Store URL (모바일)</label>
+        <input id="gGalaxy" placeholder="https://galaxystore.samsung.com/..." />
       </div>
       <div class="form-row">
         <label>App Store URL (모바일)</label>
@@ -711,10 +719,12 @@ function renderGames() {
       <td style="color:var(--muted)">${g.genre}</td>
       <td><span class="badge badge-${g.platform}">${{pc:'PC',web:'웹',mobile:'모바일'}[g.platform]||g.platform}</span></td>
       <td style="font-size:12px;color:var(--muted)">
-        ${g.site   ? '🌐 사이트 '  : ''}
-        ${g.google ? '▶ Google '  : ''}
-        ${g.apple  ? '🍎 AppStore' : ''}
-        ${!g.site&&!g.google&&!g.apple ? '—' : ''}
+        ${g.site     ? '🌐 ' : ''}
+        ${g.google   ? '▶ ' : ''}
+        ${g.onestore ? '🔵 ' : ''}
+        ${g.galaxy   ? '⬡ ' : ''}
+        ${g.apple    ? '🍎 ' : ''}
+        ${!g.site&&!g.google&&!g.onestore&&!g.galaxy&&!g.apple ? '—' : ''}
       </td>
       <td>
         <div class="row-actions">
@@ -751,8 +761,10 @@ function openGameModal(id) {
     document.getElementById('gIcon').value     = g.icon     || '';
     document.getElementById('gColor').value    = g.color    || '';
     document.getElementById('gThumb').value    = g.thumb    || '';
-    document.getElementById('gSite').value     = g.site     || '';
+    document.getElementById('gSite').value      = g.site     || '';
     document.getElementById('gGoogle').value   = g.google   || '';
+    document.getElementById('gOnestore').value = g.onestore || '';
+    document.getElementById('gGalaxy').value   = g.galaxy   || '';
     document.getElementById('gApple').value    = g.apple    || '';
     previewThumb(g.thumb || '');
     document.querySelectorAll('#iconPicker .icon-opt').forEach(el => {
@@ -762,7 +774,7 @@ function openGameModal(id) {
       if (el.dataset.val === g.color) el.style.borderColor = '#2563eb';
     });
   } else {
-    ['gTitle','gTitleEn','gTitleJa','gGenre','gGenreEn','gGenreJa','gIcon','gColor','gThumb','gSite','gGoogle','gApple'].forEach(id => document.getElementById(id).value = '');
+    ['gTitle','gTitleEn','gTitleJa','gGenre','gGenreEn','gGenreJa','gIcon','gColor','gThumb','gSite','gGoogle','gOnestore','gGalaxy','gApple'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('gPlatform').value = 'pc';
     document.getElementById('thumbPreview').style.display = 'none';
     document.getElementById('gThumbFile').value = '';
@@ -817,6 +829,8 @@ function saveGame() {
     thumb:    document.getElementById('gThumb').value.trim(),
     site:     document.getElementById('gSite').value.trim(),
     google:   document.getElementById('gGoogle').value.trim(),
+    onestore: document.getElementById('gOnestore').value.trim(),
+    galaxy:   document.getElementById('gGalaxy').value.trim(),
     apple:    document.getElementById('gApple').value.trim(),
   };
   if (editId) {
