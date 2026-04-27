@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=26" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=27" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=26" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=27" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -223,6 +223,9 @@
       </div>
       <div class="nav-item" onclick="showTab('careers', this)">
         <span class="nav-icon">💼</span> 채용 관리
+      </div>
+      <div class="nav-item" onclick="showTab('partners', this)">
+        <span class="nav-icon">🤝</span> 파트너 관리
       </div>
       <div class="nav-item" onclick="showTab('password', this)">
         <span class="nav-icon">🔐</span> 비밀번호 변경
@@ -340,6 +343,36 @@
           <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:16px;text-transform:uppercase;letter-spacing:.08em">채용 공고 목록</div>
           <div id="jobList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"></div>
           <button class="btn btn-outline" onclick="addJob()" style="width:100%;justify-content:center">+ 공고 추가</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-partners" style="display:none">
+      <div class="page-header">
+        <div>
+          <div class="page-title">파트너 관리</div>
+          <div class="page-desc">홈페이지 글로벌 파트너 섹션의 국내·해외 협력사를 관리합니다.</div>
+        </div>
+        <button class="btn btn-primary" onclick="savePartners()">저장</button>
+      </div>
+      <div class="card" style="max-width:680px">
+        <div class="card-header"><span class="card-title">🇰🇷 국내 협력사</span></div>
+        <div class="card-body">
+          <div id="partnerDomesticList" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px"></div>
+          <div style="display:flex;gap:8px">
+            <input id="newDomesticPartner" placeholder="협력사명 입력" style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:inherit;background:var(--bg)" onkeydown="if(event.key==='Enter')addPartner('domestic')" />
+            <button class="btn btn-primary" onclick="addPartner('domestic')">+ 추가</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:680px;margin-top:20px">
+        <div class="card-header"><span class="card-title">🌏 해외 협력사</span></div>
+        <div class="card-body">
+          <div id="partnerGlobalList" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px"></div>
+          <div style="display:flex;gap:8px">
+            <input id="newGlobalPartner" placeholder="협력사명 입력" style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;outline:none;font-family:inherit;background:var(--bg)" onkeydown="if(event.key==='Enter')addPartner('global')" />
+            <button class="btn btn-primary" onclick="addPartner('global')">+ 추가</button>
+          </div>
         </div>
       </div>
     </div>
@@ -653,12 +686,53 @@ function changePassword() {
 
 /* ── Tabs ── */
 function showTab(name, el) {
-  ['games','history','careers','password','github'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
+  ['games','history','careers','partners','password','github'].forEach(t => document.getElementById('tab-'+t).style.display = 'none');
   document.getElementById('tab-'+name).style.display = '';
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
-  if (name === 'careers') loadCareersForm();
-  if (name === 'github')  loadGithubSettings();
+  if (name === 'careers')  loadCareersForm();
+  if (name === 'partners') loadPartnersForm();
+  if (name === 'github')   loadGithubSettings();
+}
+/* ── Partners ── */
+const DEFAULT_PARTNERS = {
+  domestic: ['kakaogames','NEXON','Smilegate','GNIsoft','Neoact','HUNGRY APP'],
+  global:   ['Cygames','SEGA','DeNA','CraftEgg','BANDAI NAMCO','CyberAgent','QualiArts','ARC SYSTEM WORKS','G.CREST','CYBIRD','Tencent','Disney','Marvel','DMM GAMES','GRENGE','Applibot']
+};
+function getPartners() { try { return JSON.parse(localStorage.getItem('ss_partners')) || DEFAULT_PARTNERS; } catch(e) { return DEFAULT_PARTNERS; } }
+function loadPartnersForm() {
+  const p = getPartners();
+  renderPartnerList('partnerDomesticList', p.domestic, 'domestic');
+  renderPartnerList('partnerGlobalList',   p.global,   'global');
+}
+function renderPartnerList(elId, names, type) {
+  document.getElementById(elId).innerHTML = names.map((n, i) => `
+    <span style="display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600">
+      ${n}
+      <button onclick="removePartner('${type}',${i})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;line-height:1;padding:0" title="삭제">✕</button>
+    </span>`).join('');
+}
+function addPartner(type) {
+  const inputId = type === 'domestic' ? 'newDomesticPartner' : 'newGlobalPartner';
+  const name = document.getElementById(inputId).value.trim();
+  if (!name) return;
+  const p = getPartners();
+  p[type] = [...(p[type] || []), name];
+  localStorage.setItem('ss_partners', JSON.stringify(p));
+  document.getElementById(inputId).value = '';
+  renderPartnerList(type === 'domestic' ? 'partnerDomesticList' : 'partnerGlobalList', p[type], type);
+}
+function removePartner(type, idx) {
+  const p = getPartners();
+  p[type] = (p[type] || []).filter((_, i) => i !== idx);
+  localStorage.setItem('ss_partners', JSON.stringify(p));
+  renderPartnerList(type === 'domestic' ? 'partnerDomesticList' : 'partnerGlobalList', p[type], type);
+}
+function savePartners() {
+  const p = getPartners();
+  localStorage.setItem('ss_partners', JSON.stringify(p));
+  _bc.postMessage({type:'partners'});
+  showToast('파트너 정보가 저장되었습니다.', 'success');
 }
 function saveGithubSettings() {
   localStorage.setItem('gh_repo',  document.getElementById('ghRepo').value.trim());
@@ -678,10 +752,11 @@ async function pushToGitHub() {
     return;
   }
   const cfg = {
-    games:   getGames(),
-    history: getHistory(),
-    careers: getCareers(),
-    updated: new Date().toISOString()
+    games:    getGames(),
+    history:  getHistory(),
+    careers:  getCareers(),
+    partners: getPartners(),
+    updated:  new Date().toISOString()
   };
   if (statusEl) statusEl.textContent = '📡 GitHub에 저장 중...';
   let sha;

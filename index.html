@@ -405,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=26" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=27" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -619,33 +619,9 @@
 
   <div style="max-width:900px;margin:0 auto">
     <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal" data-ko="국내 협력사" data-en="Domestic Partners" data-ja="国内パートナー">국내 협력사</p>
-    <div class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px">
-      <span class="partner-tag">kakaogames</span>
-      <span class="partner-tag">NEXON</span>
-      <span class="partner-tag">Smilegate</span>
-      <span class="partner-tag">GNIsoft</span>
-      <span class="partner-tag">Neoact</span>
-      <span class="partner-tag">HUNGRY APP</span>
-    </div>
+    <div id="partnersDomestic" class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px"></div>
     <p style="font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:20px" class="reveal" data-ko="해외 협력사" data-en="Global Partners" data-ja="海外パートナー">해외 협력사</p>
-    <div class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
-      <span class="partner-tag">Cygames</span>
-      <span class="partner-tag">SEGA</span>
-      <span class="partner-tag">DeNA</span>
-      <span class="partner-tag">CraftEgg</span>
-      <span class="partner-tag">BANDAI NAMCO</span>
-      <span class="partner-tag">CyberAgent</span>
-      <span class="partner-tag">QualiArts</span>
-      <span class="partner-tag">ARC SYSTEM WORKS</span>
-      <span class="partner-tag">G.CREST</span>
-      <span class="partner-tag">CYBIRD</span>
-      <span class="partner-tag">Tencent</span>
-      <span class="partner-tag">Disney</span>
-      <span class="partner-tag">Marvel</span>
-      <span class="partner-tag">DMM GAMES</span>
-      <span class="partner-tag">GRENGE</span>
-      <span class="partner-tag">Applibot</span>
-    </div>
+    <div id="partnersGlobal" class="partners-grid reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center"></div>
   </div>
 </section>
 
@@ -667,7 +643,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=26" alt="SESISOFT" style="height:64px;width:auto;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=27" alt="SESISOFT" style="height:64px;width:auto;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -716,6 +692,10 @@
 /* ────────────────────────────────────────────
    Default data (used if no admin data saved)
 ──────────────────────────────────────────── */
+const DEFAULT_PARTNERS = {
+  domestic: ['kakaogames','NEXON','Smilegate','GNIsoft','Neoact','HUNGRY APP'],
+  global:   ['Cygames','SEGA','DeNA','CraftEgg','BANDAI NAMCO','CyberAgent','QualiArts','ARC SYSTEM WORKS','G.CREST','CYBIRD','Tencent','Disney','Marvel','DMM GAMES','GRENGE','Applibot']
+};
 const DEFAULT_GAMES = [
   { id:1,  title:'천상비M',              title_en:'Cheongsangbi M',          title_ja:'天上秘M',
            genre:'2D MMORPG',            genre_en:'2D MMORPG',               genre_ja:'2D MMORPG',
@@ -1030,15 +1010,17 @@ let currentLang = 'ko';
     const res = await fetch('config.json', {cache:'no-store'});
     if (res.ok) {
       const cfg = await res.json();
-      if (cfg.games)   localStorage.setItem('ss_games',   JSON.stringify(cfg.games));
-      if (cfg.history) localStorage.setItem('ss_history', JSON.stringify(cfg.history));
-      if (cfg.careers) localStorage.setItem('ss_careers', JSON.stringify(cfg.careers));
+      if (cfg.games)    localStorage.setItem('ss_games',    JSON.stringify(cfg.games));
+      if (cfg.history)  localStorage.setItem('ss_history',  JSON.stringify(cfg.history));
+      if (cfg.careers)  localStorage.setItem('ss_careers',  JSON.stringify(cfg.careers));
+      if (cfg.partners) localStorage.setItem('ss_partners', JSON.stringify(cfg.partners));
     }
   } catch(e) {}
   renderGames('all');
   renderHistory();
   renderFooterGames();
   renderCareers();
+  renderPartners();
 
   const saved = localStorage.getItem('ss_lang');
   if (saved) { if (saved !== 'ko') setLang(saved); }
@@ -1119,10 +1101,20 @@ function renderCareers() {
     }
   }
 }
+function renderPartners() {
+  let p = DEFAULT_PARTNERS;
+  try { const s = localStorage.getItem('ss_partners'); if (s) p = JSON.parse(s); } catch(e) {}
+  const domEl  = document.getElementById('partnersDomestic');
+  const globEl = document.getElementById('partnersGlobal');
+  if (domEl)  domEl.innerHTML  = (p.domestic || []).map(n => `<span class="partner-tag">${n}</span>`).join('');
+  if (globEl) globEl.innerHTML = (p.global   || []).map(n => `<span class="partner-tag">${n}</span>`).join('');
+}
+
 _bc.onmessage = (e) => {
-  if (e.data.type === 'games')   { renderGames(currentFilter); renderFooterGames(); }
-  if (e.data.type === 'history') { renderHistory(); }
-  if (e.data.type === 'careers') { renderCareers(); }
+  if (e.data.type === 'games')    { renderGames(currentFilter); renderFooterGames(); }
+  if (e.data.type === 'history')  { renderHistory(); }
+  if (e.data.type === 'careers')  { renderCareers(); }
+  if (e.data.type === 'partners') { renderPartners(); }
 };
 
 /* ── Language Switcher ── */
