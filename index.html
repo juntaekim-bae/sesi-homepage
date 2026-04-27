@@ -405,7 +405,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=40" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=41" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -643,7 +643,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=40" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=41" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -970,13 +970,27 @@ window.addEventListener('storage', (e) => {
   if (e.key === 'ss_history') { renderHistory(); }
 });
 
-/* ── 탭 전환 후 돌아왔을 때도 최신 데이터 반영 ── */
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) {
-    renderGames(currentFilter);
-    renderHistory();
-    renderFooterGames();
+/* ── 탭 전환 후 돌아왔을 때 DB에서 최신 데이터 재로딩 ── */
+let _lastFetch = 0;
+document.addEventListener('visibilitychange', async () => {
+  if (document.hidden) return;
+  const now = Date.now();
+  if (now - _lastFetch < 30000) {
+    renderGames(currentFilter); renderHistory(); renderFooterGames();
+    return;
   }
+  _lastFetch = now;
+  try {
+    const res = await fetch('/api/config');
+    if (res.ok) {
+      const cfg = await res.json();
+      if (cfg.games)    localStorage.setItem('ss_games',    JSON.stringify(cfg.games));
+      if (cfg.history)  localStorage.setItem('ss_history',  JSON.stringify(cfg.history));
+      if (cfg.careers)  localStorage.setItem('ss_careers',  JSON.stringify(cfg.careers));
+      if (cfg.partners) localStorage.setItem('ss_partners', JSON.stringify(cfg.partners));
+    }
+  } catch(e) {}
+  renderGames(currentFilter); renderHistory(); renderFooterGames();
 });
 
 /* ── Init: localStorage에 없는 신규 DEFAULT_GAMES 항목 병합 ── */
