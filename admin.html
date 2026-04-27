@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=42" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=43" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=42" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=43" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -315,13 +315,35 @@
 
       <div class="card" style="max-width:680px">
         <div class="card-body">
-          <div class="form-row">
-            <label>채용 페이지 제목</label>
-            <input id="careerTitle" placeholder="예: 함께 만들어가는 세시소프트" />
+          <div class="lang-group">
+            <div class="lang-group-label">🌐 제목</div>
+            <div class="form-row">
+              <label>🇰🇷 한국어</label>
+              <input id="careerTitle" placeholder="예: 함께 만들어가는 세시소프트" oninput="onKoInput('careerTitle','careerTitleEn','careerTitleJa')" />
+            </div>
+            <div class="form-row">
+              <label>🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></label>
+              <input id="careerTitleEn" placeholder="e.g. Let's Build Together" />
+            </div>
+            <div class="form-row">
+              <label>🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></label>
+              <input id="careerTitleJa" placeholder="例: 一緒に作りましょう" />
+            </div>
           </div>
-          <div class="form-row">
-            <label>부제목 (설명)</label>
-            <textarea id="careerDesc" rows="3" placeholder="예: 세시소프트는 열정 있는 게임 개발자를 찾고 있습니다." style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;resize:vertical;font-family:inherit"></textarea>
+          <div class="lang-group">
+            <div class="lang-group-label">🌐 부제목</div>
+            <div class="form-row">
+              <label>🇰🇷 한국어</label>
+              <textarea id="careerDesc" rows="2" placeholder="예: 세시소프트는 열정 있는 게임 개발자를 찾고 있습니다." style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;resize:vertical;font-family:inherit" oninput="onKoInput('careerDesc','careerDescEn','careerDescJa')"></textarea>
+            </div>
+            <div class="form-row">
+              <label>🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></label>
+              <textarea id="careerDescEn" rows="2" placeholder="Detailed description in English" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;resize:vertical;font-family:inherit"></textarea>
+            </div>
+            <div class="form-row">
+              <label>🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></label>
+              <textarea id="careerDescJa" rows="2" placeholder="日本語で詳細内容を入力してください" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;resize:vertical;font-family:inherit"></textarea>
+            </div>
           </div>
           <div class="form-row">
             <label>채용 링크 URL</label>
@@ -519,14 +541,14 @@
         <div class="lang-group-label">🌐 제목</div>
         <div class="form-row">
           <label>🇰🇷 한국어 *</label>
-          <input id="hTitle" placeholder="예: 모바일 게임 출시" />
+          <input id="hTitle" placeholder="예: 모바일 게임 출시" oninput="onKoInput('hTitle','hTitleEn','hTitleJa')" />
         </div>
         <div class="form-row">
-          <label>🇺🇸 English</label>
+          <label>🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></label>
           <input id="hTitleEn" placeholder="e.g. Mobile Game Launch" />
         </div>
         <div class="form-row">
-          <label>🇯🇵 日本語</label>
+          <label>🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></label>
           <input id="hTitleJa" placeholder="例: モバイルゲームリリース" />
         </div>
       </div>
@@ -534,20 +556,21 @@
         <div class="lang-group-label">🌐 내용</div>
         <div class="form-row">
           <label>🇰🇷 한국어</label>
-          <textarea id="hDesc" placeholder="상세 내용을 입력하세요"></textarea>
+          <textarea id="hDesc" placeholder="상세 내용을 입력하세요" oninput="onKoInput('hDesc','hDescEn','hDescJa')"></textarea>
         </div>
         <div class="form-row">
-          <label>🇺🇸 English</label>
+          <label>🇺🇸 English <span style="font-size:11px;color:var(--muted);font-weight:400">(자동 번역)</span></label>
           <textarea id="hDescEn" placeholder="Detailed description in English"></textarea>
         </div>
         <div class="form-row">
-          <label>🇯🇵 日本語</label>
+          <label>🇯🇵 日本語 <span style="font-size:11px;color:var(--muted);font-weight:400">(自動翻訳)</span></label>
           <textarea id="hDescJa" placeholder="日本語で詳細内容を入力してください"></textarea>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('historyModal')">취소</button>
+      <button class="btn btn-ghost" onclick="autoTranslateHistory()" id="historyTransBtn">🤖 자동 번역</button>
       <button class="btn btn-primary" onclick="saveHistory()">저장</button>
     </div>
   </div>
@@ -604,6 +627,47 @@ function getGames()   { try { return JSON.parse(localStorage.getItem('ss_games')
 function getHistory() { try { return JSON.parse(localStorage.getItem('ss_history'))  || DEFAULT_HISTORY; } catch(e){ return DEFAULT_HISTORY; } }
 function saveGames(d)   { localStorage.setItem('ss_games',   JSON.stringify(d)); _bc.postMessage({type:'games'});   syncToServer(); }
 function saveHistoryData(d) { localStorage.setItem('ss_history', JSON.stringify(d)); _bc.postMessage({type:'history'}); syncToServer(); }
+
+/* ── 자동 번역 ── */
+async function translateText(text, lang) {
+  if (!text.trim()) return '';
+  try {
+    const r = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=ko|${lang}`);
+    const d = await r.json();
+    if (d.responseStatus === 200) return d.responseData.translatedText || '';
+  } catch(e) {}
+  return '';
+}
+const _tTimers = {};
+function onKoInput(koId, enId, jaId) {
+  clearTimeout(_tTimers[koId]);
+  _tTimers[koId] = setTimeout(async () => {
+    const ko = document.getElementById(koId)?.value.trim();
+    if (!ko) return;
+    const [en, ja] = await Promise.all([translateText(ko,'en'), translateText(ko,'ja')]);
+    if (en) document.getElementById(enId).value = en;
+    if (ja) document.getElementById(jaId).value = ja;
+  }, 900);
+}
+async function autoTranslateHistory() {
+  const title = document.getElementById('hTitle').value.trim();
+  const desc  = document.getElementById('hDesc').value.trim();
+  if (!title && !desc) { showToast('한국어 제목을 먼저 입력하세요', 'error'); return; }
+  const btn = document.getElementById('historyTransBtn');
+  if (btn) { btn.disabled = true; btn.textContent = '번역 중...'; }
+  const tasks = [];
+  if (title) tasks.push(
+    translateText(title,'en').then(v => { if(v) document.getElementById('hTitleEn').value = v; }),
+    translateText(title,'ja').then(v => { if(v) document.getElementById('hTitleJa').value = v; })
+  );
+  if (desc) tasks.push(
+    translateText(desc,'en').then(v => { if(v) document.getElementById('hDescEn').value = v; }),
+    translateText(desc,'ja').then(v => { if(v) document.getElementById('hDescJa').value = v; })
+  );
+  await Promise.all(tasks);
+  if (btn) { btn.disabled = false; btn.textContent = '🤖 자동 번역'; }
+  showToast('번역 완료!', 'success');
+}
 function getPassword()  { return localStorage.getItem('ss_pw') || 'sesisoft2026'; }
 function nextId(arr)    { return arr.length ? Math.max(...arr.map(x=>x.id)) + 1 : 1; }
 
@@ -750,7 +814,11 @@ function getCareers() { try { return JSON.parse(localStorage.getItem('ss_careers
 function saveCareers() {
   const data = {
     title:    document.getElementById('careerTitle').value.trim()    || DEFAULT_CAREERS.title,
+    title_en: document.getElementById('careerTitleEn').value.trim(),
+    title_ja: document.getElementById('careerTitleJa').value.trim(),
     desc:     document.getElementById('careerDesc').value.trim()     || DEFAULT_CAREERS.desc,
+    desc_en:  document.getElementById('careerDescEn').value.trim(),
+    desc_ja:  document.getElementById('careerDescJa').value.trim(),
     btnUrl:   document.getElementById('careerBtnUrl').value.trim(),
     email:    document.getElementById('careerEmail').value.trim()    || DEFAULT_CAREERS.email,
     jobs: collectJobs()
@@ -762,10 +830,14 @@ function saveCareers() {
 }
 function loadCareersForm() {
   const d = getCareers();
-  document.getElementById('careerTitle').value    = d.title;
-  document.getElementById('careerDesc').value     = d.desc;
+  document.getElementById('careerTitle').value    = d.title    || '';
+  document.getElementById('careerTitleEn').value  = d.title_en || '';
+  document.getElementById('careerTitleJa').value  = d.title_ja || '';
+  document.getElementById('careerDesc').value     = d.desc     || '';
+  document.getElementById('careerDescEn').value   = d.desc_en  || '';
+  document.getElementById('careerDescJa').value   = d.desc_ja  || '';
   document.getElementById('careerBtnUrl').value   = d.btnUrl && !d.btnUrl.startsWith('mailto:') ? d.btnUrl : '';
-  document.getElementById('careerEmail').value    = d.email;
+  document.getElementById('careerEmail').value    = d.email    || '';
   renderJobList(d.jobs || []);
 }
 function renderJobList(jobs) {
