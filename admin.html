@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=30" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=31" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=30" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=31" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -759,7 +759,10 @@ function loadGithubSettings() {
 /* ── DB API 동기화 ── */
 async function syncToServer() {
   const apiKey = localStorage.getItem('api_key') || '';
-  if (!apiKey) return;
+  if (!apiKey) {
+    showToast('⚠️ 서버 연동 설정에서 API 키를 먼저 입력하세요', 'error');
+    return;
+  }
   const cfg = {
     games:    getGames(),
     history:  getHistory(),
@@ -1045,9 +1048,35 @@ function handleThumbFile(input) {
   const file = input.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('gThumb').value = e.target.result;
-    previewThumb(e.target.result);
+  reader.onload = async e => {
+    const dataUrl = e.target.result;
+    previewThumb(dataUrl);
+
+    const apiKey = localStorage.getItem('api_key') || '';
+    if (!apiKey) {
+      document.getElementById('gThumb').value = dataUrl;
+      return;
+    }
+    showToast('이미지 업로드 중...', 'success');
+    try {
+      const base64 = dataUrl.split(',')[1];
+      const r = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({ name: file.name, mime: file.type, data: base64 })
+      });
+      if (r.ok) {
+        const d = await r.json();
+        document.getElementById('gThumb').value = d.url;
+        showToast('이미지 서버 저장 완료', 'success');
+      } else {
+        document.getElementById('gThumb').value = dataUrl;
+        showToast('서버 업로드 실패 — 로컬 저장됨', 'error');
+      }
+    } catch(e) {
+      document.getElementById('gThumb').value = dataUrl;
+      showToast('업로드 오류: ' + e.message, 'error');
+    }
   };
   reader.readAsDataURL(file);
 }
