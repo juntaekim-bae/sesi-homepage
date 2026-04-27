@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=34" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=35" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=34" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=35" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -387,10 +387,6 @@
       </div>
       <div class="card" style="max-width:440px">
         <div class="card-body">
-          <div class="form-row">
-            <label>현재 비밀번호</label>
-            <input type="password" id="pwCurrent" placeholder="현재 비밀번호" />
-          </div>
           <div class="form-row">
             <label>새 비밀번호</label>
             <input type="password" id="pwNew" placeholder="새 비밀번호 (4자 이상)" />
@@ -651,10 +647,22 @@ function getPassword()  { return localStorage.getItem('ss_pw') || 'sesisoft2026'
 function nextId(arr)    { return arr.length ? Math.max(...arr.map(x=>x.id)) + 1 : 1; }
 
 /* ── Auth ── */
-function doLogin() {
+async function doLogin() {
   const pw = document.getElementById('pwInput').value;
-  if (pw === getPassword()) {
+  let ok = false;
+  try {
+    const r = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw })
+    });
+    ok = r.ok;
+  } catch(e) {
+    ok = (pw === getPassword());
+  }
+  if (ok) {
     localStorage.setItem('api_key', pw);
+    localStorage.setItem('ss_pw', pw);
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('adminWrap').style.display = 'flex';
     renderGames(); renderHistory();
@@ -668,16 +676,29 @@ function doLogout() {
   document.getElementById('loginWrap').style.display = 'flex';
   document.getElementById('pwInput').value = '';
 }
-function changePassword() {
-  const cur  = document.getElementById('pwCurrent').value;
+async function changePassword() {
   const nw   = document.getElementById('pwNew').value;
   const conf = document.getElementById('pwConfirm').value;
-  if (cur !== getPassword()) { showToast('현재 비밀번호가 올바르지 않습니다.','error'); return; }
-  if (nw.length < 4)         { showToast('새 비밀번호는 4자 이상이어야 합니다.','error'); return; }
-  if (nw !== conf)           { showToast('새 비밀번호가 일치하지 않습니다.','error'); return; }
-  localStorage.setItem('ss_pw', nw);
-  ['pwCurrent','pwNew','pwConfirm'].forEach(id => document.getElementById(id).value = '');
-  showToast('비밀번호가 변경되었습니다.','success');
+  if (nw.length < 4) { showToast('새 비밀번호는 4자 이상이어야 합니다.','error'); return; }
+  if (nw !== conf)   { showToast('새 비밀번호가 일치하지 않습니다.','error'); return; }
+  const apiKey = localStorage.getItem('api_key') || '';
+  try {
+    const r = await fetch('/api/password', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify({ newPassword: nw })
+    });
+    if (r.ok) {
+      localStorage.setItem('ss_pw', nw);
+      localStorage.setItem('api_key', nw);
+      ['pwCurrent','pwNew','pwConfirm'].forEach(id => document.getElementById(id).value = '');
+      showToast('비밀번호가 변경되었습니다.','success');
+    } else {
+      showToast('비밀번호 변경 실패','error');
+    }
+  } catch(e) {
+    showToast('네트워크 오류: ' + e.message,'error');
+  }
 }
 
 /* ── Tabs ── */
