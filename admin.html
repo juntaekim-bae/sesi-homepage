@@ -197,7 +197,7 @@
 <!-- Login -->
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <div class="login-logo"><img src="bluelogo.png?v=32" alt="SESISOFT"></div>
+    <div class="login-logo"><img src="bluelogo.png?v=33" alt="SESISOFT"></div>
     <div class="login-sub">관리자 페이지에 로그인하세요</div>
     <label class="form-label">비밀번호</label>
     <input class="form-input" type="password" id="pwInput" placeholder="비밀번호 입력" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -212,7 +212,7 @@
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
-      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=32" alt="SESISOFT"></div>
+      <div class="sidebar-logo-clip"><img src="whitelogo.png?v=33" alt="SESISOFT"></div>
     </div>
     <nav class="sidebar-nav">
       <div class="nav-item active" onclick="showTab('games', this)">
@@ -412,19 +412,7 @@
         </div>
       </div>
 
-      <!-- DB API 키 -->
-      <div class="card" style="max-width:560px">
-        <div class="card-header"><span class="card-title">🗄️ DB 연동</span></div>
-        <div class="card-body">
-          <div class="form-row">
-            <label>API 키 (ADMIN_PASSWORD)</label>
-            <input id="apiKeyInput" type="password" placeholder="서버 배포 시 설정한 ADMIN_PASSWORD 값" />
-            <div class="form-hint">서버에 저장 시 인증에 사용됩니다. 이 브라우저에만 보관됩니다.</div>
-          </div>
-          <button class="btn btn-primary" onclick="saveApiKey()">설정 저장</button>
-          <div id="ghStatus" style="margin-top:12px;font-size:13px;color:var(--muted)"></div>
-        </div>
-      </div>
+      <div id="ghStatus" style="margin-top:-16px;margin-bottom:20px;font-size:13px;color:var(--muted)"></div>
 
       <!-- 코드 배포 (GitHub Actions) -->
       <div class="card" style="max-width:560px;margin-top:20px">
@@ -666,6 +654,7 @@ function nextId(arr)    { return arr.length ? Math.max(...arr.map(x=>x.id)) + 1 
 function doLogin() {
   const pw = document.getElementById('pwInput').value;
   if (pw === getPassword()) {
+    localStorage.setItem('api_key', pw);
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('adminWrap').style.display = 'flex';
     renderGames(); renderHistory();
@@ -752,9 +741,8 @@ function saveGithubSettings() {
   showToast('GitHub 설정이 저장되었습니다.', 'success');
 }
 function loadGithubSettings() {
-  document.getElementById('apiKeyInput').value = localStorage.getItem('api_key')  || '';
-  document.getElementById('ghRepo').value      = localStorage.getItem('gh_repo')  || '';
-  document.getElementById('ghToken').value     = localStorage.getItem('gh_token') || '';
+  document.getElementById('ghRepo').value  = localStorage.getItem('gh_repo')  || '';
+  document.getElementById('ghToken').value = localStorage.getItem('gh_token') || '';
 }
 /* ── DB API 동기화 ── */
 async function syncToServer() {
