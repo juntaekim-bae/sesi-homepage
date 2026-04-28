@@ -295,6 +295,45 @@
     .position-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
     .position-meta { font-size: 12px; color: var(--muted); }
     .position-arrow { font-size: 18px; color: var(--accent); }
+    /* Careers detail */
+    .careers-detail { max-width: 900px; margin: 64px auto 0; text-align: left; }
+    .careers-sub-title {
+      font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px; text-align: center;
+    }
+    .hire-steps { display: flex; align-items: flex-start; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+    .hire-step { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 110px; max-width: 150px; text-align: center; }
+    .hire-step-num {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; margin-bottom: 10px; flex-shrink: 0;
+    }
+    .hire-step-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .hire-step-sub { font-size: 11px; color: var(--muted); }
+    .hire-arrow { font-size: 22px; color: var(--accent); flex: 0; padding: 0 2px; margin-top: 8px; }
+    .job-transfer-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 52px; display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap;
+    }
+    .job-transfer-icon { font-size: 32px; flex-shrink: 0; margin-top: 2px; }
+    .job-transfer-teams { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
+    .job-transfer-team {
+      background: rgba(37,99,235,.08); color: var(--accent);
+      border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 700;
+    }
+    .benefits-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .benefit-item {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 12px; display: flex; align-items: center; gap: 10px;
+    }
+    .benefit-icon { font-size: 18px; flex-shrink: 0; }
+    .benefit-name { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; }
+    @media (max-width: 700px) {
+      .hire-steps { flex-direction: column; align-items: center; }
+      .hire-arrow { transform: rotate(90deg); margin: 0; }
+      .benefits-grid { grid-template-columns: repeat(2,1fr); }
+    }
 
     /* ── Support ── */
     #support { background: var(--bg); text-align: center; }
@@ -406,7 +445,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=52" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=53" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -574,6 +613,80 @@
     <div class="open-positions" id="careersJobsEl"></div>
     <a id="careersBtnEl" href="mailto:biz@sesisoft.com" class="btn btn-primary" style="font-size:15px;padding:14px 36px;">채용 공고 보기</a>
   </div>
+
+  <!-- 채용 안내 상세 -->
+  <div class="careers-detail">
+    <!-- 채용 과정 -->
+    <p class="careers-sub-title reveal" data-ko="채용 과정" data-en="Hiring Process" data-ja="採用フロー">채용 과정</p>
+    <div class="hire-steps reveal">
+      <div class="hire-step">
+        <div class="hire-step-num">1</div>
+        <div class="hire-step-name" data-ko="입사 지원" data-en="Apply" data-ja="応募">입사 지원</div>
+      </div>
+      <div class="hire-arrow">›</div>
+      <div class="hire-step">
+        <div class="hire-step-num">2</div>
+        <div class="hire-step-name" data-ko="서류 전형" data-en="Resume Review" data-ja="書類選考">서류 전형</div>
+      </div>
+      <div class="hire-arrow">›</div>
+      <div class="hire-step">
+        <div class="hire-step-num">3</div>
+        <div class="hire-step-name" data-ko="1차 면접" data-en="1st Interview" data-ja="1次面接">1차 면접</div>
+      </div>
+      <div class="hire-arrow">›</div>
+      <div class="hire-step">
+        <div class="hire-step-num">4</div>
+        <div class="hire-step-name" data-ko="2차 면접" data-en="2nd Interview" data-ja="2次面接">2차 면접</div>
+        <div class="hire-step-sub" data-ko="필요 시 진행" data-en="if needed" data-ja="必要時">필요 시 진행</div>
+      </div>
+      <div class="hire-arrow">›</div>
+      <div class="hire-step">
+        <div class="hire-step-num">5</div>
+        <div class="hire-step-name" data-ko="최종 합격" data-en="Final Offer" data-ja="最終合格">최종 합격</div>
+        <div class="hire-step-sub" data-ko="면접비 지급" data-en="Interview fee paid" data-ja="面接費支給">면접비 지급</div>
+      </div>
+    </div>
+
+    <!-- 직무 전환 -->
+    <p class="careers-sub-title reveal" data-ko="직무 전환" data-en="Job Transfer" data-ja="職務転換">직무 전환</p>
+    <div class="job-transfer-card reveal">
+      <div class="job-transfer-icon">🔄</div>
+      <div style="flex:1">
+        <p style="font-size:15px;font-weight:700;margin-bottom:6px" data-ko="2년 근무 후 직무 전환 신청 가능" data-en="Job transfer available after 2 years" data-ja="2年勤務後に職務転換申請可能">2년 근무 후 직무 전환 신청 가능</p>
+        <p style="font-size:13px;color:var(--muted)" data-ko="아래 8개 팀 간 자유로운 직무 전환을 지원합니다." data-en="Internal transfers available across 8 teams." data-ja="以下の8チーム間で職務転換を支援します。">아래 8개 팀 간 자유로운 직무 전환을 지원합니다.</p>
+        <div class="job-transfer-teams">
+          <span class="job-transfer-team" data-ko="사업" data-en="Business" data-ja="事業">사업</span>
+          <span class="job-transfer-team" data-ko="서비스" data-en="Service" data-ja="サービス">서비스</span>
+          <span class="job-transfer-team" data-ko="서비스지원" data-en="Service Support" data-ja="サービスサポート">서비스지원</span>
+          <span class="job-transfer-team" data-ko="개발" data-en="Development" data-ja="開発">개발</span>
+          <span class="job-transfer-team" data-ko="마케팅" data-en="Marketing" data-ja="マーケティング">마케팅</span>
+          <span class="job-transfer-team" data-ko="컨텐츠 제작" data-en="Content" data-ja="コンテンツ制作">컨텐츠 제작</span>
+          <span class="job-transfer-team" data-ko="경영지원" data-en="Management Support" data-ja="経営支援">경영지원</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 복리후생 -->
+    <p class="careers-sub-title reveal" data-ko="복리후생" data-en="Benefits" data-ja="福利厚生">복리후생</p>
+    <div class="benefits-grid reveal" style="margin-bottom:0">
+      <div class="benefit-item"><span class="benefit-icon">🛡️</span><span class="benefit-name" data-ko="4대 보험 / 퇴직연금" data-en="4 Major Insurances / Pension" data-ja="4大保険 / 退職年金">4대 보험 / 퇴직연금</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🏥</span><span class="benefit-name" data-ko="직장 상해보험" data-en="Workplace Injury Insurance" data-ja="職場傷害保険">직장 상해보험</span></div>
+      <div class="benefit-item"><span class="benefit-icon">💊</span><span class="benefit-name" data-ko="건강검진 지원" data-en="Health Checkup Support" data-ja="健康診断支援">건강검진 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🌸</span><span class="benefit-name" data-ko="경조사비 지원" data-en="Congratulatory / Condolence" data-ja="慶弔費支援">경조사비 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🏪</span><span class="benefit-name" data-ko="사내 매점 운영" data-en="In-house Cafeteria" data-ja="社内売店運営">사내 매점 운영</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🍱</span><span class="benefit-name" data-ko="조·중·석식 지원" data-en="Meals Provided" data-ja="朝·昼·夕食支援">조·중·석식 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🌴</span><span class="benefit-name" data-ko="장기 근속 휴가" data-en="Long-service Leave" data-ja="長期勤続休暇">장기 근속 휴가</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🎁</span><span class="benefit-name" data-ko="복지 포인트 지원" data-en="Welfare Points" data-ja="福祉ポイント支援">복지 포인트 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🧧</span><span class="benefit-name" data-ko="명절 선물" data-en="Holiday Gifts" data-ja="名節ギフト">명절 선물</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🚀</span><span class="benefit-name" data-ko="프로젝트 오픈 보너스" data-en="Project Launch Bonus" data-ja="オープンボーナス">프로젝트 오픈 보너스</span></div>
+      <div class="benefit-item"><span class="benefit-icon">💰</span><span class="benefit-name" data-ko="인센티브 지급" data-en="Performance Incentives" data-ja="インセンティブ支給">인센티브 지급</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🍻</span><span class="benefit-name" data-ko="팀별 회식비 지원" data-en="Team Dinner Budget" data-ja="懇親会費支援">팀별 회식비 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">👕</span><span class="benefit-name" data-ko="자유로운 복장" data-en="Casual Dress Code" data-ja="自由な服装">자유로운 복장</span></div>
+      <div class="benefit-item"><span class="benefit-icon">📚</span><span class="benefit-name" data-ko="도서 구매 지원" data-en="Book Purchase Support" data-ja="図書購入支援">도서 구매 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🎓</span><span class="benefit-name" data-ko="직무 교육 지원" data-en="Job Training Support" data-ja="職務教育支援">직무 교육 지원</span></div>
+      <div class="benefit-item"><span class="benefit-icon">🚕</span><span class="benefit-name" data-ko="야근 교통비 지원" data-en="Late Night Transport" data-ja="残業交通費支援">야근 교통비 지원</span></div>
+    </div>
+  </div>
 </section>
 
 <!-- Partners -->
@@ -608,7 +721,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=52" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=53" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
