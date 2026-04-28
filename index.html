@@ -406,7 +406,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=51" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=52" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -608,7 +608,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=51" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=52" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -781,9 +781,9 @@ function renderGames(platform) {
         const genre = currentLang === 'en' ? (g.genre_en || g.genre) : currentLang === 'ja' ? (g.genre_ja || g.genre) : g.genre;
         const links = [
           g.site     ? `<a href="${g.site}"     class="store-btn" target="_blank" rel="noopener">${siteLabel}</a>` : '',
-          g.google   ? `<a href="${g.google}"   class="store-btn" target="_blank" rel="noopener">▶ Google Play</a>` : '',
+          g.google   ? `<a href="${g.google}"   class="store-btn" target="_blank" rel="noopener">▶ Google</a>` : '',
           g.onestore ? `<a href="${g.onestore}" class="store-btn" target="_blank" rel="noopener">🔵 One Store</a>` : '',
-          g.galaxy   ? `<a href="${g.galaxy}"   class="store-btn" target="_blank" rel="noopener">⬡ Galaxy Store</a>` : '',
+          g.galaxy   ? `<a href="${g.galaxy}"   class="store-btn" target="_blank" rel="noopener">⬡ Galaxy</a>` : '',
           g.apple    ? `<a href="${g.apple}"    class="store-btn" target="_blank" rel="noopener">🍎 App Store</a>` : '',
         ].filter(Boolean).join('');
         const thumbHref = g.site || g.google || g.onestore || g.galaxy || g.apple || '';
