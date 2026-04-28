@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SESISOFT - 게임을 만드는 사람들</title>
+  <title>SESISOFT</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -313,7 +313,7 @@
 
     /* ── Footer ── */
     footer { background: var(--text); color: rgba(255,255,255,.85); padding: 44px 56px 24px; }
-    .footer-top { display: grid; grid-template-columns: 1.0fr 3.2fr 1.1fr 1.1fr; gap: 40px 80px; margin-bottom: 28px; }
+    .footer-top { display: grid; grid-template-columns: 1.0fr 3.2fr 1.1fr; gap: 40px 80px; margin-bottom: 28px; }
     .footer-nav-group { display: flex; justify-content: space-between; gap: 60px; align-items: flex-start; }
     #footerGameLinks { display: grid; grid-template-columns: 1fr 1fr; column-gap: 20px; row-gap: 10px; }
     #footerGameLinks.cols3 { grid-template-columns: 1fr 1fr 1fr; }
@@ -406,7 +406,7 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">
-    <div class="nav-logo-clip"><img src="bluelogo.png?v=50" alt="SESISOFT"></div>
+    <div class="nav-logo-clip"><img src="bluelogo.png?v=51" alt="SESISOFT"></div>
   </a>
   <ul class="nav-links">
     <li><a href="#games"   data-ko="게임"    data-en="Games"   data-ja="ゲーム">게임</a></li>
@@ -414,7 +414,6 @@
     <li><a href="#history" data-ko="회사연혁" data-en="History" data-ja="会社沿革">회사연혁</a></li>
     <li><a href="#careers" data-ko="채용"    data-en="Careers" data-ja="採用">채용</a></li>
     <li><a href="#partners" data-ko="파트너"  data-en="Partners" data-ja="パートナー">파트너</a></li>
-    <li><a href="#support" data-ko="고객지원" data-en="Support" data-ja="サポート">고객지원</a></li>
     <li><a href="#location" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</a></li>
   </ul>
   <div class="nav-right">
@@ -437,7 +436,6 @@
   <a href="#history"  onclick="closeMobile()" data-ko="회사연혁" data-en="History" data-ja="会社沿革">회사연혁</a>
   <a href="#careers"  onclick="closeMobile()" data-ko="채용"    data-en="Careers" data-ja="採用">채용</a>
   <a href="#partners" onclick="closeMobile()" data-ko="파트너"  data-en="Partners" data-ja="パートナー">파트너</a>
-  <a href="#support"  onclick="closeMobile()" data-ko="고객지원" data-en="Support" data-ja="サポート">고객지원</a>
   <a href="#location" onclick="closeMobile()" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</a>
 </div>
 
@@ -592,40 +590,6 @@
   </div>
 </section>
 
-<!-- Support -->
-<section id="support">
-  <p style="text-align:center;margin-bottom:0"><span class="section-label reveal">Support</span></p>
-  <h2 class="section-title reveal" style="text-align:center" data-ko="고객 지원" data-en="Customer Support" data-ja="カスタマーサポート">고객 지원</h2>
-  <div class="support-cards">
-    <div class="support-card reveal">
-      <div class="support-icon">📞</div>
-      <div class="support-name" data-ko="전화 문의" data-en="Phone" data-ja="電話お問い合わせ">전화 문의</div>
-      <div class="support-desc" data-ko="평일 10:00 ~ 18:00<br>(점심 12:00 ~ 13:00 제외)<br><span style='font-size:12px'>※ 게임 관련 문의 제외</span>" data-en="Weekdays 10:00 ~ 18:00<br>(excl. lunch 12:00 ~ 13:00)<br><span style='font-size:12px'>※ Game inquiries: use email</span>" data-ja="平日 10:00 ~ 18:00<br>（昼休み 12:00 ~ 13:00 除く）<br><span style='font-size:12px'>※ ゲームのお問い合わせはメールへ</span>">평일 10:00 ~ 18:00<br>(점심 12:00 ~ 13:00 제외)<br><span style="font-size:12px">※ 게임 관련 문의 제외</span></div>
-      <span class="btn btn-outline" style="font-size:14px;padding:9px 22px;justify-content:center;width:100%;box-sizing:border-box">+82-2-586-9293</span>
-    </div>
-    <div class="support-card reveal">
-      <div class="support-icon">✉️</div>
-      <div class="support-name" data-ko="메일 문의" data-en="Email" data-ja="メールお問い合わせ">메일 문의</div>
-      <div class="support-desc"
-        data-ko="게임 관련 문의 및 처리"
-        data-en="Game inquiries &amp; support"
-        data-ja="ゲームに関するお問い合わせ">게임 관련 문의 및 처리</div>
-      <div style="display:flex;align-items:center;gap:8px;width:100%;margin-bottom:8px">
-        <a href="mailto:1003b@sesisoft.com" class="btn btn-outline" style="font-size:13px;padding:9px 12px;justify-content:center;flex:1;box-sizing:border-box;white-space:nowrap;overflow:hidden">
-          <span data-ko="천상비M" data-en="Cheongsangbi M" data-ja="天上秘M">천상비M</span>&nbsp;1003b@sesisoft.com
-        </a>
-        <button onclick="copyEmail('1003b@sesisoft.com',this)" class="btn btn-outline" style="font-size:12px;padding:9px 12px;flex-shrink:0" title="이메일 복사" data-ko="복사" data-en="Copy" data-ja="コピー">복사</button>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;width:100%">
-        <a href="mailto:cs@sesisoft.com" class="btn btn-outline" style="font-size:13px;padding:9px 12px;justify-content:center;flex:1;box-sizing:border-box;white-space:nowrap;overflow:hidden">
-          <span data-ko="그 외 게임" data-en="Other games" data-ja="その他のゲーム">그 외 게임</span>&nbsp;cs@sesisoft.com
-        </a>
-        <button onclick="copyEmail('cs@sesisoft.com',this)" class="btn btn-outline" style="font-size:12px;padding:9px 12px;flex-shrink:0" title="이메일 복사" data-ko="복사" data-en="Copy" data-ja="コピー">복사</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Location / Map -->
 <section id="location">
   <p style="text-align:center;margin-bottom:0"><span class="section-label reveal" data-ko="오시는 길" data-en="Location" data-ja="アクセス">오시는 길</span></p>
@@ -644,7 +608,7 @@
 <footer>
   <div class="footer-top">
     <div>
-      <div class="footer-brand-name"><img src="whitelogo.png?v=50" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
+      <div class="footer-brand-name"><img src="whitelogo.png?v=51" alt="SESISOFT" style="height:48px;width:auto;opacity:0.7;"></div>
       <div class="footer-brand-desc"
         data-ko="(주)세시소프트<br>서울시 서초구 서초대로26길 7<br>라움빌딩 3/4/5/6F<br>사업자등록번호: 214-88-37555<br>대표이사: 강성욱<br>Tel: +82-2-586-9293"
         data-en="SESISOFT Co., Ltd.<br>7, Seochodaero 26-gil, Seocho-gu, Seoul<br>Raum Building 3/4/5/6F<br>Business Reg. No.: 214-88-37555<br>CEO: Sung-Wouk Kang<br>Tel: +82-2-586-9293"
@@ -667,15 +631,6 @@
         <li><a href="#about" data-ko="회사 소개" data-en="About" data-ja="会社概要">회사 소개</a></li>
         <li><a href="#history" data-ko="회사 연혁" data-en="History" data-ja="会社沿革">회사 연혁</a></li>
         <li><a href="#careers" data-ko="채용" data-en="Careers" data-ja="採用">채용</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title" data-ko="지원" data-en="Support" data-ja="サポート">지원</div>
-      <ul class="footer-col-links">
-        <li><a href="#support" data-ko="고객센터" data-en="Customer Support" data-ja="カスタマーサポート">고객센터</a></li>
-        <li><a href="terms.html" data-ko="이용약관" data-en="Terms of Service" data-ja="利用規約">이용약관</a></li>
-        <li><a href="privacy.html" data-ko="개인정보처리방침" data-en="Privacy Policy" data-ja="個人情報保護方針">개인정보처리방침</a></li>
-        <li><a href="youth.html" data-ko="청소년보호정책" data-en="Youth Protection Policy" data-ja="青少年保護方針">청소년보호정책</a></li>
       </ul>
     </div>
   </div>

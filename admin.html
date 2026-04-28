@@ -261,6 +261,7 @@
           <table class="data-table">
             <thead>
               <tr>
+                <th style="width:36px"></th>
                 <th>아이콘</th>
                 <th>게임명</th>
                 <th>장르</th>
@@ -1119,16 +1120,22 @@ document.querySelectorAll('.modal-overlay').forEach(o => {
 /* ════════════════════════════════════
    GAMES
 ════════════════════════════════════ */
+let _dragSrcId = null;
 function renderGames() {
   const games = getGames();
   const tbody = document.getElementById('gameTableBody');
   document.getElementById('gameCount').textContent = `총 ${games.length}개`;
   if (!games.length) {
-    tbody.innerHTML = '<tr><td colspan="6"><div class="empty"><div class="empty-icon">🎮</div><p>등록된 게임이 없습니다.</p></div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><div class="empty-icon">🎮</div><p>등록된 게임이 없습니다.</p></div></td></tr>';
     return;
   }
   tbody.innerHTML = games.map(g => `
-    <tr>
+    <tr draggable="true" data-id="${g.id}" style="cursor:grab"
+        ondragstart="gameDragStart(event,${g.id})"
+        ondragover="gameDragOver(event)"
+        ondrop="gameDrop(event,${g.id})"
+        ondragend="gameDragEnd(event)">
+      <td style="color:var(--muted);font-size:18px;text-align:center;user-select:none">⠿</td>
       <td>${g.thumb ? `<img src="${g.thumb}" style="width:48px;height:32px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">` : `<span style="font-size:22px">${g.icon||'🎮'}</span>`}</td>
       <td><strong>${g.title}</strong></td>
       <td style="color:var(--muted)">${g.genre}</td>
@@ -1148,6 +1155,32 @@ function renderGames() {
         </div>
       </td>
     </tr>`).join('');
+}
+function gameDragStart(e, id) {
+  _dragSrcId = id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.currentTarget.style.opacity = '0.4';
+}
+function gameDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  e.currentTarget.style.borderTop = '2px solid var(--accent)';
+}
+function gameDrop(e, targetId) {
+  e.preventDefault();
+  e.currentTarget.style.borderTop = '';
+  if (_dragSrcId === targetId) return;
+  const games = getGames();
+  const srcIdx = games.findIndex(g => g.id === _dragSrcId);
+  const tgtIdx = games.findIndex(g => g.id === targetId);
+  if (srcIdx < 0 || tgtIdx < 0) return;
+  const [moved] = games.splice(srcIdx, 1);
+  games.splice(tgtIdx, 0, moved);
+  saveGames(games);
+}
+function gameDragEnd(e) {
+  e.currentTarget.style.opacity = '';
+  document.querySelectorAll('#gameTableBody tr').forEach(r => r.style.borderTop = '');
 }
 
 function openGameModal(id) {
