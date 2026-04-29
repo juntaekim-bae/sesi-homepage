@@ -2,7 +2,7 @@ services:
   web:
     build: .
     ports:
-      - "80:80"
+      - "8080:80"
     environment:
       - DATABASE_URL=postgresql://sesisoft:sesisoft@db:5432/sesisoft
       - ADMIN_PASSWORD=sesisoft2026
