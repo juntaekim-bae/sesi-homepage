@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>드래곤 라자 온라인 판권 성명 | Dragon Raja Online Copyright Notice</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #f8faff;
+      --bg2:     #eef2fb;
+      --surface: #ffffff;
+      --border:  #dde5f7;
+      --accent:  #2563eb;
+      --text:    #0f172a;
+      --muted:   #64748b;
+      --radius:  16px;
+    }
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Pretendard', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .page-header a {
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-header a:hover { opacity: .8; }
+    .page-header a::before { content: '←'; }
+
+    /* ── Main ── */
+    main {
+      flex: 1;
+      padding: 60px 40px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .notice-title {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .notice-title h1 {
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.4;
+      letter-spacing: .02em;
+    }
+    .notice-title p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .notice-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 16px auto 0;
+    }
+
+    /* ── Three-column grid ── */
+    .notice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .notice-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: 0 4px 24px rgba(37,99,235,.07);
+    }
+
+    .notice-card-lang {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    .notice-card h2 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .notice-section {
+      margin-bottom: 18px;
+    }
+    .notice-section:last-child { margin-bottom: 0; }
+
+    .notice-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+
+    .notice-section p {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .notice-section ul {
+      padding-left: 0;
+      list-style: none;
+    }
+    .notice-section ul li {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+      padding-left: 14px;
+      position: relative;
+    }
+    .notice-section ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .notice-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .notice-footer strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ── Warning box ── */
+    .notice-warn {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #92400e;
+      line-height: 1.65;
+      margin-top: 16px;
+    }
+
+    /* ── Page footer ── */
+    .page-footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .notice-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      main { padding: 40px 20px 60px; }
+      .page-header { padding: 16px 20px; }
+      .notice-grid { grid-template-columns: 1fr; }
+      .notice-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="/">SESISOFT 홈으로</a>
+  </header>
+
+  <main>
+    <div class="notice-title">
+      <h1>드래곤 라자 온라인 판권 성명<br>Dragon Raja Online Copyright Notice<br>龙族 ONLINE 版权声明</h1>
+      <div class="notice-divider"></div>
+      <p>2024년 6월 20일 / June 20, 2024 / 2024年6月20日</p>
+    </div>
+
+    <div class="notice-grid">
+
+      <!-- Korean -->
+      <div class="notice-card">
+        <span class="notice-card-lang">한국어</span>
+        <h2>게임 &lt;드래곤 라자 온라인&gt; 판권 성명</h2>
+
+        <div class="notice-section">
+          <div class="notice-section-title">계약 체결</div>
+          <p>한국 SESISOFT CO., LTD.와 중국 시안 천공 네트워크 기술 유한공사(이하 &ldquo;시안 스카이&rdquo;)는 2024년 5월 20일 드래곤 라자 온라인에 관한 독점 라이선스 계약을 체결하였습니다.</p>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">저작권 및 상표권</div>
+          <ul>
+            <li>드래곤라자온라인 한국 저작권 등록번호: S-2000-007021(-5)</li>
+            <li>드래곤라자온라인 한국 저작권 등록번호: S-2005-001092</li>
+            <li>상표권 등록번호: 4120160045312</li>
+            <li>상표권 등록번호: 4020160023044</li>
+          </ul>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">라이선스 권한 부여</div>
+          <p>SESISOFT CO., LTD.는 시안 스카이에게 중국 지역 내에서 드래곤 라자 온라인을 독점적으로 판매, 배급 및 홍보할 권리를 부여합니다.</p>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">독점 라이선스</div>
+          <p>본 독점 라이선스 권한은 오직 시안 스카이에게만 부여되었으며, 중국 지역 내에서 드래곤 라자 온라인을 허가 없이 사용하는 개인 또는 기업은 없습니다.</p>
+        </div>
+
+        <div class="notice-warn">
+          본 독점 라이선스 이외에 드래곤 라자 온라인의 판권 또는 기타 어떠한 형태의 이용 허락도 중국에서 어떠한 개인 또는 기업에게도 부여된 바 없습니다. 이에 위반하여 드래곤 라자 온라인을 무단으로 이용하는 자에 대해서는 법적 조치를 취할 것입니다.
+        </div>
+
+        <div class="notice-footer">
+          <strong>SESISOFT CO., LTD. (한국)</strong><br>
+          일자: 2024년 6월 20일
+        </div>
+      </div>
+
+      <!-- English -->
+      <div class="notice-card">
+        <span class="notice-card-lang">English</span>
+        <h2>&lt;Dragon Raja Online&gt; Copyright Notice and Statement</h2>
+
+        <div class="notice-section">
+          <div class="notice-section-title">Agreement</div>
+          <p>SESISOFT CO., LTD. of Korea and Xi&rsquo;an Sky Online Co., Ltd. of China (hereinafter &ldquo;Xi&rsquo;an Sky&rdquo;) entered into an exclusive license agreement regarding Dragon Raja Online on May 20, 2024.</p>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">Copyright &amp; Trademark</div>
+          <ul>
+            <li>Dragon Raja Online Korean Copyright Reg. No.: S-2000-007021(-5)</li>
+            <li>Dragon Raja Online Korean Copyright Reg. No.: S-2005-001092</li>
+            <li>Trademark Registration No.: 4120160045312</li>
+            <li>Trademark Registration No.: 4020160023044</li>
+          </ul>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">License Grant</div>
+          <p>SESISOFT CO., LTD. grants Xi&rsquo;an Sky the exclusive right to sell, distribute, and promote Dragon Raja Online within the territory of China.</p>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">Exclusive License</div>
+          <p>This exclusive license has been granted solely to Xi&rsquo;an Sky. No other company or individual in China has been authorized to use Dragon Raja Online.</p>
+        </div>
+
+        <div class="notice-warn">
+          Apart from this exclusive license, no copyright or any form of authorization for Dragon Raja Online has been granted to any individual or company in China. Any unauthorized use of Dragon Raja Online in violation hereof will be subject to legal action.
+        </div>
+
+        <div class="notice-footer">
+          <strong>SESISOFT CO., LTD. (Korea)</strong><br>
+          Date: June 20, 2024
+        </div>
+      </div>
+
+      <!-- Chinese -->
+      <div class="notice-card">
+        <span class="notice-card-lang">中文</span>
+        <h2>关于游戏《龙族 ONLINE》版权声明</h2>
+
+        <div class="notice-section">
+          <div class="notice-section-title">协议签署</div>
+          <p>韩国SESISOFT CO., LTD.与中国西安创天互娱科技有限责任公司（以下简称"创天互娱"）于2024年5月20日签署了关于《龙族ONLINE》的独家授权协议。</p>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">版权及商标</div>
+          <ul>
+            <li>龙族ONLINE韩国版权登记号: S-2000-007021(-5)</li>
+            <li>龙族ONLINE韩国版权登记号: S-2005-001092</li>
+            <li>商标权登记号: 4120160045312</li>
+            <li>商标权登记号: 4020160023044</li>
+          </ul>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">授权许可</div>
+          <p>SESISOFT CO., LTD.授予创天互娱在中国区域内独家销售、发行及推广《龙族ONLINE》的权利。</p>
+        </div>
+
+        <div class="notice-section">
+          <div class="notice-section-title">独家授权</div>
+          <p>本独家授权仅授予创天互娱，中国境内任何其他个人或企业均未获得《龙族ONLINE》的授权许可。</p>
+        </div>
+
+        <div class="notice-warn">
+          除上述独家授权外，《龙族ONLINE》的版权或任何其他形式的使用许可均未授予中国任何个人或企业。对于违反上述规定擅自使用《龙族ONLINE》的行为，我方将采取法律措施予以追究。
+        </div>
+
+        <div class="notice-footer">
+          <strong>SESISOFT CO., LTD. (韩国)</strong><br>
+          日期: 2024年6月20日
+        </div>
+      </div>
+
+    </div><!-- /notice-grid -->
+  </main>
+
+  <footer class="page-footer">
+    &copy; 2024 SESISOFT CO., LTD. All rights reserved.
+  </footer>
+
+</body>
+</html>
